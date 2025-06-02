@@ -51,6 +51,8 @@ import AdminMaids from "./components/AdminMaids";
 import AdminNurseBookings from "./components/AdminNurseBookings";
 import AdminMaidTable from "./components/AdminMaidTable";
 import UserAuthPage from "./components/UserAuthPage";
+import AdminRoute from "./components/AdminRoute";
+import AdminLogin from "./components/AdminLogin";
 function App() {
   return (
     <Router>
@@ -96,12 +98,14 @@ function App() {
               <Route path="/verify-email/:token" element={<VerifyEmail />} />
               <Route path="/set-password" element={<SetPasswordPage />} />
               <Route path="/user/google-redirect" element={<GoogleRedirectHandler />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
+
               <Route
                 path="/admin"
                 element={
-                  <PrivateRoute adminOnly>
+                  <AdminRoute>
                     <AdminLayout />
-                  </PrivateRoute>
+                  </AdminRoute>
                 }
               >
                 <Route path="dashboard" element={<AdminDashboard />} />
@@ -109,7 +113,7 @@ function App() {
                 <Route path="bookings" element={<AdminBookings />} />
                 <Route path="add-maids" element={<AdminMaids />} />
                 <Route path="nurse-bookings" element={<AdminNurseBookings />} />
-                <Route path="/admin/maids-data" element={<AdminMaidTable />} />
+                <Route path="maids-data" element={<AdminMaidTable />} />
 
 
 
