@@ -18,17 +18,26 @@ export const AuthProvider = ({ children }) => {
 
   // ✅ Logout function
   const logout = useCallback(async () => {
-    try {
-      await axios.post("/users/logout"); // backend clears token
-    } catch (err) {
-      console.error("Logout error:", err);
-    }
+  try {
+    await axios.post("/users/logout");
+  } catch (err) {
+    console.error("Logout error:", err);
+  }
 
-    localStorage.removeItem("user");
-    setUser(null);
-    setIsAuthenticated(false);
+  localStorage.removeItem("user");
+  const isAdmin = user?.isAdmin;
+
+  setUser(null);
+  setIsAuthenticated(false);
+
+  // 👇 Redirect based on role
+  if (isAdmin) {
+    navigate("/admin-login");
+  } else {
     navigate("/user-login");
-  }, [navigate]);
+  }
+}, [navigate, user]);
+
 
   // ✅ Fetch current user on initial load
   useEffect(() => {
