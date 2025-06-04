@@ -1,8 +1,9 @@
 import axios from "axios";
 
-// Base URLs
-const USER_API_URL = "http://localhost:5000/api/users";
-const EMPLOYEE_API_URL = "http://localhost:5000/api/employees";
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+const USER_API_URL = `${BASE_URL}/users`;
+const EMPLOYEE_API_URL = `${BASE_URL}/employees`;
 
 // Fetch all users (Admin only)
 export const fetchUsers = async (token) => {
@@ -55,7 +56,7 @@ export const loginUser = async (credentials) => {
 // Submit contact form
 export const submitContactForm = async (formData) => {
   try {
-    const response = await fetch('http://localhost:5000/contact', {
+    const response = await fetch(`${BASE_URL.replace('/api', '')}/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
