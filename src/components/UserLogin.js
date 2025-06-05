@@ -75,11 +75,35 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
             ✅ Email verified successfully. Please log in.
           </p>
         )}
-        {verifiedStatus === 'expired' && (
-          <p className="text-red-600 text-sm mb-3 text-center">
-            ❌ Verification link expired or invalid.
-          </p>
-        )}
+      {verifiedStatus === 'expired' && (
+  <div className="text-center">
+    <p className="text-red-600 text-sm mb-2">
+      ❌ Verification link expired or invalid.
+    </p>
+    <p className="text-gray-700 text-sm mb-2">Resend verification email:</p>
+    <button
+      onClick={async () => {
+        try {
+          const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/resend-verification`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message);
+          alert("📧 Verification email sent again. Please check your inbox.");
+        } catch (err) {
+          alert(err.message || "Something went wrong.");
+        }
+      }}
+      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded text-sm"
+    >
+      Resend Email
+    </button>
+  </div>
+)}
+
         {verifiedStatus === 'already' && (
           <p className="text-yellow-600 text-sm mb-3 text-center">
             ℹ️ Email already verified. Please log in.
