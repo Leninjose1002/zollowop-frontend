@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
+import { resendVerificationEmail } from '../api';
 
 const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup = () => {} }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [resendMessage, setResendMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
   const [verifiedStatus, setVerifiedStatus] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,7 +22,6 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
     const verified = params.get('verified');
     if (verified) setVerifiedStatus(verified);
 
-    // ✅ Remove the URL param after handling
     if (verified) {
       const newURL = new URL(window.location.href);
       newURL.searchParams.delete('verified');
@@ -31,13 +33,14 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
     e.preventDefault();
     setLoading(true);
     setError('');
+    setResendMessage('');
 
     try {
-      await login(email, password); // ✅ updates AuthContext
+      await login(email, password);
       setEmail('');
       setPassword('');
-      onClose(); // ✅ close modal
-      navigate('/dashboard'); // ✅ redirect to dashboard
+      onClose();
+      navigate('/dashboard');
     } catch (err) {
       console.error(err);
       setError(err?.response?.data?.message || 'Login failed');
@@ -46,13 +49,25 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
     }
   };
 
+  const handleResend = async () => {
+    setResending(true);
+    setError('');
+    setResendMessage('');
+
+    try {
+      const res = await resendVerificationEmail(email);
+      setResendMessage(res.msg || "Verification email resent.");
+    } catch (err) {
+      setError(err);
+    } finally {
+      setResending(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-start z-50 pt-10 px-4">
       <div className="relative bg-white p-6 rounded shadow-xl w-full max-w-md animate-slide-down">
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 text-gray-500 hover:text-red-500"
-        >
+        <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-red-500">
           <X size={22} />
         </button>
         <h2 className="text-xl font-semibold mb-4 text-center">Log In to Your Account</h2>
@@ -75,47 +90,37 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
             ✅ Email verified successfully. Please log in.
           </p>
         )}
-      {verifiedStatus === 'expired' && (
-  <div className="text-center">
-    <p className="text-red-600 text-sm mb-2">
-      ❌ Verification link expired or invalid.
-    </p>
-    <p className="text-gray-700 text-sm mb-1">Resend verification email:</p>
-
-    <button
-      disabled={!email}
-      onClick={async () => {
-        try {
-          const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/resend-verification`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email }),
-          });
-
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.message);
-          alert("✅ Verification email sent. Please check your inbox.");
-        } catch (err) {
-          alert(err.message || "Something went wrong.");
-        }
-      }}
-      className={`${
-        !email ? "bg-gray-400 cursor-not-allowed" : "bg-yellow-500 hover:bg-yellow-600"
-      } text-white px-3 py-2 rounded text-sm transition`}
-    >
-      Resend Email
-    </button>
-  </div>
-)}
-
-
+        {verifiedStatus === 'expired' && (
+          <p className="text-red-600 text-sm mb-3 text-center">
+            ❌ Verification link expired or invalid.
+          </p>
+        )}
         {verifiedStatus === 'already' && (
           <p className="text-yellow-600 text-sm mb-3 text-center">
             ℹ️ Email already verified. Please log in.
           </p>
         )}
 
-        {error && <p className="text-red-500 text-sm mb-3 text-center">{error}</p>}
+        {error && (
+          <>
+            <p className="text-red-500 text-sm mb-3 text-center">{error}</p>
+            {error.toLowerCase().includes("verify") && (
+              <div className="text-center mb-3">
+                <p className="text-sm text-gray-600">Resend verification email:</p>
+                <button
+                  onClick={handleResend}
+                  disabled={resending || !email}
+                  className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded font-semibold mt-1"
+                >
+                  {resending ? "Sending..." : "Resend Email"}
+                </button>
+                {resendMessage && (
+                  <p className="text-green-600 text-sm mt-1">{resendMessage}</p>
+                )}
+              </div>
+            )}
+          </>
+        )}
 
         <form onSubmit={handleLogin} className="space-y-3">
           <input

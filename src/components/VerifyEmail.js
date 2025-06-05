@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const VerifyEmail = () => {
   const { token } = useParams();
   const navigate = useNavigate();
@@ -9,12 +11,11 @@ const VerifyEmail = () => {
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/users/verify-email/${token}`);
+        const res = await fetch(`${API_BASE_URL}/users/verify-email/${token}`);
         const data = await res.json();
 
         if (res.ok) {
           setStatus("success");
-          // ✅ Redirect to login modal with query param
           setTimeout(() => {
             navigate("/?verified=true");
           }, 2000);

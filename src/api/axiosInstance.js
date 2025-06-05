@@ -1,10 +1,8 @@
-// src/api/axiosInstance.js
 import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
-  withCredentials: true,
+  withCredentials: true, // ✅ Required for cookies/token auth
 });
-
 
 export default instance;
