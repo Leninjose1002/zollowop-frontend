@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 import { resendVerificationEmail } from '../api';
@@ -7,6 +7,7 @@ import { resendVerificationEmail } from '../api';
 const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup = () => {} }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [resendMessage, setResendMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -131,14 +132,24 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
             required
             className="border p-2 w-full rounded"
           />
-          <input
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="border p-2 w-full rounded"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="border p-2 w-full rounded pr-10"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+
           <button
             type="submit"
             disabled={loading}

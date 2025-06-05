@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import UserLogin from './UserLogin';
 import GoogleUserLoginButton from './GoogleUserLoginButton';
-// import GoogleLoginButton from './GoogleLoginButton';
 import { registerUser } from '../api';
 
 const UserSignup = ({ onClose }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false); // 👁️ Toggle state
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -48,7 +48,7 @@ const UserSignup = ({ onClose }) => {
         </button>
         <h2 className="text-xl font-semibold mb-4 text-center">Create your account</h2>
         <p className="text-sm text-gray-700 text-center mb-3">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <button onClick={() => setShowLogin(true)} className="text-blue-600 hover:underline">
             Log in here
           </button>
@@ -76,15 +76,24 @@ const UserSignup = ({ onClose }) => {
             required
             className="border p-2 w-full rounded"
           />
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            placeholder="Password"
-            onChange={handleChange}
-            required
-            className="border p-2 w-full rounded"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              value={formData.password}
+              placeholder="Password"
+              onChange={handleChange}
+              required
+              className="border p-2 w-full rounded pr-10"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full transition duration-200"
