@@ -80,8 +80,10 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
     <p className="text-red-600 text-sm mb-2">
       ❌ Verification link expired or invalid.
     </p>
-    <p className="text-gray-700 text-sm mb-2">Resend verification email:</p>
+    <p className="text-gray-700 text-sm mb-1">Resend verification email:</p>
+
     <button
+      disabled={!email}
       onClick={async () => {
         try {
           const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/resend-verification`, {
@@ -92,17 +94,20 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
 
           const data = await res.json();
           if (!res.ok) throw new Error(data.message);
-          alert("📧 Verification email sent again. Please check your inbox.");
+          alert("✅ Verification email sent. Please check your inbox.");
         } catch (err) {
           alert(err.message || "Something went wrong.");
         }
       }}
-      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded text-sm"
+      className={`${
+        !email ? "bg-gray-400 cursor-not-allowed" : "bg-yellow-500 hover:bg-yellow-600"
+      } text-white px-3 py-2 rounded text-sm transition`}
     >
       Resend Email
     </button>
   </div>
 )}
+
 
         {verifiedStatus === 'already' && (
           <p className="text-yellow-600 text-sm mb-3 text-center">
