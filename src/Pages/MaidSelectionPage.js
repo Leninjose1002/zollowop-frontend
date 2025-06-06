@@ -68,7 +68,15 @@ const MaidSelection = () => {
               />
               <div className="flex justify-between items-center w-full mb-1">
                 <h3 className="text-lg font-semibold text-gray-800">{maid.name}</h3>
-                <span className="text-green-500 text-sm font-medium">● Available</span>
+<span
+  className={`text-sm font-medium ${
+    maid.status === "Booked" ? "text-red-500" :
+    maid.status === "Offline" ? "text-gray-500" :
+    "text-green-500"
+  }`}
+>
+  ● {maid.status || "Available"}
+</span>
               </div>
 
               <div className="mb-2">
