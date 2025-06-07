@@ -7,8 +7,13 @@ import { registerUser } from '../api';
 
 const UserSignup = ({ onClose }) => {
   const [showLogin, setShowLogin] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const [showPassword, setShowPassword] = useState(false); // 👁️ Toggle state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    referredBy: '', // ✅ Added referral code input
+  });
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -19,7 +24,8 @@ const UserSignup = ({ onClose }) => {
   }
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -31,10 +37,10 @@ const UserSignup = ({ onClose }) => {
     try {
       const response = await registerUser(formData);
       setMessage(response.msg || 'Signup successful! Please check your email to verify your account.');
-      setFormData({ name: '', email: '', password: '' });
+      setFormData({ name: '', email: '', password: '', referredBy: '' });
     } catch (err) {
       console.error(err);
-      setError(err || 'Signup failed.');
+      setError(err?.msg || 'Signup failed.');
     } finally {
       setLoading(false);
     }
@@ -86,6 +92,7 @@ const UserSignup = ({ onClose }) => {
               required
               className="border p-2 w-full rounded pr-10"
             />
+
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
@@ -94,6 +101,17 @@ const UserSignup = ({ onClose }) => {
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
+
+          {/* ✅ Referral Code Input */}
+          <input
+            type="text"
+            name="referredBy"
+            placeholder="Referral Code (optional)"
+            value={formData.referredBy}
+            onChange={handleChange}
+            className="border p-2 w-full rounded"
+          />
+
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full transition duration-200"
