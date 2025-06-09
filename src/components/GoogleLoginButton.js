@@ -1,6 +1,6 @@
 const GoogleLoginButton = () => {
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/employees/google";
+    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/employees/google`;
   };
 
   return (
