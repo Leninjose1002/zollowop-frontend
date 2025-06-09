@@ -6,7 +6,7 @@ import {
   useCallback,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axiosInstance"; // includes withCredentials: true
+import axios from "../api/axiosInstance";
 
 const AuthContext = createContext();
 
@@ -16,37 +16,67 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // ✅ Logout function
+  // ✅ Logout
   const logout = useCallback(async () => {
-  try {
-    await axios.post("/users/logout");
-  } catch (err) {
-    console.error("Logout error:", err);
-  }
+    try {
+      await axios.post("/users/logout");
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
 
-  localStorage.removeItem("user");
-  const isAdmin = user?.isAdmin;
+    localStorage.removeItem("token"); // ✅ remove token
+    setUser(null);
+    setIsAuthenticated(false);
 
-  setUser(null);
-  setIsAuthenticated(false);
+    navigate(user?.isAdmin ? "/admin-login" : "/user-login");
+  }, [navigate, user]);
 
-  // 👇 Redirect based on role
-  if (isAdmin) {
-    navigate("/admin-login");
-  } else {
-    navigate("/user-login");
-  }
-}, [navigate, user]);
+  // ✅ Login
+  const login = async (email, password) => {
+    try {
+      const res = await axios.post("/users/login", { email, password });
 
+      // ✅ Save token to localStorage
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+      }
 
-  // ✅ Fetch current user on initial load
+      // ✅ Then fetch user details
+      const profile = await axios.get("/users/me", {
+        headers: {
+          Authorization: `Bearer ${res.data.token}`,
+        },
+      });
+
+      setUser(profile.data);
+      setIsAuthenticated(true);
+      return profile.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  // ✅ Auto fetch user if token exists
   useEffect(() => {
     const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
       try {
-        const res = await axios.get("/users/me");
-        setUser(res.data); // Ensure isAdmin is present in res.data
+        const res = await axios.get("/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUser(res.data);
         setIsAuthenticated(true);
       } catch (err) {
+        console.error("Auto login failed:", err.response?.data || err.message);
+        localStorage.removeItem("token");
         setUser(null);
         setIsAuthenticated(false);
       } finally {
@@ -56,19 +86,6 @@ export const AuthProvider = ({ children }) => {
 
     fetchUser();
   }, []);
-
-  // ✅ Login function with correct user return
-  const login = async (email, password) => {
-    try {
-      await axios.post("/users/login", { email, password });
-      const res = await axios.get("/users/me"); // Get full user details
-      setUser(res.data);
-      setIsAuthenticated(true);
-      return res.data; // ✅ FIXED: return the actual user object (not Axios response)
-    } catch (err) {
-      throw err;
-    }
-  };
 
   return (
     <AuthContext.Provider

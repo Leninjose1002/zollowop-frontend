@@ -5,4 +5,13 @@ const instance = axios.create({
   withCredentials: true, // ✅ Required for cookies/token auth
 });
 
+// ✅ Attach token to every request if present in localStorage
+instance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default instance;

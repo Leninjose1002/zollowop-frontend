@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 import { FaBox, FaMapMarkerAlt, FaPhone, FaSignOutAlt, FaUser, FaComments } from 'react-icons/fa';
+import DashboardReferralSection from '../components/DashboardReferralSection';
 
 const DashboardLayout = () => {
   const { logout } = useAuth();
@@ -27,13 +28,14 @@ const DashboardLayout = () => {
             📝 My Reviews
           </Link>
           <Link to="/dashboard/contact" className="flex items-center hover:text-blue-600"><FaPhone className="mr-2" /> Contact Us</Link>
-
 <button
   onClick={handleLogout}
   className="flex items-center text-red-600 hover:text-red-800"
 >
   <FaSignOutAlt className="mr-2" /> Logout
 </button>
+      <DashboardReferralSection />
+
         </nav>
       </aside>
 

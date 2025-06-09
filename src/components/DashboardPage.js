@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAuth } from "../components/AuthContext";
-import { Link, useNavigate } from "react-router-dom"; // ✅ import useNavigate
+import { Link, useNavigate } from "react-router-dom"; 
 import { io } from "socket.io-client";
 
 const DashboardPage = () => {
