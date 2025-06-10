@@ -1,7 +1,7 @@
 const GoogleUserLoginButton = () => {
   const handleGoogleLogin = () => {
     localStorage.removeItem("token"); // ✅ clear old token
-window.location.href = `${process.env.REACT_APP_API_BASE_URL}/users/google`;
+window.location.href = 'http://localhost:5000/api/users/google/callback';
   };
 
   return (

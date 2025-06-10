@@ -11,7 +11,7 @@ const UserSignup = ({ onClose }) => {
     name: '',
     email: '',
     password: '',
-    referredBy: '', // ✅ Added referral code input
+    referredBy: '', 
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
