@@ -11,16 +11,23 @@ const SetPasswordPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters.");
+      return;
+    }
+
     try {
       setLoading(true);
+
       const res = await axios.post(
         "/users/set-password",
         { password },
         { withCredentials: true }
       );
 
-      setUser(res.data); // update user context
-      navigate("/dashboard"); // ⬅️ this should work now
+      setUser(res.data); // ✅ update context
+      navigate("/dashboard");
     } catch (err) {
       console.error("❌ Failed to set password:", err.response?.data || err.message);
       alert("Something went wrong while setting the password.");
@@ -31,7 +38,9 @@ const SetPasswordPage = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 shadow rounded bg-white">
-      <h2 className="text-xl font-semibold mb-4">Hi {user?.name}, set your password</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        Hi {user?.name || "there"}, set your password
+      </h2>
       <form onSubmit={handleSubmit}>
         <input
           type="password"
@@ -44,9 +53,11 @@ const SetPasswordPage = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded"
+          className={`w-full py-2 rounded text-white ${
+            loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+          }`}
         >
-          {loading ? "Setting..." : "Set Password & Continue"}
+          {loading ? "Saving..." : "Set Password & Continue"}
         </button>
       </form>
     </div>

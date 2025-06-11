@@ -10,25 +10,30 @@ export default function EmployeeLogin({ onClose }) {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(""); // Clear previous error message
+  e.preventDefault();
+  setLoading(true);
+  setError(""); // Clear previous error message
 
-    try {
-const res = await axios.post("http://localhost:5000/api/employees/login", { email, password });
-      const { token, employee } = res.data;
-      localStorage.setItem("employeeToken", token);
-      localStorage.setItem("employee", JSON.stringify(employee));
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/employees/login",
+      { email, password },
+      { withCredentials: true } // ✅ Important for cookies to work
+    );
 
-      navigate("/employee/dashboard");
+    const { employee } = res.data;
+    localStorage.setItem("employee", JSON.stringify(employee));
 
-      if (onClose) onClose();
-    } catch (err) {
-      setError(err.response?.data?.msg || "Login failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    navigate("/employee/dashboard");
+
+    if (onClose) onClose();
+  } catch (err) {
+    setError(err.response?.data?.msg || "Login failed. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 z-50 fixed inset-0">
