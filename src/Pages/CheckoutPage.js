@@ -204,16 +204,44 @@ const CheckoutPage = () => {
             />
           </div>
 
-          <div className="flex items-center space-x-2 mt-2">
-            <input
-              type="checkbox"
-              checked={agreeTerms}
-              onChange={() => setAgreeTerms(!agreeTerms)}
-            />
-            <span className="text-sm text-gray-700">
-              I agree to the <a href="#" className="underline">terms & cancellation policy</a>
-            </span>
-          </div>
+         <div className="flex items-start space-x-2 mt-2">
+  <input
+    type="checkbox"
+    checked={agreeTerms}
+    onChange={() => setAgreeTerms(!agreeTerms)}
+    className="mt-1"
+  />
+  <span className="text-sm text-gray-700 font-sans">
+    I agree to the{" "}
+    <a
+      href="/terms-and-conditions"
+      className="underline text-blue-700 hover:text-blue-900"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Terms & Conditions
+    </a>
+    ,{" "}
+    <a
+      href="/privacy-policy"
+      className="underline text-blue-700 hover:text-blue-900"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Privacy Policy
+    </a>
+    , and{" "}
+    <a
+      href="/refund-policy"
+      className="underline text-blue-700 hover:text-blue-900"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Refund & Cancellation Policy
+    </a>
+  </span>
+</div>
+
 
           <button
             onClick={handleConfirmBooking}

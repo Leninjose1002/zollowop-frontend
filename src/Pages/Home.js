@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import HowItWorks from "../components/HowItWorks";
-
 import Herosection from "../components/Herosection";
 import InfoSection from "../components/InfoSection";
 import Cta from "../components/Cta";

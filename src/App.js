@@ -53,6 +53,9 @@ import AdminMaidTable from "./components/AdminMaidTable";
 import UserAuthPage from "./components/UserAuthPage";
 import AdminRoute from "./components/AdminRoute";
 import AdminLogin from "./components/AdminLogin";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
+import TermsAndConditions from "./Pages/TermsAndConditions";
+import RefundPolicy from "./Pages/RefundPolicy";
 function App() {
   return (
     <Router>
@@ -72,6 +75,8 @@ function App() {
                   </>
                 }
               />
+              <Route path="/home" element={<Home />} />
+
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/maid" element={<Maid />} />
@@ -99,6 +104,11 @@ function App() {
               <Route path="/set-password" element={<SetPasswordPage />} />
               <Route path="/user/google-redirect" element={<GoogleRedirectHandler />} />
               <Route path="/admin-login" element={<AdminLogin />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+              <Route path="/refund-policy" element={<RefundPolicy />} />
+
+
 
               <Route
                 path="/admin"

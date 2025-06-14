@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../assets/zollowupf.png";
+import { Link } from "react-router-dom"; // or 'next/link' if using Next.js
 
 const Footer = () => {
   return (
@@ -31,6 +32,22 @@ const Footer = () => {
                 </a>
               </li>
             ))}
+            <li>
+              <Link to="/privacy-policy" className="hover:text-blue-800 text-blue-800 transition duration-200">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/terms-and-conditions" className="hover:text-blue-800 text-blue-800 transition duration-200">
+                Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <Link to="/refund-policy" className="hover:text-blue-800 text-blue-800 transition duration-200">
+                Refund & Cancellation Policy
+              </Link>
+            </li>
+
           </ul>
         </div>
 
