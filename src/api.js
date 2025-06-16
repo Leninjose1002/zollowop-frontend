@@ -53,27 +53,6 @@ export const fetchUserById = async (userId, token) => {
   }
 };
 
-// ✅ Contact Form (uses fetch, not axios)
-export const submitContactForm = async (formData) => {
-  try {
-    const response = await fetch(`${BASE_URL.replace('/api', '')}/contact`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to submit contact form');
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error submitting contact form:', error);
-    throw error;
-  }
-};
 
 // ✅ Employee Login
 export const loginEmployee = async ({ email, password }) => {
@@ -104,5 +83,15 @@ export const resendVerificationEmail = async (email) => {
   } catch (error) {
     console.error("🛑 Resend Verification Error:", error.response?.data || error.message);
     throw error.response?.data?.msg || "Failed to resend verification email";
+  }
+};
+// ✅ Contact Form Submission using axiosInstance
+export const submitContactForm = async (formData) => {
+  try {
+    const res = await axiosInstance.post(`/api/contact`, formData);
+        return res.data;
+  } catch (error) {
+    console.error("🛑 Contact Form API Error:", error.response?.data || error.message);
+    throw error.response?.data?.message || "Failed to submit contact form";
   }
 };
