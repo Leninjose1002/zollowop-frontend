@@ -46,7 +46,7 @@ const Contact = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-1/2">
         <h2 className="text-3xl font-bold mb-4 text-blue-900 font-poppins">Contact Us</h2>
         <p className="text-gray-600 mb-6 font-roboto">
-          Have questions or need assistance? We're here to help! Reach out to us for any inquiries, and
+          Have question or need assistance? We're here to help! Reach out to us for any inquiries, and
           our team will get back to you as soon as possible.
         </p>
         <div className="space-y-4">

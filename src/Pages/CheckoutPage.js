@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { createRazorpayOrder, verifyRazorpayPayment } from "../api";
 
 const CheckoutPage = () => {
   const { state } = useLocation();
@@ -32,18 +33,10 @@ const CheckoutPage = () => {
     }
 
     try {
-      // 1️⃣ Create Razorpay order
-      const orderRes = await fetch("/api/payment/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: totalCost }),
-      });
+      // ✅ Create Razorpay order using API module
+      const orderData = await createRazorpayOrder(totalCost);
 
-      const orderData = await orderRes.json();
-
-      const token = localStorage.getItem("token");
-      const userId = localStorage.getItem("userId"); // or fetch from context
-
+      const userId = localStorage.getItem("userId"); // Or from context
       const bookingPayload = {
         serviceType: selectedService.type || "maid",
         name: selectedService.name,
@@ -54,20 +47,16 @@ const CheckoutPage = () => {
       };
 
       const options = {
-        key: "rzp_test_dummykey123456", // 🔁 Replace with real key later
+        key: "rzp_test_JX1fpyFeM1W24Y", 
         amount: orderData.amount,
         currency: orderData.currency,
         name: "ZollowUp",
         description: "Booking Payment",
         order_id: orderData.orderId,
         handler: async function (response) {
-          // 2️⃣ Verify payment and save booking
-          const verifyRes = await fetch("/api/payment/verify-payment", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+          try {
+            // ✅ Verify payment using API module
+            const verifyRes = await verifyRazorpayPayment({
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
@@ -75,21 +64,23 @@ const CheckoutPage = () => {
               currency: orderData.currency,
               userId,
               bookingPayload,
-            }),
-          });
-
-          const result = await verifyRes.json();
-          if (verifyRes.ok && result.verified) {
-            navigate("/confirmation", {
-              state: {
-                service: selectedService,
-                bookingDateTime,
-                address,
-                phone,
-                totalCost,
-              },
             });
-          } else {
+
+            if (verifyRes.verified) {
+              navigate("/confirmation", {
+                state: {
+                  service: selectedService,
+                  bookingDateTime,
+                  address,
+                  phone,
+                  totalCost,
+                },
+              });
+            } else {
+              navigate("/payment-failed");
+            }
+          } catch (err) {
+            console.error("Payment verification error:", err);
             navigate("/payment-failed");
           }
         },
@@ -204,44 +195,43 @@ const CheckoutPage = () => {
             />
           </div>
 
-         <div className="flex items-start space-x-2 mt-2">
-  <input
-    type="checkbox"
-    checked={agreeTerms}
-    onChange={() => setAgreeTerms(!agreeTerms)}
-    className="mt-1"
-  />
-  <span className="text-sm text-gray-700 font-sans">
-    I agree to the{" "}
-    <a
-      href="/terms-and-conditions"
-      className="underline text-blue-700 hover:text-blue-900"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Terms & Conditions
-    </a>
-    ,{" "}
-    <a
-      href="/privacy-policy"
-      className="underline text-blue-700 hover:text-blue-900"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Privacy Policy
-    </a>
-    , and{" "}
-    <a
-      href="/refund-policy"
-      className="underline text-blue-700 hover:text-blue-900"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Refund & Cancellation Policy
-    </a>
-  </span>
-</div>
-
+          <div className="flex items-start space-x-2 mt-2">
+            <input
+              type="checkbox"
+              checked={agreeTerms}
+              onChange={() => setAgreeTerms(!agreeTerms)}
+              className="mt-1"
+            />
+            <span className="text-sm text-gray-700 font-sans">
+              I agree to the{" "}
+              <a
+                href="/terms-and-conditions"
+                className="underline text-blue-700 hover:text-blue-900"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms & Conditions
+              </a>
+              ,{" "}
+              <a
+                href="/privacy-policy"
+                className="underline text-blue-700 hover:text-blue-900"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </a>
+              , and{" "}
+              <a
+                href="/refund-policy"
+                className="underline text-blue-700 hover:text-blue-900"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Refund & Cancellation Policy
+              </a>
+            </span>
+          </div>
 
           <button
             onClick={handleConfirmBooking}
