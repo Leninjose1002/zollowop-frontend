@@ -27,80 +27,92 @@ const CheckoutPage = () => {
   const totalCost = hourlyRate * duration;
 
   const handleConfirmBooking = async () => {
-    if (!agreeTerms) {
-      alert("Please agree to the terms and conditions.");
+  if (!agreeTerms) {
+    alert("Please agree to the terms and conditions.");
+    return;
+  }
+
+  try {
+    // ✅ Create Razorpay order using API module
+const orderData = await createRazorpayOrder(totalCost * 100); // ✅ convert to paise
+    console.log("✅ Order Created:", orderData);
+
+
+    const userId = localStorage.getItem("userId");
+    const bookingPayload = {
+      serviceType: selectedService.type || "maid",
+      name: selectedService.name,
+      address,
+      phone,
+      date: bookingDateTime,
+      status: "confirmed",
+    };
+
+    const options = {
+      key: orderData.key, // ✅ Use dynamic key from backend
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "ZollowUp",
+      description: "Booking Payment",
+      order_id: orderData.orderId,
+      handler: async function (response) {
+          console.log("🔁 Razorpay Response:", response);
+
+        try {
+          const verifyRes = await verifyRazorpayPayment({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            amount: orderData.amount,
+            currency: orderData.currency,
+            userId,
+            bookingPayload,
+          });
+
+          if (verifyRes.verified) {
+            navigate("/confirmation", {
+              state: {
+                service: selectedService,
+                bookingDateTime,
+                address,
+                phone,
+                totalCost,
+              },
+            });
+          } else {
+            navigate("/payment-failed");
+          }
+        } catch (err) {
+          console.error("Payment verification error:", err);
+          navigate("/payment-failed");
+        }
+      },
+      prefill: {
+        name: selectedService.name || "Customer",
+        email: "test@example.com",
+        contact: phone,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    console.log("Razorpay options:", options); // ✅ Check if key is present
+
+    // ✅ Ensure Razorpay script is loaded
+    if (typeof window.Razorpay !== "function") {
+      alert("Razorpay SDK not loaded. Please try again later.");
       return;
     }
 
-    try {
-      // ✅ Create Razorpay order using API module
-      const orderData = await createRazorpayOrder(totalCost);
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+  } catch (err) {
+    console.error("❌ Payment or Booking failed:", err);
+    alert("❌ Could not complete payment. Try again.");
+  }
+};
 
-      const userId = localStorage.getItem("userId"); // Or from context
-      const bookingPayload = {
-        serviceType: selectedService.type || "maid",
-        name: selectedService.name,
-        address,
-        phone,
-        date: bookingDateTime,
-        status: "confirmed",
-      };
-
-      const options = {
-        key: "rzp_test_JX1fpyFeM1W24Y", 
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: "ZollowUp",
-        description: "Booking Payment",
-        order_id: orderData.orderId,
-        handler: async function (response) {
-          try {
-            // ✅ Verify payment using API module
-            const verifyRes = await verifyRazorpayPayment({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              amount: orderData.amount,
-              currency: orderData.currency,
-              userId,
-              bookingPayload,
-            });
-
-            if (verifyRes.verified) {
-              navigate("/confirmation", {
-                state: {
-                  service: selectedService,
-                  bookingDateTime,
-                  address,
-                  phone,
-                  totalCost,
-                },
-              });
-            } else {
-              navigate("/payment-failed");
-            }
-          } catch (err) {
-            console.error("Payment verification error:", err);
-            navigate("/payment-failed");
-          }
-        },
-        prefill: {
-          name: selectedService.name || "Customer",
-          email: "test@example.com",
-          contact: phone,
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (err) {
-      console.error("❌ Payment or Booking failed:", err);
-      alert("❌ Could not complete payment. Try again.");
-    }
-  };
 
   return (
     <div className="max-w-2xl mx-auto p-6">

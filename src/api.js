@@ -98,14 +98,18 @@ export const submitContactForm = async (formData) => {
 
 // ✅ Create Razorpay Order
 export const createRazorpayOrder = async (amount) => {
-  try {
-    const res = await axiosInstance.post(`/api/payment/create-order`, { amount });
-    return res.data;
-  } catch (error) {
-    console.error("🛑 Razorpay Order Creation Error:", error.response?.data || error.message);
-    throw error.response?.data?.message || "Failed to create payment order";
-  }
+  const res = await fetch("http://localhost:5000/api/payment/create-order", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ amount }), // ✅ amount in paise
+});
+
+
+  return res.json();
 };
+
 
 // ✅ Verify Razorpay Payment
 export const verifyRazorpayPayment = async (paymentData) => {
