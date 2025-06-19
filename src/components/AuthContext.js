@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   // ✅ Login
   const login = async (email, password) => {
     try {
-      const res = await axios.post("/users/login", { email, password });
+      const res = await axios.post("api/users/login", { email, password });
 
       // ✅ Save token to localStorage
       if (res.data.token) {
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       // ✅ Then fetch user details
-      const profile = await axios.get("/users/me", {
+      const profile = await axios.get("api/users/me", {
         headers: {
           Authorization: `Bearer ${res.data.token}`,
         },

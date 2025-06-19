@@ -2,8 +2,8 @@ import axiosInstance from "./api/axiosInstance";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-const USER_API_URL = `/users`;
-const EMPLOYEE_API_URL = `/employees`;
+const USER_API_URL = `/api/users`;
+const EMPLOYEE_API_URL = `/api/employees`;
 
 // ✅ Register User
 export const registerUser = async (userData) => {
@@ -89,7 +89,7 @@ export const resendVerificationEmail = async (email) => {
 export const submitContactForm = async (formData) => {
   try {
     const res = await axiosInstance.post(`/api/contact`, formData);
-        return res.data;
+    return res.data;
   } catch (error) {
     console.error("🛑 Contact Form API Error:", error.response?.data || error.message);
     throw error.response?.data?.message || "Failed to submit contact form";
@@ -98,13 +98,13 @@ export const submitContactForm = async (formData) => {
 
 // ✅ Create Razorpay Order
 export const createRazorpayOrder = async (amount) => {
-  const res = await fetch("http://localhost:5000/api/payment/create-order", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ amount }), // ✅ amount in paise
-});
+  const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/payment/create-order`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ amount }), // ✅ amount in paise
+  });
 
 
   return res.json();

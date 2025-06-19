@@ -10,7 +10,7 @@ const DashboardReferralSection = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("/users/me");
+        const res = await axios.get("api/users/me");
         console.log("👤 Referral User:", res.data);
         setUser(res.data);
       } catch (err) {
