@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { fetchMaids } from '../maidApi';
+import { fetchMaids } from '../api';
 import VideoModal from '../components/VideoModal';
 import { Star } from 'lucide-react';
 

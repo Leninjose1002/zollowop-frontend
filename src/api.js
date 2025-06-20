@@ -122,3 +122,15 @@ export const verifyRazorpayPayment = async (paymentData) => {
   }
 };
 
+// inside your merged api.js
+
+
+export const fetchMaids = async (selectedHours) => {
+  try {
+    const res = await axiosInstance.get(`/api/maids?selectedHours=${selectedHours}`);
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching maids:", error.response?.data || error.message);
+    throw error;
+  }
+};

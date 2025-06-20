@@ -22,7 +22,7 @@ const CheckoutPage = () => {
 
   if (!selectedService) return null;
 
-  const hourlyRate = selectedService.rate || 150;
+  const hourlyRate = selectedService.rate || 100;
   const duration = selectedService.hours || 1;
   const totalCost = hourlyRate * duration;
 
@@ -87,6 +87,13 @@ const orderData = await createRazorpayOrder(totalCost * 100); // ✅ convert to 
           navigate("/payment-failed");
         }
       },
+      method: {
+        upi: true, // ✅ Enables UPI
+        card: true,
+        netbanking: true,
+        wallet: true,
+        paylater: true,
+      },
       prefill: {
         name: selectedService.name || "Customer",
         email: "test@example.com",
@@ -97,7 +104,7 @@ const orderData = await createRazorpayOrder(totalCost * 100); // ✅ convert to 
       },
     };
 
-    console.log("Razorpay options:", options); // ✅ Check if key is present
+    console.log("Razorpay options:", options); 
 
     // ✅ Ensure Razorpay script is loaded
     if (typeof window.Razorpay !== "function") {
