@@ -89,7 +89,7 @@ const MaidSelection = () => {
                 <p><span className="font-semibold">Language:</span> {maid.language || '—'}</p>
                 <p><span className="font-semibold">Speciality:</span> {maid.speciality || '—'}</p>
                 <p><span className="font-semibold">State:</span> {maid.state || '—'}</p>
-                <p><span className="font-semibold">Marital Status:</span> {maid.maritalStatus || '—'}</p>
+                <p><span className="font-semibold">Marital status:</span> {maid.maritalStatus || '—'}</p>
               </div>
 
               {maid.video && (

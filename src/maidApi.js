@@ -7,7 +7,7 @@ export const fetchMaids = async (selectedHours) => {
     try {
         // Make a GET request to the API with selectedHours as a query parameter
         const response = await axios.get(`${API_URL}?selectedHours=${selectedHours}`);
-        return response.data; // Return the list of filtered maids
+        return response.data; // Return the list of  maids
     } catch (error) {
         console.error("Error fetching maids:", error);
         throw error;
