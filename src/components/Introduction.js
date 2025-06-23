@@ -14,11 +14,10 @@ const Introduction = () => {
 						viewport={{ once: true }}
 						transition={{ duration: 0.8 }}
 					>
-						Reliable Home Services at Your Doorstep
+						Reliable Home Care, Straight to Your Doorstep
 					</motion.h2>
 					<p className="text-gray-600 mt-3 text-lg font-sans">
-						One-stop destination for all home maintenance & personal care needs
-					</p>
+Everything you need for home upkeep and self-care, all in one place.					</p>
 				</div>
 
 				{/* Content Section */}
@@ -35,7 +34,7 @@ const Introduction = () => {
 						>
 							<div className="rounded-2xl overflow-hidden">
 								<img
-									src="https://mehedi.asiandevelopers.com/demo/html/fouens/images/resources/welcome-thumb-1.jpg"
+									src="https://img.freepik.com/free-photo/full-length-photo-smiling-brunette-maid-uniform-rubber-gloves-leaned-mop-while-standing_171337-18576.jpg?uid=R154198566&ga=GA1.1.976452698.1745320523&semt=ais_hybrid&w=740"
 									alt="Cleaning Service"
 									className="w-full h-auto object-cover"
 									loading="lazy"
@@ -63,7 +62,7 @@ const Introduction = () => {
 
 						{/* Image 3 */}
 						<motion.div
-							className="w-full sm:w-1/2 flex justify-center mt-6 lg:mt-[-20px] lg:relative lg:left-4 lg:top-[-20px]"
+							className="w-full sm:w-1/2 flex justify-center mt-6 lg:mt-[-20px] lg:relative lg:left-20 lg:top-[-10px]"
 							initial={{ opacity: 0, y: 50 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
@@ -71,9 +70,9 @@ const Introduction = () => {
 						>
 							<div className="rounded-2xl overflow-hidden border-8 border-white">
 								<img
-									src="https://mehedi.asiandevelopers.com/demo/html/fouens/images/resources/welcome-thumb-2.jpg"
+									src="https://img.freepik.com/free-photo/housewife-woking-home-lady-blue-shirt-woman-clean-mirror_1157-45532.jpg?uid=R154198566&ga=GA1.1.976452698.1745320523&semt=ais_hybrid&w=740"
 									alt="Service Professional"
-									className="w-full h-[200px] sm:h-auto object-cover"
+									className="w-full h-[290px] sm:h-auto object-cover"
 									loading="lazy"
 								/>
 							</div>
