@@ -84,6 +84,8 @@ const Navbar = () => {
                   { to: "/plumber", text: "Plumber" },
                   { to: "/drivers", text: "Drivers" },
                   { to: "/housekeeping", text: "Housekeeping" },
+                  { to: "/chef", text: "Chef" },
+
                 ].map(({ to, text }) => (
                   <li key={to}>
                     <NavLink to={to} className="block px-4 py-2 hover:bg-gray-100">
@@ -137,9 +139,8 @@ const Navbar = () => {
 
       {/* Slide-in Mobile Menu */}
       <div
-        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 z-50 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <button
           onClick={() => setIsOpen(false)}
@@ -175,6 +176,8 @@ const Navbar = () => {
                   { to: "/plumber", text: "Plumber" },
                   { to: "/drivers", text: "Drivers" },
                   { to: "/housekeeping", text: "Housekeeping" },
+                  { to: "/chef", text: "Chef" },
+
                 ].map(({ to, text }) => (
                   <li key={to}>
                     <NavLink to={to} onClick={() => setIsOpen(false)} className="block px-4 py-1 hover:bg-gray-100">

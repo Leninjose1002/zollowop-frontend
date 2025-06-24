@@ -56,6 +56,7 @@ import AdminLogin from "./components/AdminLogin";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsAndConditions from "./Pages/TermsAndConditions";
 import RefundPolicy from "./Pages/RefundPolicy";
+import Chef from "./Pages/Chef";
 function App() {
   return (
     <Router>
@@ -86,6 +87,8 @@ function App() {
               <Route path="/electrician" element={<Electrician />} />
               <Route path="/plumber" element={<Plumber />} />
               <Route path="/housekeeping" element={<Housekeeping />} />
+                            <Route path="/chef" element={<Chef />} />
+
               <Route path="/contact" element={<Contact />} />
               <Route path="/service-list" element={<ServiceList />} />
               <Route path="/add-service" element={<AddService />} />

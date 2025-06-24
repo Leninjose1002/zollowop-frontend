@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
+import axiosInstance from "../api/axiosInstance";
 
 const NurseRequirementForm = ({ onClose, selectedService }) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const NurseRequirementForm = ({ onClose, selectedService }) => {
     notes: "",
   });
 
-  // Prefill nurseType if selected from card
+  // Pre-fill nurseType if card selected
   useEffect(() => {
     if (selectedService?.title) {
       setForm((prev) => ({
@@ -31,7 +32,8 @@ const NurseRequirementForm = ({ onClose, selectedService }) => {
   }, [selectedService]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -39,31 +41,30 @@ const NurseRequirementForm = ({ onClose, selectedService }) => {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/bookings/nurse", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      const res = await axiosInstance.post("/api/bookings/nurse", {
+        ...form,
       });
 
-      if (!res.ok) throw new Error("Submission failed");
-
-      setSuccessMsg("✅ Nurse booking submitted successfully!");
-
-      setTimeout(() => {
-        setLoading(false);
-        navigate("/confirmation", {
-          state: {
-            service: {
-              type: "nurse",
-              ...form,
+      if (res?.data?.success) {
+        setSuccessMsg("✅ Nurse booking submitted successfully!");
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/confirmation", {
+            state: {
+              service: {
+                type: "nurse",
+                ...form,
+              },
             },
-          },
-        });
-      }, 2000);
+          });
+        }, 2000);
+      } else {
+        throw new Error(res.data?.message || "Unknown error");
+      }
     } catch (err) {
       console.error("❌ Submission error:", err);
-      setLoading(false);
       alert("❌ Booking failed. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -87,139 +88,40 @@ const NurseRequirementForm = ({ onClose, selectedService }) => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium">Type of Nurse</label>
-          <select
-            name="nurseType"
-            className="w-full border p-2 rounded"
-            value={form.nurseType}
-            onChange={handleChange}
-            required
-          >
-            <option value="">-- Select --</option>
-            <option value="Elderly Care">Elderly Care</option>
-            <option value="ICU Care at Home">ICU Care at Home</option>
-            <option value="Post-Surgical Care">Post-Surgical Care</option>
-            <option value="Baby & Mother Care">Baby & Mother Care</option>
-            <option value="Injections & IV Drips">Injections & IV Drips</option>
-            <option value="Palliative Care">Palliative Care</option>
-            <option value="Bedridden Care">Bedridden Care</option>
-            <option value="Night Nursing">Night Nursing</option>
-          </select>
-        </div>
+        <label className="block text-sm font-medium">Type of Nurse</label>
+        <select name="nurseType" value={form.nurseType} onChange={handleChange} required className="w-full border p-2 rounded">
+          <option value="">-- Select --</option>
+          <option value="Elderly Care">Elderly Care</option>
+          <option value="ICU Care at Home">ICU Care at Home</option>
+          <option value="Post-Surgical Care">Post-Surgical Care</option>
+          <option value="Baby & Mother Care">Baby & Mother Care</option>
+          <option value="Injections & IV Drips">Injections & IV Drips</option>
+          <option value="Palliative Care">Palliative Care</option>
+          <option value="Bedridden Care">Bedridden Care</option>
+          <option value="Night Nursing">Night Nursing</option>
+        </select>
 
-        <div>
-          <label className="block text-sm font-medium">Preferred Shift</label>
-          <select
-            name="shift"
-            className="w-full border p-2 rounded"
-            value={form.shift}
-            onChange={handleChange}
-            required
-          >
-            <option value="">-- Select --</option>
-            <option value="Day">Day</option>
-            <option value="Night">Night</option>
-            <option value="Live-in">Live-in</option>
-          </select>
-        </div>
+        <label className="block text-sm font-medium">Preferred Shift</label>
+        <select name="shift" value={form.shift} onChange={handleChange} required className="w-full border p-2 rounded">
+          <option value="">-- Select --</option>
+          <option value="Day">Day</option>
+          <option value="Night">Night</option>
+          <option value="Live-in">Live-in</option>
+        </select>
 
-        <div>
-          <label className="block text-sm font-medium">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="w-full border p-2 rounded"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">Phone</label>
-          <input
-            type="tel"
-            name="phone"
-            className="w-full border p-2 rounded"
-            value={form.phone}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">Street Address</label>
-          <input
-            type="text"
-            name="street"
-            className="w-full border p-2 rounded"
-            value={form.street}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required className="w-full border p-2 rounded" />
+        <input type="tel" name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} required className="w-full border p-2 rounded" />
+        <input type="text" name="street" placeholder="Street Address" value={form.street} onChange={handleChange} required className="w-full border p-2 rounded" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium">City</label>
-            <input
-              type="text"
-              name="city"
-              className="w-full border p-2 rounded"
-              value={form.city}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">State</label>
-            <input
-              type="text"
-              name="state"
-              className="w-full border p-2 rounded"
-              value={form.state}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Pincode</label>
-            <input
-              type="text"
-              name="zip"
-              className="w-full border p-2 rounded"
-              value={form.zip}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input type="text" name="city" placeholder="City" value={form.city} onChange={handleChange} required className="w-full border p-2 rounded" />
+          <input type="text" name="state" placeholder="State" value={form.state} onChange={handleChange} required className="w-full border p-2 rounded" />
+          <input type="text" name="zip" placeholder="Pincode" value={form.zip} onChange={handleChange} required className="w-full border p-2 rounded" />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium">Date & Time Needed</label>
-          <input
-            type="datetime-local"
-            name="date"
-            className="w-full border p-2 rounded"
-            value={form.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <input type="datetime-local" name="date" value={form.date} onChange={handleChange} required className="w-full border p-2 rounded" />
 
-        <div>
-          <label className="block text-sm font-medium">Additional Notes</label>
-          <textarea
-            name="notes"
-            className="w-full border p-2 rounded"
-            value={form.notes}
-            onChange={handleChange}
-            placeholder="Any specific health concerns, preferences, etc."
-          ></textarea>
-        </div>
+        <textarea name="notes" placeholder="Any specific health concerns, preferences, etc." value={form.notes} onChange={handleChange} className="w-full border p-2 rounded h-24" />
 
         <button
           type="submit"
@@ -228,32 +130,7 @@ const NurseRequirementForm = ({ onClose, selectedService }) => {
             loading ? "opacity-70 cursor-not-allowed" : ""
           }`}
         >
-          {loading ? (
-            <>
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v8H4z"
-                ></path>
-              </svg>
-              Submitting...
-            </>
-          ) : (
-            "Submit Request"
-          )}
+          {loading ? "Submitting..." : "Submit Request"}
         </button>
       </form>
     </div>
