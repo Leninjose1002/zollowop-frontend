@@ -38,7 +38,15 @@ const orderData = await createRazorpayOrder(totalCost * 100); // ✅ convert to 
     console.log("✅ Order Created:", orderData);
 
 
-    const userId = localStorage.getItem("userId");
+   const userId = localStorage.getItem("userId");
+console.log("🧑 User ID from localStorage:", userId);
+
+if (!userId) {
+  alert("User not logged in. Please log in before booking.");
+  return;
+}
+
+
     const bookingPayload = {
       serviceType: selectedService.type || "maid",
       name: selectedService.name,
