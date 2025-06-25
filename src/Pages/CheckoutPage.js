@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../components/CartContext";
+import { useAuth } from "../components/AuthContext";
 import { createRazorpayOrder, verifyRazorpayPayment } from "../api";
 
 const CheckoutPage = () => {
-  const { state } = useLocation();
+  const { cart, removeFromCart, getTotal, clearCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [bookingDateTime, setBookingDateTime] = useState("");
@@ -11,263 +14,186 @@ const CheckoutPage = () => {
   const [phone, setPhone] = useState("");
   const [promoCode, setPromoCode] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
-
-  const selectedService = state?.selectedService;
-
-  useEffect(() => {
-    if (!selectedService) {
-      navigate("/");
-    }
-  }, [selectedService, navigate]);
-
-  if (!selectedService) return null;
-
-  const hourlyRate = selectedService.rate || 100;
-  const duration = selectedService.hours || 1;
-  const totalCost = hourlyRate * duration;
+  const totalCost = getTotal();
 
   const handleConfirmBooking = async () => {
-  if (!agreeTerms) {
-    alert("Please agree to the terms and conditions.");
-    return;
-  }
-
-  try {
-    // ✅ Create Razorpay order using API module
-const orderData = await createRazorpayOrder(totalCost * 100); // ✅ convert to paise
-    console.log("✅ Order Created:", orderData);
-
-
-   const userId = localStorage.getItem("userId");
-console.log("🧑 User ID from localStorage:", userId);
-
-if (!userId) {
-  alert("User not logged in. Please log in before booking.");
-  return;
-}
-
-
-    const bookingPayload = {
-      serviceType: selectedService.type || "maid",
-      name: selectedService.name,
-      address,
-      phone,
-      date: bookingDateTime,
-      status: "confirmed",
-    };
-
-    const options = {
-      key: orderData.key, // ✅ Use dynamic key from backend
-      amount: orderData.amount,
-      currency: orderData.currency,
-      name: "ZollowUp",
-      description: "Booking Payment",
-      order_id: orderData.orderId,
-      handler: async function (response) {
-          console.log("🔁 Razorpay Response:", response);
-
-        try {
-          const verifyRes = await verifyRazorpayPayment({
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature,
-            amount: orderData.amount,
-            currency: orderData.currency,
-            userId,
-            bookingPayload,
-          });
-
-          if (verifyRes.verified) {
-            navigate("/confirmation", {
-              state: {
-                service: selectedService,
-                bookingDateTime,
-                address,
-                phone,
-                totalCost,
-              },
-            });
-          } else {
-            navigate("/payment-failed");
-          }
-        } catch (err) {
-          console.error("Payment verification error:", err);
-          navigate("/payment-failed");
-        }
-      },
-      method: {
-        upi: true, // ✅ Enables UPI
-        card: true,
-        netbanking: true,
-        wallet: true,
-        paylater: true,
-      },
-      prefill: {
-        name: selectedService.name || "Customer",
-        email: "test@example.com",
-        contact: phone,
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    console.log("Razorpay options:", options); 
-
-    // ✅ Ensure Razorpay script is loaded
-    if (typeof window.Razorpay !== "function") {
-      alert("Razorpay SDK not loaded. Please try again later.");
+    if (!agreeTerms) {
+      alert("Please agree to the terms and conditions.");
       return;
     }
 
-    const razorpay = new window.Razorpay(options);
-    razorpay.open();
-  } catch (err) {
-    console.error("❌ Payment or Booking failed:", err);
-    alert("❌ Could not complete payment. Try again.");
-  }
-};
+    if (!user || !user._id) {
+      alert("User not logged in.");
+      return;
+    }
 
+    const userId = user._id;
+
+    try {
+      const orderData = await createRazorpayOrder(totalCost * 100);
+
+      const bookingPayload = {
+        cart,
+        address,
+        phone,
+        date: bookingDateTime,
+        status: "confirmed",
+        promoCode,
+          serviceType: cart[0]?.title || "General", // ✅ ADDED this line
+
+      };
+
+      const options = {
+        key: orderData.key,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "ZollowUp",
+        description: "Booking Payment",
+        order_id: orderData.orderId,
+        handler: async function (response) {
+          try {
+            const verifyRes = await verifyRazorpayPayment({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              amount: orderData.amount,
+              currency: orderData.currency,
+              userId,
+              bookingPayload,
+            });
+
+            if (verifyRes.verified) {
+              clearCart();
+              navigate("/confirmation", {
+                state: { cart, bookingDateTime, address, phone, promoCode, totalCost },
+              });
+            } else {
+              navigate("/payment-failed");
+            }
+          } catch {
+            navigate("/payment-failed");
+          }
+        },
+        prefill: {
+          name: "Customer",
+          contact: phone,
+          email: user?.email || "test@example.com",
+        },
+        theme: {
+          color: "#10b981",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (err) {
+      console.error(err);
+      alert("Payment failed. Please try again.");
+    }
+  };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <div className="bg-white shadow-xl rounded-2xl p-6">
-        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          Confirm Your Booking
-        </h2>
+    <div className="px-4 py-6 max-w-xl mx-auto">
+      <h2 className="text-xl font-bold text-center text-gray-800 mb-6">
+        Confirm Your Booking
+      </h2>
 
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-          {selectedService?.image && (
-            <img
-              src={selectedService.image}
-              alt={selectedService.name || selectedService.title}
-              className="w-32 h-32 rounded-full object-cover border-4 border-blue-100"
-            />
-          )}
-
-          <div className="text-gray-700 w-full">
-            <div className="mb-3">
-              <p className="text-sm font-medium text-gray-500">Name</p>
-              <p className="text-lg font-semibold">
-                {selectedService.name || selectedService.title}
-              </p>
-            </div>
-
-            <div className="mb-3">
-              <p className="text-sm font-medium text-gray-500">Service Type</p>
-              <p>{selectedService.type || "maid"}</p>
-            </div>
-
-            <div className="mb-3">
-              <p className="text-sm font-medium text-gray-500">Booking Duration</p>
-              <p>{duration} hours</p>
-            </div>
-
-            <div className="mb-3">
-              <p className="text-sm font-medium text-gray-500">Rate</p>
-              <p>₹{hourlyRate}/hour</p>
-            </div>
-
-            <div className="mb-3">
-              <p className="text-sm font-medium text-gray-500">Estimated Cost</p>
-              <p className="text-lg font-bold text-green-600">₹{totalCost}</p>
-            </div>
+      {cart.length === 0 ? (
+        <p className="text-center text-gray-500">Your cart is empty.</p>
+      ) : (
+        <>
+          <div className="space-y-4 mb-6">
+            {cart.map((item, index) => (
+              <div
+                key={index}
+                className="flex gap-4 items-center bg-white p-4 rounded-lg shadow"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-16 h-16 object-cover rounded-md"
+                />
+                <div className="flex-1">
+                  <p className="font-semibold">{item.title}</p>
+                  <p className="text-sm font-medium text-green-600">
+                    ₹
+                    {(() => {
+                      const price = parseInt(item?.price?.replace(/[^\d]/g, "")) || 0;
+                      const qty = item?.quantity || 1;
+                      return price * qty;
+                    })()}
+                  </p>
+                </div>
+                <button
+                  className="text-xs text-red-500 underline"
+                  onClick={() => removeFromCart(index)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
           </div>
-        </div>
 
-        <div className="mt-6 space-y-4">
-          <div>
-            <label className="text-sm font-medium text-gray-600">Booking Date & Time</label>
+          <div className="space-y-4">
             <input
               type="datetime-local"
-              className="w-full mt-1 p-2 border rounded"
               value={bookingDateTime}
               onChange={(e) => setBookingDateTime(e.target.value)}
+              className="w-full p-3 border rounded text-sm"
+              placeholder="Booking Date & Time"
               required
             />
-          </div>
 
-          <div>
-            <label className="text-sm font-medium text-gray-600">Address</label>
             <input
               type="text"
-              className="w-full mt-1 p-2 border rounded"
-              placeholder="Your full address"
+              placeholder="Full Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              className="w-full p-3 border rounded text-sm"
               required
             />
-          </div>
 
-          <div>
-            <label className="text-sm font-medium text-gray-600">Phone Number</label>
             <input
               type="tel"
-              className="w-full mt-1 p-2 border rounded"
-              placeholder="Enter phone number"
+              placeholder="Phone Number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              className="w-full p-3 border rounded text-sm"
               required
             />
-          </div>
 
-          <div>
-            <label className="text-sm font-medium text-gray-600">Promo Code</label>
             <input
               type="text"
-              className="w-full mt-1 p-2 border rounded"
-              placeholder="Enter promo code"
+              placeholder="Promo Code"
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
+              className="w-full p-3 border rounded text-sm"
             />
-          </div>
 
-          <div className="flex items-start space-x-2 mt-2">
-            <input
-              type="checkbox"
-              checked={agreeTerms}
-              onChange={() => setAgreeTerms(!agreeTerms)}
-              className="mt-1"
-            />
-            <span className="text-sm text-gray-700 font-sans">
-              I agree to the{" "}
-              <a
-                href="/terms-and-conditions"
-                className="underline text-blue-700 hover:text-blue-900"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Terms & Conditions
-              </a>
-              ,{" "}
-              <a
-                href="/privacy-policy"
-                className="underline text-blue-700 hover:text-blue-900"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Privacy Policy
-              </a>
-              , and{" "}
-              <a
-                href="/refund-policy"
-                className="underline text-blue-700 hover:text-blue-900"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Refund & Cancellation Policy
-              </a>
-            </span>
-          </div>
+            <div className="flex items-start gap-2">
+              <input
+                type="checkbox"
+                checked={agreeTerms}
+                onChange={() => setAgreeTerms(!agreeTerms)}
+                className="mt-1"
+              />
+              <span className="text-sm text-gray-700">
+                I agree to the{" "}
+                <a href="/terms-and-conditions" className="underline text-blue-600">
+                  Terms & Conditions
+                </a>
+              </span>
+            </div>
 
-          <button
-            onClick={handleConfirmBooking}
-            className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white text-lg font-medium py-3 rounded-xl transition duration-300"
-          >
-            Pay ₹{totalCost} & Confirm Booking
-          </button>
-        </div>
-      </div>
+            <button
+              onClick={handleConfirmBooking}
+              className="w-full mt-2 bg-green-600 hover:bg-green-700 text-white text-lg font-semibold py-3 rounded-lg transition"
+            >
+              Pay ₹{totalCost} & Book
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

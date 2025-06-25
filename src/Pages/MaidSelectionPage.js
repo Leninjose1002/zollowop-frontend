@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchMaids } from '../api';
 import VideoModal from '../components/VideoModal';
 import { Star } from 'lucide-react';
+import { useCart } from '../components/CartContext'; // ✅ Import CartContext
 
 const MaidSelection = () => {
   const location = useLocation();
@@ -10,6 +11,7 @@ const MaidSelection = () => {
   const [selectedVideoUrl, setSelectedVideoUrl] = useState(null);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
   const navigate = useNavigate();
+  const { addToCart } = useCart(); // ✅ Access addToCart from context
 
   useEffect(() => {
     const loadMaids = async () => {
@@ -35,7 +37,13 @@ const MaidSelection = () => {
   }, [location.state]);
 
   const handleBookMaid = (maid) => {
-    navigate('/checkout', { state: { selectedService: maid } });
+    addToCart({
+      title: maid.name,
+      price: "₹100", // 💡 You can replace with maid.price if it's dynamic
+      image: maid.image,
+      quantity: 1,
+    });
+    navigate('/checkout');
   };
 
   const renderStars = (rating) => {
@@ -51,7 +59,7 @@ const MaidSelection = () => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold text-center mb-8">
-        Available Maids for {location.state.selectedHours} Hours
+        Available Maids for {location.state?.selectedHours} Hours
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -103,9 +111,6 @@ const MaidSelection = () => {
                   ▶️ Watch Intro
                 </button>
               )}
-
-
-
 
               <button
                 onClick={() => handleBookMaid(maid)}

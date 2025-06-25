@@ -16,69 +16,65 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // ✅ Logout
-  const logout = useCallback(async () => {
-    try {
-      await axios.post("/users/logout");
-    } catch (err) {
-      console.error("Logout error:", err);
-    }
-
-    localStorage.removeItem("token"); // ✅ remove token
-    setUser(null);
-    setIsAuthenticated(false);
-
-    navigate(user?.isAdmin ? "/admin-login" : "/user-login");
-  }, [navigate, user]);
-
   // ✅ Login
   const login = async (email, password) => {
     try {
-      const res = await axios.post("api/users/login", { email, password });
+      await axios.post(
+        "/api/users/login",
+        { email, password },
+        { withCredentials: true } // 🔥 send cookies
+      );
 
-      // ✅ Save token to localStorage
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-      }
-
-      // ✅ Then fetch user details
-      const profile = await axios.get("api/users/me", {
-        headers: {
-          Authorization: `Bearer ${res.data.token}`,
-        },
+      const res = await axios.get("/api/users/me", {
+        withCredentials: true, // 🔥 get user via cookie
       });
 
-      setUser(profile.data);
+      setUser(res.data);
       setIsAuthenticated(true);
-      return profile.data;
+
+      // ✅ Save userId in localStorage
+      localStorage.setItem("userId", res.data._id);
+
+      return res.data;
     } catch (err) {
       throw err;
     }
   };
 
-  // ✅ Auto fetch user if token exists
+  // ✅ Logout
+  const logout = useCallback(async () => {
+    try {
+      await axios.post("/api/users/logout", {}, { withCredentials: true });
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+
+    setUser(null);
+    setIsAuthenticated(false);
+
+    // ✅ Remove userId from localStorage
+    localStorage.removeItem("userId");
+
+    navigate(user?.isAdmin ? "/admin-login" : "/user-login");
+  }, [navigate, user]);
+
+  // ✅ Auto-fetch user from cookie
   useEffect(() => {
     const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-
       try {
-        const res = await axios.get("/users/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const res = await axios.get("/api/users/me", {
+          withCredentials: true,
         });
 
         setUser(res.data);
         setIsAuthenticated(true);
+
+        // ✅ Store userId if login was via cookie
+        localStorage.setItem("userId", res.data._id);
       } catch (err) {
-        console.error("Auto login failed:", err.response?.data || err.message);
-        localStorage.removeItem("token");
         setUser(null);
         setIsAuthenticated(false);
+        localStorage.removeItem("userId"); // remove stale ID
       } finally {
         setLoading(false);
       }

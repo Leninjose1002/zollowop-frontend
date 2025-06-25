@@ -1,74 +1,65 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+// src/components/CartContext.js
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
 
+export const useCart = () => useContext(CartContext);
+
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    try {
+      const storedCart = localStorage.getItem("cart");
+      return storedCart ? JSON.parse(storedCart) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [bookedServices, setBookedServices] = useState(new Set());
 
   useEffect(() => {
-    const savedCart = localStorage.getItem("maidCart");
-    if (savedCart) {
-      const parsedCart = JSON.parse(savedCart);
-      setCart(parsedCart);
-      setBookedServices(new Set(parsedCart.map(item => item.title)));
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (err) {
+      console.error("🛑 Failed to persist cart in localStorage:", err);
     }
-  }, []);
 
-  useEffect(() => {
-    localStorage.setItem("maidCart", JSON.stringify(cart));
+    const updatedSet = new Set(cart.map((item) => item.title));
+    setBookedServices(updatedSet);
   }, [cart]);
 
-  const addToCart = (plan) => {
-    if (!bookedServices.has(plan.title)) {
-      setCart([...cart, { ...plan, quantity: 1 }]);
-      setBookedServices(prev => new Set(prev).add(plan.title));
-    }
+  const addToCart = (item) => {
+    const itemWithQuantity = { ...item, quantity: item.quantity || 1 };
+
+    setCart((prev) => {
+      const exists = prev.find((i) => i.title === itemWithQuantity.title);
+      if (exists) return prev;
+      return [...prev, itemWithQuantity];
+    });
   };
 
   const removeFromCart = (index) => {
-    const itemToRemove = cart[index];
-    const updatedCart = cart.filter((_, i) => i !== index);
-    const updatedBooked = new Set(bookedServices);
-    updatedBooked.delete(itemToRemove.title);
-    setCart(updatedCart);
-    setBookedServices(updatedBooked);
+    setCart((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const increaseQuantity = (index) => {
-    const updatedCart = [...cart];
-    updatedCart[index].quantity += 1;
-    setCart(updatedCart);
+  const getTotal = () => {
+    return cart.reduce((sum, item) => {
+      const numericPrice = parseInt(item?.price?.replace(/[^\d]/g, "")) || 0;
+      const quantity = item?.quantity || 1;
+      return sum + numericPrice * quantity;
+    }, 0);
   };
 
-  const decreaseQuantity = (index) => {
-    const updatedCart = [...cart];
-    if (updatedCart[index].quantity > 1) {
-      updatedCart[index].quantity -= 1;
-      setCart(updatedCart);
-    } else {
-      removeFromCart(index); // Automatically remove if quantity reaches 0
-    }
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem("cart");
   };
-
-  const getTotal = () =>
-    cart.reduce((acc, item) => acc + parseInt(item.price.replace("₹", "")) * item.quantity, 0);
 
   return (
     <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        increaseQuantity,
-        decreaseQuantity,
-        getTotal,
-        bookedServices
-      }}
+      value={{ cart, addToCart, removeFromCart, getTotal, clearCart, bookedServices }}
     >
       {children}
     </CartContext.Provider>
   );
 };
-
-export const useCart = () => useContext(CartContext);

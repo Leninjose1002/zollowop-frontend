@@ -1,6 +1,5 @@
+// src/api/api.js
 import axiosInstance from "./api/axiosInstance";
-
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const USER_API_URL = `/api/users`;
 const EMPLOYEE_API_URL = `/api/employees`;
@@ -53,7 +52,6 @@ export const fetchUserById = async (userId, token) => {
   }
 };
 
-
 // ✅ Employee Login
 export const loginEmployee = async ({ email, password }) => {
   try {
@@ -65,7 +63,7 @@ export const loginEmployee = async ({ email, password }) => {
   }
 };
 
-// ✅ Employee Register (optional)
+// ✅ Employee Register
 export const registerEmployee = async (employeeData) => {
   try {
     const res = await axiosInstance.post(`${EMPLOYEE_API_URL}/register`, employeeData);
@@ -75,6 +73,7 @@ export const registerEmployee = async (employeeData) => {
     throw error.response?.data?.msg || "Employee signup failed";
   }
 };
+
 // ✅ Resend Verification Email
 export const resendVerificationEmail = async (email) => {
   try {
@@ -85,7 +84,8 @@ export const resendVerificationEmail = async (email) => {
     throw error.response?.data?.msg || "Failed to resend verification email";
   }
 };
-// ✅ Contact Form Submission using axiosInstance
+
+// ✅ Contact Form Submission
 export const submitContactForm = async (formData) => {
   try {
     const res = await axiosInstance.post(`/api/contact`, formData);
@@ -96,25 +96,25 @@ export const submitContactForm = async (formData) => {
   }
 };
 
-// ✅ Create Razorpay Order
+// ✅ FIXED: Create Razorpay Order (using axiosInstance now)
 export const createRazorpayOrder = async (amount) => {
-const res = await fetch("http://localhost:5000/api/payment/create-order", {  
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ amount }), // ✅ amount in paise
-  });
-
-
-  return res.json();
+  try {
+    const res = await axiosInstance.post(`/api/payment/create-order`, { amount });
+    return res.data;
+  } catch (error) {
+    console.error("🛑 Razorpay Create Order Error:", error.response?.data || error.message);
+    throw error.response?.data?.message || "Failed to create Razorpay order";
+  }
 };
-
 
 // ✅ Verify Razorpay Payment
 export const verifyRazorpayPayment = async (paymentData) => {
   try {
-    const res = await axiosInstance.post(`/api/payment/verify-payment`, paymentData);
+    const res = await axiosInstance.post(
+      `/api/payment/verify-payment`,
+      paymentData,
+      { withCredentials: true } // ✅ This ensures cookies/session are sent
+    );
     return res.data;
   } catch (error) {
     console.error("🛑 Razorpay Payment Verification Error:", error.response?.data || error.message);
@@ -122,9 +122,7 @@ export const verifyRazorpayPayment = async (paymentData) => {
   }
 };
 
-// inside your merged api.js
-
-
+// ✅ Fetch Maids
 export const fetchMaids = async (selectedHours) => {
   try {
     const res = await axiosInstance.get(`/api/maids?selectedHours=${selectedHours}`);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronUp, ShoppingCart } from "lucide-react";
 import Location from "./Location";
 import { useCart } from "./CartContext";
@@ -10,19 +10,15 @@ import { FaUser, FaUserTie } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const [showUserSignup, setShowUserSignup] = useState(false);
   const [showEmployeeLogin, setShowEmployeeLogin] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
   const { cart } = useCart();
   const cartItemCount = cart.length;
   const dropdownRef = useRef();
-  const isMobile = window.innerWidth < 1024;
 
-  const toggleDropdown = (menu) => {
-    setActiveDropdown((prev) => (prev === menu ? null : menu));
-  };
-
-  // Close dropdown when clicking outside
+  // Close desktop dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -33,19 +29,21 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const toggleDropdown = (menu) => {
+    setActiveDropdown((prev) => (prev === menu ? null : menu));
+  };
+
   return (
     <>
-      <nav className="bg-white px-4 lg:px-10 py-4 sticky top-0 z-50 shadow-md font-poppins flex items-center justify-between flex-wrap">
+      <nav className="bg-white px-4 py-4 sticky top-0 z-50 shadow-md font-poppins flex items-center justify-between flex-wrap lg:px-10">
         {/* Logo */}
-        <div className="flex items-center space-x-4">
-          <NavLink to="/">
-            <img src={Logo} alt="Logo" className="h-10" />
-          </NavLink>
-        </div>
+        <NavLink to="/">
+          <img src={Logo} alt="Logo" className="h-10" />
+        </NavLink>
 
         {/* Hamburger Icon */}
-        <div className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={30} /> : <Menu size={30} />}
+        <div className="lg:hidden" onClick={() => setIsOpen(true)}>
+          <Menu size={30} />
         </div>
 
         {/* Desktop Nav */}
@@ -85,7 +83,6 @@ const Navbar = () => {
                   { to: "/drivers", text: "Drivers" },
                   { to: "/housekeeping", text: "Housekeeping" },
                   { to: "/chef", text: "Chef" },
-
                 ].map(({ to, text }) => (
                   <li key={to}>
                     <NavLink to={to} className="block px-4 py-2 hover:bg-gray-100">
@@ -107,7 +104,7 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* Right Section */}
+        {/* Right Section (always visible) */}
         <div className="flex items-center gap-3 ml-auto">
           <Location />
           <NavLink to="/checkout" className="relative">
@@ -137,10 +134,22 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* Backdrop Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => {
+            setIsOpen(false);
+            setMobileDropdownOpen(false);
+          }}
+        ></div>
+      )}
+
       {/* Slide-in Mobile Menu */}
       <div
-        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 z-50 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <button
           onClick={() => setIsOpen(false)}
@@ -162,12 +171,12 @@ const Navbar = () => {
 
           <li>
             <div
-              onClick={() => toggleDropdown("services")}
+              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
               className="flex items-center justify-between px-2 py-2 cursor-pointer"
             >
-              Services {activeDropdown === "services" ? <ChevronUp /> : <ChevronDown />}
+              Services {mobileDropdownOpen ? <ChevronUp /> : <ChevronDown />}
             </div>
-            {activeDropdown === "services" && (
+            {mobileDropdownOpen && (
               <ul className="pl-4 space-y-2">
                 {[
                   { to: "/maid", text: "Maid Services" },
@@ -177,10 +186,16 @@ const Navbar = () => {
                   { to: "/drivers", text: "Drivers" },
                   { to: "/housekeeping", text: "Housekeeping" },
                   { to: "/chef", text: "Chef" },
-
                 ].map(({ to, text }) => (
                   <li key={to}>
-                    <NavLink to={to} onClick={() => setIsOpen(false)} className="block px-4 py-1 hover:bg-gray-100">
+                    <NavLink
+                      to={to}
+                      onClick={() => {
+                        setIsOpen(false);
+                        setMobileDropdownOpen(false);
+                      }}
+                      className="block px-4 py-1 hover:bg-gray-100"
+                    >
                       {text}
                     </NavLink>
                   </li>
