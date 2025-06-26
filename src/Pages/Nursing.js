@@ -6,42 +6,42 @@ const services = [
   {
     title: "Elderly Care",
     description: "Daily support and companionship for senior citizens with mobility or health challenges.",
-    image: "/images/elderly-care-img.avif",
+    image: "/images/nursing/elderly-care-img.avif",
   },
   {
     title: "Post-Surgical Care",
     description: "Professional nursing to help patients recover safely at home after surgery.",
-    image: "/images/Post-Surgical-Care.avif",
+    image: "/images/nursing/Post-Surgical-Care.avif",
   },
   {
     title: "ICU Care at Home",
     description: "ICU-trained nurses to manage critical care patients with ventilators and monitoring equipment.",
-    image: "/images/ICU-Care.avif",
+    image: "/images/nursing/ICU-Care.avif",
   },
   {
     title: "Baby & Mother Care",
     description: "Trained caregivers to support new mothers and ensure newborn hygiene and feeding.",
-    image: "/images/Baby-Mother-Care.avif",
+    image: "/images/nursing/Baby-Mother-Care.avif",
   },
   {
     title: "Injections & IV Drips",
     description: "On-call nurses for injections, IV fluids, and quick medical procedures at home.",
-    image: "/images/Injections-IV-Drips-img.avif",
+    image: "/images/nursing/Injections-IV-Drips-img.avif",
   },
   {
     title: "Palliative Care",
     description: "Compassionate nursing for terminally ill patients focusing on comfort and quality of life.",
-    image: "/images/Palliative-Care-img.avif",
+    image: "/images/nursing/Palliative-Care-img.avif",
   },
   {
     title: "Bedridden Care",
     description: "24x7 care for patients who are completely immobile, including hygiene and sore prevention.",
-    image: "/images/Bedridden-Care-img.jpg",
+    image: "/images/nursing/Bedridden-Care-img.jpg",
   },
   {
     title: "Night Nursing",
     description: "Professional nursing services available overnight for patient monitoring and care.",
-    image: "/images/Post-Surgical-Care.avif",
+    image: "/images/nursing/Post-Surgical-Care.avif",
   },
 ];
 
@@ -54,26 +54,37 @@ const Nursing = () => {
     setShowForm(true);
   };
 
-  
-
   return (
-    <div className="p-6 md:p-10">
+    <div className="px-4 py-8 sm:px-6 md:px-10">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-green-600">Medical Services We Provide</h1>
-        <p className="text-gray-600 mt-2">Choose the care you need, and we’ll bring it to your doorstep.</p>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black-600">
+          Medical Services We Provide
+        </h1>
+        <p className="text-gray-600 mt-2 text-sm sm:text-base">
+          Choose the care you need, and we’ll bring it to your doorstep.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
         {services.map((service, index) => (
-          <div key={index} className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
-            <img src={service.image} alt={service.title} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-800">{service.title}</h2>
-              <p className="text-gray-600 mt-2">{service.description}</p>
+          <div
+            key={index}
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col overflow-hidden"
+          >
+            <img
+              src={service.image}
+              alt={service.title}
+              className="h-44 w-full object-cover transform hover:scale-105 transition-transform duration-300"
+            />
+            <div className="p-4 flex flex-col justify-between flex-grow">
+              <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800">
+                {service.title}
+              </h2>
+              <p className="text-gray-600 mt-2 text-sm">{service.description}</p>
               <button
                 onClick={() => handleBookNow(service)}
-                className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-              >
+                className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:bg-yellow-600 text-black text-sm hover:brightness-110 transition duration-200 w-full"
+              > 
                 Book Now
               </button>
             </div>
@@ -83,7 +94,7 @@ const Nursing = () => {
 
       {/* Modal with Nurse Form */}
       {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-xl p-6 w-full max-w-2xl relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowForm(false)}
@@ -91,7 +102,7 @@ const Nursing = () => {
             >
               &times;
             </button>
-            <h2 className="text-2xl font-bold text-green-600 mb-4">
+            <h2 className="text-2xl font-bold text-yellow-500 mb-4">
               Book: {selectedService?.title}
             </h2>
             <NurseRequirementForm onClose={() => setShowForm(false)} />

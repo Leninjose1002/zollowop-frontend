@@ -5,7 +5,7 @@ import { useAuth } from "../components/AuthContext";
 import { createRazorpayOrder, verifyRazorpayPayment } from "../api";
 
 const CheckoutPage = () => {
-  const { cart, removeFromCart, getTotal, clearCart } = useCart();
+  const { cart, removeFromCart, getTotal, clearCart, updateQuantity } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -14,6 +14,7 @@ const CheckoutPage = () => {
   const [phone, setPhone] = useState("");
   const [promoCode, setPromoCode] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
+
   const totalCost = getTotal();
 
   const handleConfirmBooking = async () => {
@@ -39,8 +40,7 @@ const CheckoutPage = () => {
         date: bookingDateTime,
         status: "confirmed",
         promoCode,
-          serviceType: cart[0]?.title || "General", // ✅ ADDED this line
-
+        serviceType: cart[0]?.title || "General",
       };
 
       const options = {
@@ -103,35 +103,48 @@ const CheckoutPage = () => {
       ) : (
         <>
           <div className="space-y-4 mb-6">
-            {cart.map((item, index) => (
-              <div
-                key={index}
-                className="flex gap-4 items-center bg-white p-4 rounded-lg shadow"
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-16 h-16 object-cover rounded-md"
-                />
-                <div className="flex-1">
-                  <p className="font-semibold">{item.title}</p>
-                  <p className="text-sm font-medium text-green-600">
-                    ₹
-                    {(() => {
-                      const price = parseInt(item?.price?.replace(/[^\d]/g, "")) || 0;
-                      const qty = item?.quantity || 1;
-                      return price * qty;
-                    })()}
-                  </p>
-                </div>
-                <button
-                  className="text-xs text-red-500 underline"
-                  onClick={() => removeFromCart(index)}
+            {cart.map((item) => {
+              const price = parseInt(item?.price?.replace(/[^\d]/g, "")) || 0;
+              return (
+                <div
+                  key={item.id}
+                  className="flex gap-4 items-center bg-white p-4 rounded-lg shadow"
                 >
-                  Remove
-                </button>
-              </div>
-            ))}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover rounded-md"
+                  />
+                  <div className="flex-1">
+                    <p className="font-semibold">{item.title}</p>
+                    <p className="text-sm font-medium text-green-600">
+                      ₹{price * item.quantity}
+                    </p>
+                    <div className="flex items-center mt-2 space-x-2">
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="px-2 py-1 bg-gray-200 rounded-full text-sm font-bold"
+                      >
+                        –
+                      </button>
+                      <span className="font-medium">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="px-2 py-1 bg-gray-200 rounded-full text-sm font-bold"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    className="text-xs text-red-500 underline"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              );
+            })}
           </div>
 
           <div className="space-y-4">
@@ -140,7 +153,6 @@ const CheckoutPage = () => {
               value={bookingDateTime}
               onChange={(e) => setBookingDateTime(e.target.value)}
               className="w-full p-3 border rounded text-sm"
-              placeholder="Booking Date & Time"
               required
             />
 

@@ -17,6 +17,7 @@ export const CartProvider = ({ children }) => {
 
   const [bookedServices, setBookedServices] = useState(new Set());
 
+  // Sync cart with localStorage and booked services
   useEffect(() => {
     try {
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -28,20 +29,43 @@ export const CartProvider = ({ children }) => {
     setBookedServices(updatedSet);
   }, [cart]);
 
+  // ✅ Add item to cart (merge if exists)
   const addToCart = (item) => {
-    const itemWithQuantity = { ...item, quantity: item.quantity || 1 };
+    const quantity = Number(item.quantity) || 1;
+    const itemWithQuantity = { ...item, quantity };
 
     setCart((prev) => {
-      const exists = prev.find((i) => i.title === itemWithQuantity.title);
-      if (exists) return prev;
+      const exists = prev.find((i) => i.id === itemWithQuantity.id);
+      if (exists) {
+        console.log("🛒 Item exists, updating quantity");
+        return prev.map((i) =>
+          i.id === itemWithQuantity.id
+            ? { ...i, quantity: i.quantity + quantity }
+            : i
+        );
+      }
+      console.log("🛒 Adding new item to cart:", itemWithQuantity);
       return [...prev, itemWithQuantity];
     });
   };
 
-  const removeFromCart = (index) => {
-    setCart((prev) => prev.filter((_, i) => i !== index));
+  // ✅ Remove item by ID
+  const removeFromCart = (id) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // ✅ Update quantity (minimum 1)
+  const updateQuantity = (id, newQuantity) => {
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, quantity: newQuantity > 0 ? newQuantity : 1 }
+          : item
+      )
+    );
+  };
+
+  // ✅ Get total amount
   const getTotal = () => {
     return cart.reduce((sum, item) => {
       const numericPrice = parseInt(item?.price?.replace(/[^\d]/g, "")) || 0;
@@ -50,6 +74,7 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
 
+  // ✅ Clear entire cart
   const clearCart = () => {
     setCart([]);
     localStorage.removeItem("cart");
@@ -57,7 +82,15 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, getTotal, clearCart, bookedServices }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        getTotal,
+        clearCart,
+        bookedServices,
+      }}
     >
       {children}
     </CartContext.Provider>
