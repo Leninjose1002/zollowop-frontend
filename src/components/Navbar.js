@@ -14,8 +14,9 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [showUserSignup, setShowUserSignup] = useState(false);
   const [showEmployeeLogin, setShowEmployeeLogin] = useState(false);
-  const { cart } = useCart();
-  const cartItemCount = cart.length;
+  const { getTotalQuantity } = useCart();
+const cartItemCount = getTotalQuantity();
+
   const dropdownRef = useRef();
 
   // Close desktop dropdown on outside click
@@ -108,13 +109,14 @@ const Navbar = () => {
         <div className="flex items-center gap-3 ml-auto">
           <Location />
           <NavLink to="/checkout" className="relative">
-            <ShoppingCart size={24} className="text-gray-700 hover:text-yellow-500 transition" />
-            {cartItemCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {cartItemCount}
-              </span>
-            )}
-          </NavLink>
+  <ShoppingCart size={24} className="text-gray-700 hover:text-yellow-500 transition" />
+  {cartItemCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1">
+      {cartItemCount}
+    </span>
+  )}
+</NavLink>
+
 
           <button
             onClick={() => setShowUserSignup(true)}

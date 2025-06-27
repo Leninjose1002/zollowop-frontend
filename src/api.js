@@ -5,15 +5,22 @@ const USER_API_URL = `/api/users`;
 const EMPLOYEE_API_URL = `/api/employees`;
 
 // ✅ Register User
+// ✅ Register User
 export const registerUser = async (userData) => {
   try {
     const res = await axiosInstance.post(`${USER_API_URL}/register`, userData);
     return res.data;
   } catch (error) {
     console.error("🛑 Register API Error:", error.response?.data || error.message);
-    throw error.response?.data?.msg || "Signup failed";
+
+    // ✅ Create a new Error object with a proper message
+    const msg = error.response?.data?.msg || "Signup failed";
+    const customError = new Error(msg);
+    customError.response = error.response;
+    throw customError;
   }
 };
+
 
 // ✅ Login User
 export const loginUser = async (credentials) => {

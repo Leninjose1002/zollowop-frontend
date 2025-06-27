@@ -40,7 +40,7 @@ const services = [
 ];
 
 const Housekeeping = () => {
-  const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
+  const { cart, addToCart, updateQuantity } = useCart();
 
   const getCartItem = (id) => cart.find((item) => item.id === id);
 
@@ -57,7 +57,8 @@ const Housekeeping = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {services.map((service) => {
-          const itemInCart = getCartItem(service.id);
+          const cartItem = getCartItem(service.id);
+          const quantity = cartItem?.quantity || 0;
 
           return (
             <div
@@ -76,7 +77,7 @@ const Housekeeping = () => {
                 <p className="text-gray-600 mt-2 text-sm">{service.description}</p>
                 <p className="text-green-600 font-semibold mt-3">{service.price} onwards</p>
 
-                {!itemInCart ? (
+                {!cartItem ? (
                   <button
                     onClick={() => addToCart({ ...service, quantity: 1 })}
                     className="mt-4 px-4 py-2 rounded-full text-sm bg-gradient-to-r from-yellow-400 to-orange-500 hover:brightness-110 transition duration-200 text-black w-full"
@@ -84,25 +85,21 @@ const Housekeeping = () => {
                     Add to Cart
                   </button>
                 ) : (
-                  <div className="mt-4 flex items-center justify-between border rounded-full px-4 py-2 w-full">
+                  <div className="mt-4 flex items-center justify-center gap-3">
                     <button
                       onClick={() =>
-                        itemInCart.quantity === 1
-                          ? removeFromCart(service.id)
-                          : updateQuantity(service.id, itemInCart.quantity - 1)
+                        quantity === 1
+                          ? updateQuantity(service.id, 0)
+                          : updateQuantity(service.id, quantity - 1)
                       }
-                      className="text-lg font-bold text-gray-700 hover:text-black"
+                      className="px-3 py-1 bg-gray-200 text-gray-800 rounded-full font-semibold text-lg"
                     >
                       –
                     </button>
-                    <span className="text-sm font-medium text-gray-800">
-                      {itemInCart.quantity}
-                    </span>
+                    <span className="text-base font-medium">{quantity}</span>
                     <button
-                      onClick={() =>
-                        updateQuantity(service.id, itemInCart.quantity + 1)
-                      }
-                      className="text-lg font-bold text-gray-700 hover:text-black"
+                      onClick={() => updateQuantity(service.id, quantity + 1)}
+                      className="px-3 py-1 bg-gray-200 text-gray-800 rounded-full font-semibold text-lg"
                     >
                       +
                     </button>

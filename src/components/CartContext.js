@@ -37,14 +37,12 @@ export const CartProvider = ({ children }) => {
     setCart((prev) => {
       const exists = prev.find((i) => i.id === itemWithQuantity.id);
       if (exists) {
-        console.log("🛒 Item exists, updating quantity");
         return prev.map((i) =>
           i.id === itemWithQuantity.id
             ? { ...i, quantity: i.quantity + quantity }
             : i
         );
       }
-      console.log("🛒 Adding new item to cart:", itemWithQuantity);
       return [...prev, itemWithQuantity];
     });
   };
@@ -54,15 +52,16 @@ export const CartProvider = ({ children }) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // ✅ Update quantity (minimum 1)
+  // ✅ Update quantity (remove if below 1)
   const updateQuantity = (id, newQuantity) => {
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: newQuantity > 0 ? newQuantity : 1 }
-          : item
-      )
-    );
+    setCart((prev) => {
+      if (newQuantity < 1) {
+        return prev.filter((item) => item.id !== id);
+      }
+      return prev.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      );
+    });
   };
 
   // ✅ Get total amount
@@ -72,6 +71,11 @@ export const CartProvider = ({ children }) => {
       const quantity = item?.quantity || 1;
       return sum + numericPrice * quantity;
     }, 0);
+  };
+
+  // ✅ Get total quantity across all items
+  const getTotalQuantity = () => {
+    return cart.reduce((total, item) => total + (item.quantity || 1), 0);
   };
 
   // ✅ Clear entire cart
@@ -90,6 +94,7 @@ export const CartProvider = ({ children }) => {
         getTotal,
         clearCart,
         bookedServices,
+        getTotalQuantity, // ✅ added
       }}
     >
       {children}

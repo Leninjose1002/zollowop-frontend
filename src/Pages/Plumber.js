@@ -27,50 +27,66 @@ const services = [
 ];
 
 const Plumber = () => {
-  const { cart, addToCart } = useCart();
-  const isInCart = id => cart.some(item => item.id === id);
+  const { cart, addToCart, updateQuantity } = useCart();
+
+  const getCartItem = (id) => cart.find((item) => item.id === id);
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-8 lg:px-16">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">Plumbing Services</h1>
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-4">Plumbing Services</h1>
       <p className="text-center text-gray-600 mb-8">
         Fast, reliable plumbing with certified professionals & 30‑day guarantee.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-        {services.map(s => (
-          <div
-            key={s.id}
-            className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col overflow-hidden"
-          >
-            <img
-              src={s.image}
-              alt={s.title}
-              className="h-40 w-full object-cover transform hover:scale-105 transition-transform duration-300"
-            />
-            <div className="p-5 flex flex-col justify-between flex-grow">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">{s.title}</h3>
-                <p className="text-green-600 font-semibold mt-2">{s.price} onwards</p>
+        {services.map((s) => {
+          const cartItem = getCartItem(s.id);
+          const quantity = cartItem?.quantity || 0;
+
+          return (
+            <div
+              key={s.id}
+              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col overflow-hidden"
+            >
+              <img
+                src={s.image}
+                alt={s.title}
+                className="h-40 w-full object-cover transform hover:scale-105 transition-transform duration-300"
+              />
+              <div className="p-5 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">{s.title}</h3>
+                  <p className="text-green-600 font-semibold mt-2">{s.price} onwards</p>
+                </div>
+
+                {cartItem ? (
+                  <div className="mt-6 flex items-center justify-center gap-3">
+                    <button
+                      onClick={() => updateQuantity(s.id, quantity - 1)}
+                      className="px-3 py-1 bg-gray-200 text-gray-800 rounded-full font-semibold text-lg"
+                    >
+                      –
+                    </button>
+                    <span className="text-base font-medium">{quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(s.id, quantity + 1)}
+                      className="px-3 py-1 bg-gray-200 text-gray-800 rounded-full font-semibold text-lg"
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => addToCart({ ...s, quantity: 1 })}
+                    className="mt-6 px-4 py-2 rounded-full text-sm bg-gradient-to-r from-yellow-400 to-orange-500 hover:brightness-110 transition duration-200"
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
-              {isInCart(s.id) ? (
-                <button
-                  disabled
-                  className="mt-6 bg-gray-300 text-gray-700 px-4 py-2 rounded-full text-sm cursor-not-allowed"
-                >
-                  Added
-                </button>
-              ) : (
-                <button
-                  onClick={() => addToCart({ ...s, quantity: 1 })}
-                  className="mt-6 px-4 py-2 rounded-full text-sm bg-gradient-to-r from-yellow-400 to-orange-500 hover:brightness-110 transition duration-200"
-                >
-                  Add to Cart
-                </button>
-              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

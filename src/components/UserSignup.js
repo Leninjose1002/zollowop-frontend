@@ -11,7 +11,7 @@ const UserSignup = ({ onClose }) => {
     name: '',
     email: '',
     password: '',
-    referredBy: '', 
+    referredBy: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -39,8 +39,15 @@ const UserSignup = ({ onClose }) => {
       setMessage(response.msg || 'Signup successful! Please check your email to verify your account.');
       setFormData({ name: '', email: '', password: '', referredBy: '' });
     } catch (err) {
-      console.error(err);
-      setError(err?.msg || 'Signup failed.');
+      console.error("Registration error:", err);
+
+      if (err.response && err.response.data && err.response.data.msg) {
+        setError(err.response.data.msg);
+      } else if (err.message) {
+        setError(err.message);
+      } else {
+        setError("Signup failed.");
+      }
     } finally {
       setLoading(false);
     }
@@ -92,7 +99,6 @@ const UserSignup = ({ onClose }) => {
               required
               className="border p-2 w-full rounded pr-10"
             />
-
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
@@ -101,8 +107,6 @@ const UserSignup = ({ onClose }) => {
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
-
-          {/* ✅ Referral Code Input */}
           <input
             type="text"
             name="referredBy"
@@ -111,7 +115,6 @@ const UserSignup = ({ onClose }) => {
             onChange={handleChange}
             className="border p-2 w-full rounded"
           />
-
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full transition duration-200"
