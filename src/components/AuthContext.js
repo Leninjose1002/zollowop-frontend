@@ -17,29 +17,28 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   // ✅ Login
-  const login = async (email, password) => {
-    try {
-      await axios.post(
-        "/api/users/login",
-        { email, password },
-        { withCredentials: true } // 🔥 send cookies
-      );
+ 
+const login = async (email, password) => {
+  try {
+    await axios.post(
+      "/users/login", // ✅ FIXED
+      { email, password },
+      { withCredentials: true }
+    );
 
-      const res = await axios.get("/api/users/me", {
-        withCredentials: true, // 🔥 get user via cookie
-      });
+    const res = await axios.get("/users/me", {
+      withCredentials: true,
+    });
 
-      setUser(res.data);
-      setIsAuthenticated(true);
+    setUser(res.data);
+    setIsAuthenticated(true);
+    localStorage.setItem("userId", res.data._id);
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+};
 
-      // ✅ Save userId in localStorage
-      localStorage.setItem("userId", res.data._id);
-
-      return res.data;
-    } catch (err) {
-      throw err;
-    }
-  };
 
   // ✅ Logout
   const logout = useCallback(async () => {

@@ -1,15 +1,15 @@
 // src/api/axiosInstance.js
 import axios from "axios";
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
-      ? "http://localhost:5000"
-      : process.env.REACT_APP_API_BASE_URL,
+      ? "http://localhost:5000/api" // 🧪 Local dev backend
+      : `${process.env.REACT_APP_API_BASE_URL}/api`, // 🌐 Production (Render)
   withCredentials: true,
 });
 
-instance.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -17,6 +17,6 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-console.log("🔍 Axios Base URL:", instance.defaults.baseURL);
+console.log("🔍 Axios Base URL:", axiosInstance.defaults.baseURL);
 
-export default instance;
+export default axiosInstance;

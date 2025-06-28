@@ -15,9 +15,9 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
   const [verifiedStatus, setVerifiedStatus] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-
   const { login } = useAuth();
 
+  // Handle email verification query param
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const verified = params.get('verified');
@@ -30,6 +30,7 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
     }
   }, [location.search]);
 
+  // Handle login submit
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -44,12 +45,18 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
       navigate('/dashboard');
     } catch (err) {
       console.error(err);
-      setError(err?.response?.data?.message || 'Login failed');
+      const message = err?.response?.data?.message || 'Login failed';
+      setError(message);
+
+      if (message.toLowerCase().includes('verify')) {
+        setResendMessage('Would you like to resend the verification email?');
+      }
     } finally {
       setLoading(false);
     }
   };
 
+  // Handle resend verification
   const handleResend = async () => {
     setResending(true);
     setError('');
@@ -57,9 +64,10 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
 
     try {
       const res = await resendVerificationEmail(email);
-      setResendMessage(res.msg || "Verification email resent.");
+      setResendMessage(res.msg || 'Verification email resent.');
     } catch (err) {
-      setError(err);
+      const message = err?.response?.data?.msg || 'Failed to resend verification email.';
+      setError(message);
     } finally {
       setResending(false);
     }
@@ -86,26 +94,29 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
           </button>
         </p>
 
+        {/* ✅ Email verification status messages */}
         {verifiedStatus === 'true' && (
-          <p className="text-green-600 text-sm mb-3 text-center">
-            ✅ Email verified successfully. Please log in.
-          </p>
-        )}
-        {verifiedStatus === 'expired' && (
-          <p className="text-red-600 text-sm mb-3 text-center">
-            ❌ Verification link expired or invalid.
-          </p>
-        )}
-        {verifiedStatus === 'already' && (
-          <p className="text-yellow-600 text-sm mb-3 text-center">
-            ℹ️ Email already verified. Please log in.
-          </p>
-        )}
+  <p className="text-green-600 text-sm mb-3 text-center">
+    ✅ Email verified successfully. Please log in.
+  </p>
+)}
+{verifiedStatus === 'already' && (
+  <p className="text-yellow-600 text-sm mb-3 text-center">
+    ℹ️ Email already verified. Please log in.
+  </p>
+)}
+{verifiedStatus === 'expired' && (
+  <p className="text-red-600 text-sm mb-3 text-center">
+    ❌ Verification link expired or invalid.
+  </p>
+)}
 
+
+        {/* ✅ Error and resend email section */}
         {error && (
           <>
             <p className="text-red-500 text-sm mb-3 text-center">{error}</p>
-            {error.toLowerCase().includes("verify") && (
+            {resendMessage && (
               <div className="text-center mb-3">
                 <p className="text-sm text-gray-600">Resend verification email:</p>
                 <button
@@ -113,11 +124,9 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
                   disabled={resending || !email}
                   className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded font-semibold mt-1"
                 >
-                  {resending ? "Sending..." : "Resend Email"}
+                  {resending ? 'Sending...' : 'Resend Email'}
                 </button>
-                {resendMessage && (
-                  <p className="text-green-600 text-sm mt-1">{resendMessage}</p>
-                )}
+                <p className="text-green-600 text-sm mt-2">{resendMessage}</p>
               </div>
             )}
           </>
@@ -134,7 +143,7 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
           />
           <div className="relative">
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               value={password}
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}

@@ -1,10 +1,8 @@
-// src/api/api.js
 import axiosInstance from "./api/axiosInstance";
 
-const USER_API_URL = `/api/users`;
-const EMPLOYEE_API_URL = `/api/employees`;
+const USER_API_URL = `/users`;
+const EMPLOYEE_API_URL = `/employees`;
 
-// ✅ Register User
 // ✅ Register User
 export const registerUser = async (userData) => {
   try {
@@ -12,15 +10,12 @@ export const registerUser = async (userData) => {
     return res.data;
   } catch (error) {
     console.error("🛑 Register API Error:", error.response?.data || error.message);
-
-    // ✅ Create a new Error object with a proper message
     const msg = error.response?.data?.msg || "Signup failed";
     const customError = new Error(msg);
     customError.response = error.response;
     throw customError;
   }
 };
-
 
 // ✅ Login User
 export const loginUser = async (credentials) => {
@@ -33,7 +28,7 @@ export const loginUser = async (credentials) => {
   }
 };
 
-// ✅ Fetch All Users (Admin)
+// ✅ Fetch All Users
 export const fetchUsers = async (token) => {
   try {
     const response = await axiosInstance.get(USER_API_URL, {
@@ -81,6 +76,22 @@ export const registerEmployee = async (employeeData) => {
   }
 };
 
+// ✅ Verify Email Token
+export const verifyEmailToken = async (token) => {
+  try {
+    const res = await axiosInstance.get(`${USER_API_URL}/verify-email/${token}`, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    const message = error?.response?.data?.msg || "Verification failed";
+    console.error("🛑 Email Verification API Error:", message);
+    throw new Error(message); // ✅ Wrap in Error object
+  }
+};
+
+
+
 // ✅ Resend Verification Email
 export const resendVerificationEmail = async (email) => {
   try {
@@ -92,10 +103,10 @@ export const resendVerificationEmail = async (email) => {
   }
 };
 
-// ✅ Contact Form Submission
+// ✅ Contact Form
 export const submitContactForm = async (formData) => {
   try {
-    const res = await axiosInstance.post(`/api/contact`, formData);
+    const res = await axiosInstance.post(`/contact`, formData);
     return res.data;
   } catch (error) {
     console.error("🛑 Contact Form API Error:", error.response?.data || error.message);
@@ -103,10 +114,10 @@ export const submitContactForm = async (formData) => {
   }
 };
 
-// ✅ FIXED: Create Razorpay Order (using axiosInstance now)
+// ✅ Razorpay Order Creation
 export const createRazorpayOrder = async (amount) => {
   try {
-    const res = await axiosInstance.post(`/api/payment/create-order`, { amount });
+    const res = await axiosInstance.post(`/payment/create-order`, { amount });
     return res.data;
   } catch (error) {
     console.error("🛑 Razorpay Create Order Error:", error.response?.data || error.message);
@@ -114,14 +125,12 @@ export const createRazorpayOrder = async (amount) => {
   }
 };
 
-// ✅ Verify Razorpay Payment
+// ✅ Razorpay Payment Verification
 export const verifyRazorpayPayment = async (paymentData) => {
   try {
-    const res = await axiosInstance.post(
-      `/api/payment/verify-payment`,
-      paymentData,
-      { withCredentials: true } // ✅ This ensures cookies/session are sent
-    );
+    const res = await axiosInstance.post(`/payment/verify-payment`, paymentData, {
+      withCredentials: true,
+    });
     return res.data;
   } catch (error) {
     console.error("🛑 Razorpay Payment Verification Error:", error.response?.data || error.message);
@@ -132,7 +141,7 @@ export const verifyRazorpayPayment = async (paymentData) => {
 // ✅ Fetch Maids
 export const fetchMaids = async (selectedHours) => {
   try {
-    const res = await axiosInstance.get(`/api/maids?selectedHours=${selectedHours}`);
+    const res = await axiosInstance.get(`/maids?selectedHours=${selectedHours}`);
     return res.data;
   } catch (error) {
     console.error("Error fetching maids:", error.response?.data || error.message);
