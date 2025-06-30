@@ -16,7 +16,7 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
-// triggering redeploy
+// triggering redeplo
 
 console.log("🔍 Axios Base URL:", axiosInstance.defaults.baseURL);
 
