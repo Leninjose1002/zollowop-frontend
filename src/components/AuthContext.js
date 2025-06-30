@@ -1,3 +1,4 @@
+// src/context/AuthContext.js
 import {
   createContext,
   useContext,
@@ -17,63 +18,59 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   // ✅ Login
- 
-const login = async (email, password) => {
-  try {
-    await axios.post(
-      "/users/login", // ✅ FIXED
-      { email, password },
-      { withCredentials: true }
-    );
+  const login = async (email, password) => {
+    try {
+      await axios.post(
+        "/users/login",
+        { email, password },
+        { withCredentials: true }
+      );
 
-    const res = await axios.get("/users/me", {
-      withCredentials: true,
-    });
+      const res = await axios.get("/users/me", {
+        withCredentials: true,
+      });
 
-    setUser(res.data);
-    setIsAuthenticated(true);
-    localStorage.setItem("userId", res.data._id);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
-};
-
+      setUser(res.data);
+      setIsAuthenticated(true);
+      localStorage.setItem("userId", res.data._id);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
   // ✅ Logout
   const logout = useCallback(async () => {
+    const wasAdmin = user?.isAdmin;
+
     try {
-      await axios.post("/api/users/logout", {}, { withCredentials: true });
+      await axios.post("/users/logout", {}, { withCredentials: true });
     } catch (err) {
       console.error("Logout error:", err);
     }
 
     setUser(null);
     setIsAuthenticated(false);
-
-    // ✅ Remove userId from localStorage
     localStorage.removeItem("userId");
 
-    navigate(user?.isAdmin ? "/admin-login" : "/user-login");
+    navigate(wasAdmin ? "/admin-login" : "/user-login");
   }, [navigate, user]);
 
   // ✅ Auto-fetch user from cookie
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("/api/users/me", {
+        const res = await axios.get("/users/me", {
           withCredentials: true,
         });
 
         setUser(res.data);
         setIsAuthenticated(true);
-
-        // ✅ Store userId if login was via cookie
         localStorage.setItem("userId", res.data._id);
       } catch (err) {
         setUser(null);
         setIsAuthenticated(false);
-        localStorage.removeItem("userId"); // remove stale ID
+        localStorage.removeItem("userId");
       } finally {
         setLoading(false);
       }

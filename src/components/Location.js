@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosInstance';
 import { MapPin } from 'lucide-react';
 
 const Location = () => {
@@ -13,12 +13,10 @@ const Location = () => {
             const { latitude, longitude } = pos.coords;
 
             try {
-              const res = await axios.get("http://localhost:5000/api/location", {
-                params: {
-                  lat: latitude,
-                  lng: longitude,
-                },
+              const res = await axios.get("/location", {
+                params: { lat: latitude, lng: longitude },
               });
+
 
               const city = res.data.city;
               setLocation(city || "City not found");

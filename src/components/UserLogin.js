@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 import { resendVerificationEmail } from '../api';
 
-const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup = () => {} }) => {
+const UserLogin = ({ onClose = () => { }, setShowLogin = () => { }, setShowSignup = () => { } }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -96,20 +96,20 @@ const UserLogin = ({ onClose = () => {}, setShowLogin = () => {}, setShowSignup 
 
         {/* ✅ Email verification status messages */}
         {verifiedStatus === 'true' && (
-  <p className="text-green-600 text-sm mb-3 text-center">
-    ✅ Email verified successfully. Please log in.
-  </p>
-)}
-{verifiedStatus === 'already' && (
-  <p className="text-yellow-600 text-sm mb-3 text-center">
-    ℹ️ Email already verified. Please log in.
-  </p>
-)}
-{verifiedStatus === 'expired' && (
-  <p className="text-red-600 text-sm mb-3 text-center">
-    ❌ Verification link expired or invalid.
-  </p>
-)}
+          <p className="text-green-600 text-sm mb-3 text-center">
+            ✅ Email verified successfully. Please log in.
+          </p>
+        )}
+        {verifiedStatus === 'already' && (
+          <p className="text-yellow-600 text-sm mb-3 text-center">
+            ℹ️ Email already verified. Please log in.
+          </p>
+        )}
+        {verifiedStatus === 'expired' && (
+          <p className="text-red-600 text-sm mb-3 text-center">
+            ❌ Verification link expired or invalid.
+          </p>
+        )}
 
 
         {/* ✅ Error and resend email section */}
