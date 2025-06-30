@@ -4,8 +4,8 @@ import axios from "axios";
 const axiosInstance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
-      ? "http://localhost:5000/api"
-      : "https://backend-new-ip8j.onrender.com/api", // ✅ Hardcoded temporarily for testing
+      ? "http://localhost:5000/api" // 🧪 Local dev backend
+      : `${process.env.REACT_APP_API_BASE_URL}/api`, // 🌐 Production (Render)
   withCredentials: true,
 });
 
@@ -16,6 +16,7 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
+// triggering redeploy
 
 console.log("🔍 Axios Base URL:", axiosInstance.defaults.baseURL);
 
