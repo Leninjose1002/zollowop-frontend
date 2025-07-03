@@ -1,7 +1,9 @@
+const GOOGLE_AUTH_URL = `${process.env.REACT_APP_API_BASE_URL}/users/google`;
+
 const GoogleUserLoginButton = () => {
   const handleGoogleLogin = () => {
-    localStorage.removeItem("token"); // ✅ clear old token
-    window.location.href = 'http://localhost:5000/api/users/google'; // ✅ FIXED
+    localStorage.removeItem("token");
+    window.location.href = GOOGLE_AUTH_URL;
   };
 
   return (
