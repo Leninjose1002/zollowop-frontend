@@ -1,4 +1,4 @@
-const GOOGLE_AUTH_URL = `${process.env.REACT_APP_API_BASE_URL}/users/google`;
+const GOOGLE_AUTH_URL = `${process.env.REACT_APP_API_BASE_URL}/api/users/google`;
 
 const GoogleUserLoginButton = () => {
   const handleGoogleLogin = () => {
