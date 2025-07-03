@@ -55,7 +55,7 @@ const ChefRequirementForm = ({ closeModal }) => {
     };
 
     try {
-      const res = await axiosInstance.post("/api/bookings/chef", dataToSend); // ✅ axiosInstance handles baseURL
+      const res = await axiosInstance.post("/bookings/chef", dataToSend); // ✅ axiosInstance handles baseURL
       const result = res.data;
 
       if (result.success) {

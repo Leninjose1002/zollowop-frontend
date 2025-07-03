@@ -41,7 +41,7 @@ const NurseRequirementForm = ({ onClose, selectedService }) => {
     setLoading(true);
 
     try {
-      const res = await axiosInstance.post("/api/bookings/nurse", {
+      const res = await axiosInstance.post("/bookings/nurse", {
         ...form,
       });
 
