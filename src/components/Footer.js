@@ -1,8 +1,13 @@
 import React from "react";
 import Logo from "../assets/zollowupf.png";
-import { Link } from "react-router-dom"; // or 'next/link' if using Next.js
+import { Link } from "react-router-dom"; 
+import PrimaryButton from "./PrimaryButton";
+import { useNavigate } from 'react-router-dom';
+
 
 const Footer = () => {
+        const navigate = useNavigate();
+  
   return (
     <footer className="bg-gray-200 text-black py-12">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-4">
@@ -12,13 +17,10 @@ const Footer = () => {
           <p className="text-gray-800 text-sm leading-relaxed font-roboto">
             ZollowUp is your trusted partner in delivering high-quality, reliable domestic and commercial services. Our team of experienced professionals is dedicated to making your experience seamless and satisfying.
           </p>
-          <button className="border text-gray-50 mt-6 relative group cursor-pointer overflow-hidden h-14 w-44 rounded-full bg-neutral-800 p-2 font-bold hover:bg-sky-700 transition duration-300">
-            <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-16 h-16 rounded-full group-hover:scale-150 duration-700 right-12 top-12 bg-yellow-500"></div>
-            <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-12 h-12 rounded-full group-hover:scale-150 duration-700 right-20 -top-6 bg-orange-500"></div>
-            <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-8 h-8 rounded-full group-hover:scale-150 duration-700 right-32 top-6 bg-pink-500"></div>
-            <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-4 h-4 rounded-full group-hover:scale-150 duration-700 right-2 top-12 bg-red-600"></div>
-            <p className="relative z-20 text-base font-roboto">Join Us Today</p>
-          </button>
+           <p className="text-gray-800 text-sm leading-relaxed font-roboto mt-4 mb-5">
+We offer transparent pricing, convenient scheduling, and doorstep delivery of all services so your day isn’t disrupted.          </p>
+                    <PrimaryButton label="Contact Us" onClick={() => navigate('/contact')} />
+
         </div>
 
         {/* Column 2: Quick Links */}

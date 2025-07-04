@@ -1,7 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import PrimaryButton from "./PrimaryButton";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Introduction = () => {
+	  const navigate = useNavigate();
+
 	return (
 		<section className="bg-[#F8FBFF] py-10 px-4 md:px-16">
 			<div className="max-w-7xl mx-auto">
@@ -17,7 +23,7 @@ const Introduction = () => {
 						Reliable Home Care, Straight to Your Doorstep
 					</motion.h2>
 					<p className="text-gray-600 mt-3 text-lg font-sans">
-Everything you need for home upkeep and self-care, all in one place.					</p>
+						Everything you need for home upkeep and self-care, all in one place.					</p>
 				</div>
 
 				{/* Content Section */}
@@ -139,12 +145,8 @@ Everything you need for home upkeep and self-care, all in one place.					</p>
 							viewport={{ once: true }}
 							transition={{ duration: 0.8, delay: 1.3 }}
 						>
-							<a
-								href="/maid"
-								className="inline-block bg-accent text-white font-medium px-6 py-3 rounded-full hover:bg-yellow-500 transition duration-300"
-							>
-								Book a Service
-							</a>
+							<PrimaryButton label="Contact Us" onClick={() => navigate('/contact')} />
+
 						</motion.div>
 					</div>
 				</div>

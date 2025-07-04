@@ -1,37 +1,52 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaBroom, FaUserNurse, FaUtensils, FaTools, FaBolt, FaWater } from 'react-icons/fa';
+import { FaBroom, FaUserNurse, FaUtensils, FaTools, FaBolt, FaWater, FaRedRiver } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
 
 const services = [
   {
     icon: <FaBroom className="text-3xl text-orange-500" />,
-    title: 'House Cleaning',
+    title: 'Maid Service',
     desc: 'Spotless cleaning services for a tidy, fresh home every time.',
+    path: '/maid',
+
   },
   {
     icon: <FaUserNurse className="text-3xl text-blue-500" />,
-    title: 'Elderly Care',
+    title: 'Nursing Care',
     desc: 'Caring and compassionate help for your loved ones.',
+    path: '/nursing',
   },
   {
-    icon: <FaUtensils className="text-3xl text-red-500" />,
-    title: 'Cook Services',
+    icon: <FaBolt className="text-3xl text-red-500" />,
+    title: 'Electrician Services',
     desc: 'Skilled cooks to prepare home-style or special meals.',
+    path: '/electrician',
   },
   {
     icon: <FaTools className="text-3xl text-green-500" />,
-    title: 'Handyman Help',
+    title: 'Plumber Services',
     desc: 'Quick fixes and maintenance by trusted professionals.',
+    path: '/plumber',
   },
   {
-    icon: <FaBolt className="text-3xl text-yellow-500" />,
-    title: 'Electricians',
+    icon: <FaRedRiver className="text-3xl text-yellow-500" />,
+    title: 'Driver',
     desc: 'Certified electricians for safe and efficient solutions.',
+    path: '/drivers',
   },
   {
     icon: <FaWater className="text-3xl text-cyan-500" />,
-    title: 'Plumbers',
+    title: 'Housekeeping Services',
     desc: 'Reliable plumbing services at your convenience.',
+    path: '/housekeeping',
+  },
+  {
+    icon: <FaUtensils className="text-3xl text-cyan-500" />,
+    title: 'Chef Services',
+    desc: 'Reliable plumbing services at your convenience.',
+    path: '/chef',
   },
 ];
 
@@ -61,21 +76,21 @@ const Services = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.map((service, index) => (
-          <motion.div
-            key={index}
-            className="bg-[#F8FBFF] shadow-md rounded-2xl p-6 text-left hover:shadow-lg transition duration-300"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            viewport={{ once: true }}
-          >
-            <div className="mb-4">{service.icon}</div>
-            <h3 className="text-xl font-semibold text-black font-poppins mb-2">
-              {service.title}
-            </h3>
-            <p className="text-gray-600 text-base font-roboto">{service.desc}</p>
-          </motion.div>
-        ))}
+          <Link to={service.path} key={index}>
+            <motion.div
+              className="bg-[#F8FBFF] shadow-md rounded-2xl p-6 text-left hover:shadow-lg transition duration-300"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="mb-4">{service.icon}</div>
+              <h3 className="text-xl font-semibold text-black font-poppins mb-2">
+                {service.title}
+              </h3>
+              <p className="text-gray-600 text-base font-roboto">{service.desc}</p>
+            </motion.div>
+          </Link>))}
       </div>
     </section>
   );

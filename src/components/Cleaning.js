@@ -32,9 +32,9 @@ const Cleaning = () => {
       path: "/housekeeping",
     },
     {
-      title: "Cooking",
+      title: "Chef",
       image: "https://img.freepik.com/premium-photo/young-woman-cook-sweet-cake-kitchen_41471-8748.jpg",
-      path: "/cooks",
+      path: "/Chef",
     },
     {
       title: "Nanny",
@@ -87,14 +87,14 @@ const Cleaning = () => {
         {/* 🎯 Updated Arrow Buttons */}
         <button
           onClick={() => sliderRef.current.slickPrev()}
-          className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-yellow-400 to-orange-500 text-white shadow-lg p-2 rounded-full z-10 hover:scale-110 transition"
+          className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-blue-400 to-blue-500 text-white shadow-lg p-2 rounded-full z-10 hover:scale-110 transition"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
 
         <button
           onClick={() => sliderRef.current.slickNext()}
-          className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-yellow-400 to-orange-500 text-white shadow-lg p-2 rounded-full z-10 hover:scale-110 transition"
+          className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-blue-400 to-blue-500 text-white shadow-lg p-2 rounded-full z-10 hover:scale-110 transition"
         >
           <ChevronRight className="w-6 h-6" />
         </button>

@@ -6,8 +6,13 @@ import AboutCta from "../components/AboutCta";
 import Cards from "../components/Cards";
 import ExitIntentPopup from "../components/ExitIntentPopup";
 import Handycleaning from "../components/Handycleaning";
+import PrimaryButton from "../components/PrimaryButton";
+import { useNavigate } from 'react-router-dom';
+
 
 const About = () => {
+    const navigate = useNavigate();
+  
   return (
     <div className="bg-light">
       <ExitIntentPopup />
@@ -111,14 +116,10 @@ const About = () => {
           <li className="flex items-center"><span className="text-accent mr-3">&#10003;</span> Reliable Services at Your Convenience</li>
         </ul>
         <div className="text-center">
-          <button className="relative group overflow-hidden h-16 w-48 rounded-full bg-primary text-white font-extrabold hover:bg-accent transition-all duration-300">
-            <div className="absolute w-16 h-16 rounded-full bg-yellow-500 right-12 top-12 group-hover:-top-1 group-hover:-right-2 group-hover:scale-150 transition-all duration-700 z-10"></div>
-            <div className="absolute w-12 h-12 rounded-full bg-orange-500 right-20 -top-6 group-hover:-top-1 group-hover:-right-2 group-hover:scale-150 transition-all duration-700 z-10"></div>
-            <div className="absolute w-8 h-8 rounded-full bg-pink-500 right-32 top-6 group-hover:-top-1 group-hover:-right-2 group-hover:scale-150 transition-all duration-700 z-10"></div>
-            <div className="absolute w-4 h-4 rounded-full bg-red-600 right-2 top-12 group-hover:-top-1 group-hover:-right-2 group-hover:scale-150 transition-all duration-700 z-10"></div>
-            <p className="relative z-20 text-xl font-sans">Get Started</p>
-          </button>
-        </div>
+            <PrimaryButton label="Book Now" onClick={() => navigate('/contact')} />
+
+</div>
+
       </div>
 
       <Cards />

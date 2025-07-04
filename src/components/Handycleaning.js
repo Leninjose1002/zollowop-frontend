@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 
 const Handycleaning = () => {
   return (
@@ -40,9 +42,12 @@ const Handycleaning = () => {
       </ul>
 
       <div className="text-center">
+          <Link to="/services">
+
         <button className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-all">
           Get Started
         </button>
+        </Link>
       </div>
     </div>
   );

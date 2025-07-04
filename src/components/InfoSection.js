@@ -6,8 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import PrimaryButton from "./PrimaryButton";
 
 const Services = () => {
+
   useEffect(() => {
     AOS.init({ duration: 800, easing: "ease-in-out", once: true });
   }, []);
@@ -18,7 +20,7 @@ const Services = () => {
     { title: "Maid Services", image: "https://img.freepik.com/free-photo/young-woman-wearing-apron-rubber-gloves-holding-basin-with-cleaning-tools-with-big-smile-face-showing-thumbs-up-orange-wall_141793-13583.jpg", path: "/maid" },
     { title: "Nursing Care", image: "https://img.freepik.com/premium-photo/indian-nurse-with-uniform_984354-3724.jpg", path: "/nursing" },
     { title: "Drivers", image: "https://img.freepik.com/premium-photo/man-car-tablet-delivery-management-ecommerce-order-online-shopping-transport-logistics-smile-happy-courier-worker-technology-van-e-commerce-product-retail-distribution_590464-96742.jpg", path: "/drivers" },
-    { title: "Cooks", image: "https://img.freepik.com/free-photo/young-confident-caucasian-cook-girl-chef-uniform-holds-frying-pan-thumbs-up-isolated-green-wall-with-copy-space_141793-33183.jpg", path: "/cooks" },
+    { title: "Cooks", image: "https://img.freepik.com/free-photo/young-confident-caucasian-cook-girl-chef-uniform-holds-frying-pan-thumbs-up-isolated-blue-wall-with-copy-space_141793-33183.jpg", path: "/cooks" },
     { title: "Electrician", image: "https://mehedi.asiandevelopers.com/demo/html/fouens/images/services/3.jpg", path: "/electrician" },
     { title: "Plumber", image: "https://img.freepik.com/free-photo/sanitary-technician-gesturing-thumb-up_23-2147772204.jpg", path: "/plumber" },
     { title: "Housekeeping", image: "https://img.freepik.com/free-photo/chambermaid-hotel-room_23-2148095321.jpg", path: "/housekeeping" },
@@ -49,14 +51,14 @@ const Services = () => {
         <Slider ref={sliderRef} {...settings}>
           {services.map((service, index) => (
             <div key={index} className="p-4" data-aos="zoom-in" data-aos-delay={index * 100}>
-              <div 
+              <div
                 className="card bg-white rounded-2xl shadow-lg relative cursor-pointer overflow-hidden group"
                 onClick={() => navigate(service.path)}
               >
                 <div className="relative">
-                  <img 
-                    src={service.image} 
-                    alt={service.title} 
+                  <img
+                    src={service.image}
+                    alt={service.title}
                     className="h-44 w-full object-cover rounded-t-2xl transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -75,26 +77,22 @@ const Services = () => {
           ))}
         </Slider>
 
-        <button className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-green-800 shadow-lg text-white p-2 rounded-full z-10 hover:bg-green-600" onClick={() => sliderRef.current.slickPrev()}>
+        <button className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-blue-500 shadow-lg text-white p-2 rounded-full z-10 hover:bg-blue-600" onClick={() => sliderRef.current.slickPrev()}>
           <ChevronLeft className="w-6 h-6" />
         </button>
 
-        <button className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-green-800 shadow-lg text-white p-2 rounded-full z-10 hover:bg-green-600" onClick={() => sliderRef.current.slickNext()}>
+        <button className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-blue-500 shadow-lg text-white p-2 rounded-full z-10 hover:bg-blue-600" onClick={() => sliderRef.current.slickNext()}>
           <ChevronRight className="w-6 h-6" />
         </button>
       </div>
 
-     {/* Call to Action */}
+      {/* Call to Action */}
       <div className="text-center mt-16" data-aos="fade-up">
         <p className="text-gray-700 font-sans mb-6">
           Discover comfort and convenience with every service — let us help you take care of your home.
         </p>
-        <button
-          onClick={() => navigate("/services")}
-          className="bg-accent text-white font-semibold py-3 px-8 rounded-full hover:bg-yellow-500 transition font-sans"
-        >
-          Explore Full List
-        </button>
+        <PrimaryButton label="Explore Full List" onClick={() => navigate('/services')} />
+
       </div>
     </div>
   );

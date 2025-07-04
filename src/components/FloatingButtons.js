@@ -6,24 +6,18 @@ import { useAuth } from "./AuthContext"; // ✅ Adjust path if needed
 
 const FloatingButtons = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { user } = useAuth(); // ✅ Get current user
+  const { user } = useAuth();
 
-  // Show arrow when scrolled down
+  // Show scroll-to-top button after scrolling down
   useEffect(() => {
-    const toggleVisibility = () => {
-      setIsVisible(window.scrollY > 300);
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    const handleScroll = () => setIsVisible(window.scrollY > 300);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scroll to top function
+  // Scroll to top
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -34,43 +28,42 @@ const FloatingButtons = () => {
           href="https://wa.link/xudfo1"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition"
+          aria-label="Chat on WhatsApp"
+          className="w-12 h-12 flex items-center justify-center bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 hover:scale-110 transition-transform duration-300"
         >
-          <FaWhatsapp size={24} />
+          <FaWhatsapp size={22} />
         </a>
 
         {/* Call Button */}
         <a
-          href="tel:+91 9267987940"
-          className="flex items-center justify-center w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition"
+          href="tel:+919267987940"
+          aria-label="Call us"
+          className="w-12 h-12 flex items-center justify-center bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 hover:scale-110 transition-transform duration-300"
         >
-          <FaPhoneAlt size={24} />
+          <FaPhoneAlt size={20} />
         </a>
 
         {/* CTA Button */}
         <Link
           to="/employee-form"
-          className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-full transition"
+  className="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-md hover:from-cyan-500 hover:to-blue-600 hover:scale-105 transition-transform duration-300"
         >
           मुझे नौकरी चाहिए..
         </Link>
 
         {/* Scroll to Top Button */}
-        <div
-          className={`transition-opacity duration-500 ${
+        <button
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          className={`w-12 h-12 flex items-center justify-center text-white rounded-full shadow-xl transition-opacity duration-500 ${
             isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          } bg-gradient-to-r from-pink-500 to-yellow-500 hover:scale-110 animate-bounce`}
         >
-          <button
-            onClick={scrollToTop}
-            className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-full shadow-xl hover:scale-110 transition transform animate-bounce"
-          >
-            <FaArrowUp size={20} />
-          </button>
-        </div>
+          <FaArrowUp size={20} />
+        </button>
       </div>
 
-      {/* ✅ ChatBox - only show if user is logged in */}
+      {/* ChatBox (only for logged-in users) */}
       {user?.name && <ChatBox currentUser={user} />}
     </>
   );

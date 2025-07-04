@@ -52,7 +52,7 @@ const cartItemCount = getTotalQuantity();
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `transition ${isActive ? "text-yellow-500 font-semibold" : "text-gray-800 hover:text-yellow-500"}`
+              `transition ${isActive ? "text-blue-500 font-semibold" : "text-gray-800 hover:text-blue-500"}`
             }
           >
             Home
@@ -60,7 +60,7 @@ const cartItemCount = getTotalQuantity();
           <NavLink
             to="/about"
             className={({ isActive }) =>
-              `transition ${isActive ? "text-yellow-500 font-semibold" : "text-gray-800 hover:text-yellow-500"}`
+              `transition ${isActive ? "text-blue-500 font-semibold" : "text-gray-800 hover:text-blue-500"}`
             }
           >
             AboutUs
@@ -70,7 +70,7 @@ const cartItemCount = getTotalQuantity();
           <div className="relative">
             <div
               onClick={() => toggleDropdown("services")}
-              className="flex items-center gap-1 cursor-pointer text-gray-800 hover:text-yellow-500 transition"
+              className="flex items-center gap-1 cursor-pointer text-gray-800 hover:text-blue-500 transition"
             >
               Services {activeDropdown === "services" ? <ChevronUp /> : <ChevronDown />}
             </div>
@@ -98,7 +98,7 @@ const cartItemCount = getTotalQuantity();
           <NavLink
             to="/contact"
             className={({ isActive }) =>
-              `transition ${isActive ? "text-yellow-500 font-semibold" : "text-gray-800 hover:text-yellow-500"}`
+              `transition ${isActive ? "text-blue-500 font-semibold" : "text-gray-800 hover:text-blue-500"}`
             }
           >
             ContactUs
@@ -109,7 +109,7 @@ const cartItemCount = getTotalQuantity();
         <div className="flex items-center gap-3 ml-auto">
           <Location />
           <NavLink to="/checkout" className="relative">
-  <ShoppingCart size={24} className="text-gray-700 hover:text-yellow-500 transition" />
+  <ShoppingCart size={24} className="text-gray-700 hover:text-blue-500 transition" />
   {cartItemCount > 0 && (
     <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1">
       {cartItemCount}
@@ -120,7 +120,7 @@ const cartItemCount = getTotalQuantity();
 
           <button
             onClick={() => setShowUserSignup(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 text-sm text-gray-700 hover:bg-yellow-100"
+  className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500 text-sm text-cyan-600 hover:bg-cyan-50 transition duration-300"
           >
             <FaUser />
             User Signup
@@ -128,7 +128,7 @@ const cartItemCount = getTotalQuantity();
 
           <button
             onClick={() => setShowEmployeeLogin(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400 hover:bg-yellow-500 text-sm text-black font-semibold"
+  className="flex items-center gap-2 px-4 py-2 rounded-full text-sm text-white font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 shadow-md transition duration-300"
           >
             <FaUserTie />
             Employee Login

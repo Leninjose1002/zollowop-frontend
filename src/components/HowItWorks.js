@@ -4,17 +4,17 @@ import { motion } from "framer-motion";
 
 const steps = [
   {
-    icon: <FaSearch className="text-4xl text-yellow-500 mb-4" />,
+    icon: <FaSearch className="text-4xl text-blue-500 mb-4" />,
     title: "1. Choose a Service",
     description: "Select from a wide range of cleaning, cooking, and caregiving services tailored to your needs.",
   },
   {
-    icon: <FaCalendarCheck className="text-4xl text-yellow-500 mb-4" />,
+    icon: <FaCalendarCheck className="text-4xl text-blue-500 mb-4" />,
     title: "2. Pick Date & Time",
     description: "Schedule a convenient slot for your appointment and leave the rest to us.",
   },
   {
-    icon: <FaHome className="text-4xl text-yellow-500 mb-4" />,
+    icon: <FaHome className="text-4xl text-blue-500 mb-4" />,
     title: "3. Relax at Home",
     description: "Our verified professional arrives at your doorstep to deliver hassle-free service.",
   },

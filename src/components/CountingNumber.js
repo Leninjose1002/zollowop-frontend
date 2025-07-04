@@ -36,7 +36,7 @@ const CountingNumber = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="flex flex-col items-center sm:items-start sm:flex-row gap-4"
               >
-                <i className={`fas ${stat.icon} text-4xl sm:text-5xl text-yellow-400`} aria-hidden="true"></i>
+                <i className={`fas ${stat.icon} text-4xl sm:text-5xl text-blue-800`} aria-hidden="true"></i>
                 <div>
                   <h3 className="text-3xl font-bold font-poppins">
                     <CountUp end={stat.target} duration={2} />+

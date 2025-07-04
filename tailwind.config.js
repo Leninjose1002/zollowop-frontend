@@ -9,7 +9,7 @@ module.exports = {
       },
       colors: {
         primary: '#111111',
-        accent: '#FBBF24',
+        accent: '#3B82F6', // ✅ changed from yellow to Tailwind blue-500
         light: '#FAFAFA',
       }
     },

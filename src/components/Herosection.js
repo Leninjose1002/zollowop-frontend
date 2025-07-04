@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
+import PrimaryButton from "./PrimaryButton";
+
 
 const HeroSection = () => {
   useEffect(() => {
@@ -52,12 +53,8 @@ const HeroSection = () => {
             </p>
 
             <div className="mt-6">
-              <button
-                onClick={() => navigate("/services")}
-                className="bg-accent hover:bg-yellow-500 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition"
-              >
-                Book a Service Now <FaArrowRight />
-              </button>
+                     <PrimaryButton label="Book Your Service" onClick={() => navigate('/services')} />
+
             </div>
           </div>
 

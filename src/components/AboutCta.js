@@ -1,8 +1,13 @@
 import React from "react";
+
 import PrimaryButton from "../components/PrimaryButton";
+import { useNavigate } from 'react-router-dom';
+
 
 
 const AboutCta = () => {
+    const navigate = useNavigate();
+
   return (
     <div className="relative bg-blue-900 text-white text-center py-20 px-4 sm:px-8 overflow-hidden">
       {/* Background Image with overlay */}
@@ -29,7 +34,7 @@ const AboutCta = () => {
 
           <span className="hidden sm:inline-block text-white">|</span>
 
-          <PrimaryButton label="Contact Us" onClick={() => console.log("Clicked")} />
+          <PrimaryButton label="Contact Us" onClick={() => navigate('/contact')} />
 
         </div>
       </div>
