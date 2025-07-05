@@ -83,7 +83,7 @@ const Nursing = () => {
               <p className="text-gray-600 mt-2 text-sm">{service.description}</p>
               <button
                 onClick={() => handleBookNow(service)}
-                className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:bg-yellow-600 text-black text-sm hover:brightness-110 transition duration-200 w-full"
+className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 hover:brightness-110 text-white text-sm transition duration-300 w-full shadow-md"
               > 
                 Book Now
               </button>

@@ -78,7 +78,7 @@ const Plumber = () => {
                 ) : (
                   <button
                     onClick={() => addToCart({ ...s, quantity: 1 })}
-                    className="mt-6 px-4 py-2 rounded-full text-sm bg-gradient-to-r from-yellow-400 to-orange-500 hover:brightness-110 transition duration-200"
+className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
                   >
                     Add to Cart
                   </button>
