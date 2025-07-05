@@ -41,7 +41,7 @@ const Location = () => {
   return (
     <div className="hidden md:flex items-center text-sm font-medium px-4 py-2 rounded-full 
     border border-blue-500 transition ml-20">
-      <MapPin size={16} className="mr-1 text-blue-500" />
+      <MapPin size={16} className="mr-1 text-blue-800" />
       <span>{location}</span>
     </div>
   );

@@ -4,7 +4,7 @@ const PrimaryButton = ({ label = "Get Started", onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="relative group overflow-hidden h-14 w-48 text-lg font-roboto transition-all duration-300 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-full shadow-md"
+      className="relative group overflow-hidden h-14 w-48 text-lg font-roboto transition-all duration-300 bg-gradient-to-r from-cyan-800 to-blue-900 hover:from-cyan-700 hover:to-blue-600 text-white font-semibold px-4 py-2 rounded-full shadow-md"
     >
       {/* Bubbles - Cooler tones */}
       <div className="absolute w-12 h-12 rounded-full bg-cyan-400 right-12 top-12 group-hover:-top-2 group-hover:-right-2 group-hover:scale-125 transition-all duration-700 z-10 opacity-70"></div>

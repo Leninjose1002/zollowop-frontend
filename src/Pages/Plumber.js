@@ -52,7 +52,7 @@ const Plumber = () => {
           return (
             <div
               key={s.id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col overflow-hidden"
+  className="bg-white rounded-2xl shadow-md border transition-all duration-300 flex flex-col overflow-hidden hover:shadow-md hover:border-blue-500"
             >
               <img
                 src={s.image}
@@ -84,7 +84,7 @@ const Plumber = () => {
                 ) : (
                   <button
                     onClick={() => addToCart({ ...s, quantity: 1 })}
-                    className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
+                    className="mt-4 px-4 py-2 rounded-full  text-white bg-blue-900 text-sm transition duration-300 w-full shadow-lg"
                   >
                     Add to Cart
                   </button>

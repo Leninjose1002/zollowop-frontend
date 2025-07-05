@@ -47,7 +47,7 @@ const Pricing = () => {
                 ))}
               </ul>
               <button
-                onClick={() => handleSelectMaid(plan)} // Navigate to Maid Selection Page
+                onClick={() => handleSelectMaid(plan)} 
                 disabled={bookedServices.has(plan.title)}
                 className={`w-full py-2 rounded-lg font-medium transition ${
                   bookedServices.has(plan.title)

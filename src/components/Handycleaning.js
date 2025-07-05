@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import PrimaryButton from "../components/PrimaryButton";
+import { useNavigate } from 'react-router-dom';
 
 
 const Handycleaning = () => {
+      const navigate = useNavigate();
+  
   return (
     <div className="bg-light p-8 rounded-2xl shadow-md w-full max-w-5xl mx-auto mb-10">
       <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 text-center font-heading">
@@ -42,12 +46,10 @@ const Handycleaning = () => {
       </ul>
 
       <div className="text-center">
-          <Link to="/services">
+          
+                    <PrimaryButton label="Get Started" onClick={() => navigate('/services')} />
 
-        <button className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-all">
-          Get Started
-        </button>
-        </Link>
+      
       </div>
     </div>
   );

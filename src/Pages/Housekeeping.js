@@ -64,7 +64,7 @@ const Housekeeping = () => {
           return (
             <div
               key={service.id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col overflow-hidden"
+  className="bg-white rounded-2xl shadow-md border transition-all duration-300 flex flex-col overflow-hidden hover:shadow-md hover:border-blue-500"
             >
               <img
                 src={service.image}
@@ -81,7 +81,7 @@ const Housekeeping = () => {
                 {!cartItem ? (
                   <button
                     onClick={() => addToCart({ ...service, quantity: 1 })}
-                    className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
+                    className="mt-4 px-4 py-2 rounded-full  bg-blue-900  text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
                   >
                     Add to Cart
                   </button>

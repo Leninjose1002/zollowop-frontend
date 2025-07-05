@@ -69,7 +69,7 @@ const Nursing = () => {
         {services.map((service, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col overflow-hidden"
+  className="bg-white rounded-2xl shadow-md border transition-all duration-300 flex flex-col overflow-hidden hover:shadow-md hover:border-blue-500"
           >
             <img
               src={service.image}
@@ -83,7 +83,7 @@ const Nursing = () => {
               <p className="text-gray-600 mt-2 text-sm">{service.description}</p>
               <button
                 onClick={() => handleBookNow(service)}
-className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 hover:brightness-110 text-white text-sm transition duration-300 w-full shadow-md"
+className="mt-4 px-4 py-2 rounded-full bg-blue-900  text-white text-sm transition duration-300 w-full shadow-md"
               > 
                 Book Now
               </button>
