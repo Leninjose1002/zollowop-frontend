@@ -51,7 +51,8 @@ const Housekeeping = () => {
           Housekeeping Services
         </h1>
         <p className="text-gray-600 mt-2 text-sm sm:text-base">
-          Book our professional cleaners for a sparkling clean home.
+          Powering Homes with Safe, Reliable, and Friendly Service
+
         </p>
       </div>
 
@@ -75,12 +76,12 @@ const Housekeeping = () => {
                   {service.title}
                 </h2>
                 <p className="text-gray-600 mt-2 text-sm">{service.description}</p>
-                <p className="text-green-600 font-semibold mt-3">{service.price} onwards</p>
+                <p className="text-black font-semibold mt-3">{service.price} onwards</p>
 
                 {!cartItem ? (
                   <button
                     onClick={() => addToCart({ ...service, quantity: 1 })}
-                    className="mt-4 px-4 py-2 rounded-full text-sm bg-gradient-to-r from-yellow-400 to-orange-500 hover:brightness-110 transition duration-200 text-black w-full"
+                    className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
                   >
                     Add to Cart
                   </button>

@@ -33,10 +33,16 @@ const Plumber = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-8 lg:px-16">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-4">Plumbing Services</h1>
-      <p className="text-center text-gray-600 mb-8">
-        Fast, reliable plumbing with certified professionals & 30‑day guarantee.
-      </p>
+      <div className="text-center mb-10">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black-600">
+          Plumber Services
+        </h1>
+        <p className="text-gray-600 mt-2 text-sm sm:text-base">
+          High-Quality Plumbing by Fast, Reliable, Certified Technicians
+
+
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
         {services.map((s) => {
@@ -55,8 +61,8 @@ const Plumber = () => {
               />
               <div className="p-5 flex flex-col justify-between flex-grow">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">{s.title}</h3>
-                  <p className="text-green-600 font-semibold mt-2">{s.price} onwards</p>
+                  <h3 className="text-base  text-gray-600">{s.title}</h3>
+                  <p className=" text-base text-black font-semibold">{s.price} onwards</p>
                 </div>
 
                 {cartItem ? (
@@ -78,7 +84,7 @@ const Plumber = () => {
                 ) : (
                   <button
                     onClick={() => addToCart({ ...s, quantity: 1 })}
-className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
+                    className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
                   >
                     Add to Cart
                   </button>

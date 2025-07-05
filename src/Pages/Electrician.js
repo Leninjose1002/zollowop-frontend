@@ -19,10 +19,14 @@ const Electrician = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-8 lg:px-16">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">
-        Electrician Services Pricing
-      </h1>
-
+      <div className="text-center mb-10">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black-600">
+          Electrician Services
+        </h1>
+        <p className="text-gray-600 mt-2 text-sm sm:text-base">
+          Book our professional cleaners for a sparkling clean home.
+        </p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-8">
         {services.map((service) => {
           const cartItem = getCartItem(service.id);
@@ -40,8 +44,8 @@ const Electrician = () => {
               />
               <div className="p-5 flex flex-col justify-between flex-grow">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">{service.title}</h3>
-                  <p className="text-green-600 font-semibold mt-3">{service.price} onwards</p>
+                  <h3 className=" text-base text-gray-600">{service.title}</h3>
+                  <p className="text-base text-black font-semibold">{service.price} onwards</p>
                 </div>
 
                 {cartItem ? (
@@ -63,7 +67,7 @@ const Electrician = () => {
                 ) : (
                   <button
                     onClick={() => addToCart({ ...service, quantity: 1 })}
-                    className="mt-6 px-4 py-2 rounded-full text-sm bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black transition duration-200"
+className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm transition duration-300 w-full shadow-lg"
                   >
                     Add to Cart
                   </button>

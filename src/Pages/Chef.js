@@ -11,8 +11,8 @@ const Chef = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
           {/* Text Section */}
           <div className="text-center lg:text-left flex-1">
-            <h1 className="text-2xl sm:text-3xl font-bold text-black">
-              <span className="bg-yellow-400 px-3 py-1 rounded-md inline-block">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">
+              <span className=" bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 px-3 py-1 rounded-md inline-block">
                 Chefs at Home – When You Need Them Most
               </span>
             </h1>
@@ -21,7 +21,7 @@ const Chef = () => {
             </p>
             <button
               onClick={() => setShowModal(true)}
-              className="mt-5 sm:mt-6 bg-yellow-400 text-black font-semibold px-5 py-2 sm:px-6 sm:py-3 rounded-md shadow-md hover:shadow-lg transition"
+              className="mt-5 sm:mt-6  bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:brightness-110 text-sm font-semibold px-5 py-2 sm:px-6 sm:py-3 rounded-md shadow-md hover:shadow-lg transition"
             >
               Book Now
             </button>

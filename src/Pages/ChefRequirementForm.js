@@ -122,7 +122,7 @@ navigate("/confirmation", {
 
       <textarea name="notes" placeholder="Additional Notes" value={formData.notes} onChange={handleChange} className="w-full border p-2 rounded h-24" />
 
-      <button type="submit" className="bg-yellow-400 px-6 py-3 rounded font-semibold hover:bg-yellow-500 transition">
+      <button type="submit" className="bg-blue-400 px-6 py-3 rounded font-semibold hover:bg-blue-600 transition">
         Submit Requirement
       </button>
     </form>

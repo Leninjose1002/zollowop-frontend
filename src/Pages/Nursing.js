@@ -102,7 +102,7 @@ className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-5
             >
               &times;
             </button>
-            <h2 className="text-2xl font-bold text-yellow-500 mb-4">
+            <h2 className="text-2xl font-bold text-blue-500 mb-4">
               Book: {selectedService?.title}
             </h2>
             <NurseRequirementForm onClose={() => setShowForm(false)} />
