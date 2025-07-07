@@ -12,10 +12,33 @@ const CheckoutPage = () => {
   const [bookingDateTime, setBookingDateTime] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(user?.email || "");
+  const [phoneError, setPhoneError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [promoCode, setPromoCode] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
 
   const totalCost = getTotal();
+
+  const handlePhoneChange = (e) => {
+    let input = e.target.value.replace(/\s+/g, "");
+    if (/^[6-9]\d{9}$/.test(input)) {
+      input = `+91${input}`;
+    }
+
+    setPhone(input);
+
+    const phoneRegex = /^(\+91)[6-9]\d{9}$/;
+    setPhoneError(phoneRegex.test(input) ? "" : "Enter a valid Indian number with +91.");
+  };
+
+  const handleEmailChange = (e) => {
+    const input = e.target.value;
+    setEmail(input);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setEmailError(emailRegex.test(input) ? "" : "Enter a valid email address.");
+  };
 
   const handleConfirmBooking = async () => {
     if (!agreeTerms) {
@@ -28,6 +51,17 @@ const CheckoutPage = () => {
       return;
     }
 
+    if (phoneError || !phone) {
+      alert("Please enter a valid phone number.");
+      return;
+    }
+
+    if (emailError || !email) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    const finalPhone = phone.startsWith("+91") ? phone.slice(3) : phone;
     const userId = user._id;
 
     try {
@@ -36,7 +70,8 @@ const CheckoutPage = () => {
       const bookingPayload = {
         cart,
         address,
-        phone,
+        phone: finalPhone,
+        email,
         date: bookingDateTime,
         status: "confirmed",
         promoCode,
@@ -65,7 +100,15 @@ const CheckoutPage = () => {
             if (verifyRes.verified) {
               clearCart();
               navigate("/confirmation", {
-                state: { cart, bookingDateTime, address, phone, promoCode, totalCost },
+                state: {
+                  cart,
+                  bookingDateTime,
+                  address,
+                  phone: finalPhone,
+                  email,
+                  promoCode,
+                  totalCost,
+                },
               });
             } else {
               navigate("/payment-failed");
@@ -76,8 +119,8 @@ const CheckoutPage = () => {
         },
         prefill: {
           name: "Customer",
-          contact: phone,
-          email: user?.email || "test@example.com",
+          contact: finalPhone,
+          email,
         },
         theme: {
           color: "#10b981",
@@ -117,7 +160,7 @@ const CheckoutPage = () => {
                   />
                   <div className="flex-1">
                     <p className="font-semibold">{item.title}</p>
-                    <p className="text-sm font-medium text-green-600">
+                    <p className="text-sm font-medium text-blue-600">
                       ₹{price * item.quantity}
                     </p>
                     <div className="flex items-center mt-2 space-x-2">
@@ -167,12 +210,31 @@ const CheckoutPage = () => {
 
             <input
               type="tel"
-              placeholder="Phone Number"
+              placeholder="Phone Number (e.g., +919876543210)"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full p-3 border rounded text-sm"
+              onChange={handlePhoneChange}
+              className={`w-full p-3 border rounded text-sm ${
+                phoneError ? "border-red-500" : "border-gray-300"
+              }`}
               required
             />
+            {phoneError && (
+              <p className="text-red-500 text-xs mt-1">{phoneError}</p>
+            )}
+
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={handleEmailChange}
+              className={`w-full p-3 border rounded text-sm ${
+                emailError ? "border-red-500" : "border-gray-300"
+              }`}
+              required
+            />
+            {emailError && (
+              <p className="text-red-500 text-xs mt-1">{emailError}</p>
+            )}
 
             <input
               type="text"
@@ -199,7 +261,12 @@ const CheckoutPage = () => {
 
             <button
               onClick={handleConfirmBooking}
-              className="w-full mt-2 bg-green-600 hover:bg-green-700 text-white text-lg font-semibold py-3 rounded-lg transition"
+              disabled={phoneError || emailError}
+              className={`w-full mt-2 text-lg font-semibold py-3 rounded-lg transition ${
+                phoneError || emailError
+                  ? "bg-gray-400 cursor-not-allowed text-white"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
+              }`}
             >
               Pay ₹{totalCost} & Book
             </button>
