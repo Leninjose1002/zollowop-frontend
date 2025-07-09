@@ -1,52 +1,66 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaBroom, FaUserNurse, FaUtensils, FaTools, FaBolt, FaWater, FaRedRiver } from 'react-icons/fa';
+import {
+  FaBroom,
+  FaUserNurse,
+  FaUtensils,
+  FaTools,
+  FaBolt,
+  FaWater,
+  FaRedRiver,
+  FaPumpSoap,
+} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
 
 const services = [
   {
-    icon: <FaBroom className="text-3xl text-orange-500" />,
+    icon: <FaBroom className="text-white text-2xl" />,
     title: 'Maid Service',
     desc: 'Spotless cleaning services for a tidy, fresh home every time.',
     path: '/maid',
-
+    bg: 'bg-orange-500',
   },
   {
-    icon: <FaUserNurse className="text-3xl text-blue-500" />,
+    icon: <FaUserNurse className="text-white text-2xl" />,
     title: 'Nursing Care',
     desc: 'Caring and compassionate help for your loved ones.',
     path: '/nursing',
+    bg: 'bg-blue-500',
   },
   {
-    icon: <FaBolt className="text-3xl text-red-500" />,
+    icon: <FaBolt className="text-white text-2xl" />,
     title: 'Electrician Services',
-    desc: 'Skilled cooks to prepare home-style or special meals.',
+    desc: 'Certified electricians for safe and efficient solutions.',
     path: '/electrician',
+    bg: 'bg-yellow-500',
   },
   {
-    icon: <FaTools className="text-3xl text-green-500" />,
+    icon: <FaTools className="text-white text-2xl" />,
     title: 'Plumber Services',
     desc: 'Quick fixes and maintenance by trusted professionals.',
     path: '/plumber',
+    bg: 'bg-green-500',
   },
   {
-    icon: <FaRedRiver className="text-3xl text-yellow-500" />,
+    icon: <FaRedRiver className="text-white text-2xl" />,
     title: 'Driver',
-    desc: 'Certified electricians for safe and efficient solutions.',
+    desc: 'Experienced drivers for safe and reliable transport.',
     path: '/drivers',
+    bg: 'bg-red-500',
   },
   {
-    icon: <FaWater className="text-3xl text-cyan-500" />,
+    icon: <FaPumpSoap className="text-white text-2xl" />,
     title: 'Housekeeping Services',
-    desc: 'Reliable plumbing services at your convenience.',
+    desc: 'Detailed cleaning and upkeep for a spotless home.',
     path: '/housekeeping',
+    bg: 'bg-cyan-500',
   },
   {
-    icon: <FaUtensils className="text-3xl text-cyan-500" />,
+    icon: <FaUtensils className="text-white text-2xl" />,
     title: 'Chef Services',
-    desc: 'Reliable plumbing services at your convenience.',
+    desc: 'Skilled cooks to prepare home-style or special meals.',
     path: '/chef',
+    bg: 'bg-purple-500',
   },
 ];
 
@@ -78,19 +92,22 @@ const Services = () => {
         {services.map((service, index) => (
           <Link to={service.path} key={index}>
             <motion.div
-              className="bg-[#F8FBFF] shadow-md rounded-2xl p-6 text-left hover:shadow-lg transition duration-300"
+              className="bg-[#F8FBFF] shadow-md rounded-2xl p-6 hover:shadow-lg transition duration-300"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="mb-4">{service.icon}</div>
+              <div className={`w-12 h-12 flex items-center justify-center rounded-full mb-4 ${service.bg}`}>
+                {service.icon}
+              </div>
               <h3 className="text-xl font-semibold text-black font-poppins mb-2">
                 {service.title}
               </h3>
               <p className="text-gray-600 text-base font-roboto">{service.desc}</p>
             </motion.div>
-          </Link>))}
+          </Link>
+        ))}
       </div>
     </section>
   );

@@ -62,26 +62,59 @@ const AdminSidebar = () => {
               isActive ? "text-blue-400 font-semibold" : "hover:text-blue-300"
             }
           >
-            🧑 Nurses-booking data 
+            🧑 Nurses-booking data
           </NavLink>
           <NavLink
-            to="/admin/services"
+            to="/admin/job-applications"
             className={({ isActive }) =>
               isActive ? "text-blue-400 font-semibold" : "hover:text-blue-300"
             }
           >
-            🛠 Services
+            📄 Job Applications
           </NavLink>
+           <NavLink
+            to="/admin/electrician-data"
+            className={({ isActive }) =>
+              isActive ? "text-blue-400 font-semibold" : "hover:text-blue-300"
+            }
+          >
+            📄Electrician
+          </NavLink>
+           <NavLink
+            to="/admin/plumber-data"
+            className={({ isActive }) =>
+              isActive ? "text-blue-400 font-semibold" : "hover:text-blue-300"
+            }
+          >
+            📄Plumber
+          </NavLink>
+          <NavLink
+            to="/admin/driver-data"
+            className={({ isActive }) =>
+              isActive ? "text-blue-400 font-semibold" : "hover:text-blue-300"
+            }
+          >
+            📄Driver
+          </NavLink>
+          <NavLink
+            to="/admin/Housekeeping-data"
+            className={({ isActive }) =>
+              isActive ? "text-blue-400 font-semibold" : "hover:text-blue-300"
+            }
+          >
+            📄Housekeeping
+          </NavLink>
+
         </nav>
       </div>
 
       {/* 🔒 Logout Button */}
-     <button
-  onClick={handleLogout}
-  className="mt-10 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded text-sm"
->
-  🚪 Logout
-</button>
+      <button
+        onClick={handleLogout}
+        className="mt-10 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded text-sm"
+      >
+        🚪 Logout
+      </button>
     </div>
   );
 };

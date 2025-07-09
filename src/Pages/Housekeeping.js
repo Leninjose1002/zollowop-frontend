@@ -3,41 +3,42 @@ import { useCart } from "../components/CartContext";
 
 const services = [
   {
-    id: 1,
-    title: "Room Cleaning",
-    description: "Complete dusting, mopping, and tidying up of bedrooms and living areas.",
-    image: "/images/housekeeping/Room-Cleaning.avif",
-    price: "₹399",
+    id: 'housekeeping-1',
+    title: 'Room Cleaning',
+    description: 'Complete dusting, mopping, and tidying up of bedrooms and living areas.',
+    image: '/images/housekeeping/Room-Cleaning.avif',
+    price: '₹399',
   },
   {
-    id: 2,
-    title: "Bathroom Cleaning",
-    description: "Deep cleaning of tiles, fixtures, and sanitization of washrooms.",
-    image: "/images/housekeeping/Bathroom-Cleaning.avif",
-    price: "₹299",
+    id: 'housekeeping-2',
+    title: 'Bathroom Cleaning',
+    description: 'Deep cleaning of tiles, fixtures, and sanitization of washrooms.',
+    image: '/images/housekeeping/Bathroom-Cleaning.avif',
+    price: '₹299',
   },
   {
-    id: 3,
-    title: "Kitchen Cleaning",
-    description: "Degreasing surfaces, cleaning shelves, and sanitizing kitchen appliances.",
-    image: "/images/housekeeping/Kitchen-Cleaning.avif",
-    price: "₹349",
+    id: 'housekeeping-3',
+    title: 'Kitchen Cleaning',
+    description: 'Degreasing surfaces, cleaning shelves, and sanitizing kitchen appliances.',
+    image: '/images/housekeeping/Kitchen-Cleaning.avif',
+    price: '₹349',
   },
   {
-    id: 4,
-    title: "Sofa & Carpet Cleaning",
-    description: "Shampooing and vacuuming sofas, carpets, and rugs for a fresh look.",
-    image: "/images/housekeeping/Sofa-Carpet-Cleaning.avif",
-    price: "₹499",
+    id: 'housekeeping-4',
+    title: 'Sofa & Carpet Cleaning',
+    description: 'Shampooing and vacuuming sofas, carpets, and rugs for a fresh look.',
+    image: '/images/housekeeping/Sofa-Carpet-Cleaning.avif',
+    price: '₹499',
   },
   {
-    id: 5,
-    title: "Full Home Deep Cleaning",
-    description: "A thorough cleaning of all rooms, furniture, fans, and surfaces.",
-    image: "/images/housekeeping/Full-Home-Deep-Cleaning.avif",
-    price: "₹1499",
+    id: 'housekeeping-5',
+    title: 'Full Home Deep Cleaning',
+    description: 'A thorough cleaning of all rooms, furniture, fans, and surfaces.',
+    image: '/images/housekeeping/Full-Home-Deep-Cleaning.avif',
+    price: '₹1499',
   },
 ];
+
 
 const Housekeeping = () => {
   const { cart, addToCart, updateQuantity } = useCart();

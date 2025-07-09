@@ -3,7 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchMaids } from '../api';
 import VideoModal from '../components/VideoModal';
 import { Star } from 'lucide-react';
-import { useCart } from '../components/CartContext'; // ✅ Import CartContext
+import { useCart } from '../components/CartContext';
+import { useAuth } from '../components/AuthContext';
+import { toast } from 'react-toastify';
 
 const MaidSelection = () => {
   const location = useLocation();
@@ -11,7 +13,9 @@ const MaidSelection = () => {
   const [selectedVideoUrl, setSelectedVideoUrl] = useState(null);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
   const navigate = useNavigate();
-  const { addToCart } = useCart(); // ✅ Access addToCart from context
+
+  const { addToCart } = useCart();
+  const { user, loading } = useAuth(); // 👈 added loading for auth state
 
   useEffect(() => {
     const loadMaids = async () => {
@@ -37,12 +41,20 @@ const MaidSelection = () => {
   }, [location.state]);
 
   const handleBookMaid = (maid) => {
+    if (loading) return; // ⏳ wait until auth finishes
+
+    if (!user) {
+      toast.error("Please log in to continue.");
+      return;
+    }
+
     addToCart({
       title: maid.name,
-      price: "₹100", // 💡 You can replace with maid.price if it's dynamic
+      price: maid.pricePerHour ? `₹${maid.pricePerHour}` : "₹100",
       image: maid.image,
       quantity: 1,
     });
+
     navigate('/checkout');
   };
 
@@ -77,18 +89,18 @@ const MaidSelection = () => {
               <div className="flex justify-between items-center w-full mb-1">
                 <h3 className="text-lg font-semibold text-gray-800">{maid.name}</h3>
                 <span
-                  className={`text-sm font-medium ${maid.status === "Booked" ? "text-red-500" :
-                      maid.status === "Offline" ? "text-gray-500" :
-                        "text-green-500"
+                  className={`text-sm font-medium ${maid.status === "Booked"
+                    ? "text-red-500"
+                    : maid.status === "Offline"
+                      ? "text-gray-500"
+                      : "text-green-500"
                     }`}
                 >
                   ● {maid.status || "Available"}
                 </span>
               </div>
 
-              <div className="mb-2">
-                {renderStars(maid.rating || 4)}
-              </div>
+              <div className="mb-2">{renderStars(maid.rating || 4)}</div>
 
               <div className="text-sm text-gray-700 w-full space-y-1 mb-4">
                 <p><span className="font-semibold">Experience:</span> {maid.experience}</p>

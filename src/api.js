@@ -162,3 +162,32 @@ export const submitJobApplication = async (formData) => {
     throw error.response?.data?.message || "Failed to submit job application";
   }
 };
+// for admins
+export const fetchJobApplications = async () => {
+  try {
+    const res = await axiosInstance.get("/job-applications"); // baseURL already contains `/api`
+    return res.data;
+  } catch (error) {
+    console.error("🛑 Fetch Job Applications Error:", error.response?.data || error.message);
+    throw error.response?.data?.message || "Failed to fetch job applications";
+  }
+};
+
+
+// ✅ Get User Orders
+// ✅ Fetch User Orders
+
+export const getUserOrders = async (token) => {
+  try {
+    const res = await axiosInstance.get(`/orders/my-orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("🛑 Get User Orders Error:", error.response?.data || error.message);
+    throw error.response?.data?.message || "Failed to fetch user orders";
+  }
+};
+
+

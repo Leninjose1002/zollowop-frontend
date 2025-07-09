@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../components/CartContext";
 import { useAuth } from "../components/AuthContext";
-import { createRazorpayOrder, verifyRazorpayPayment } from "../api";
+import { createRazorpayOrder, verifyRazorpayPayment,   } from "../api";
+import axiosInstance from "../api/axiosInstance";
 
 const CheckoutPage = () => {
   const { cart, removeFromCart, getTotal, clearCart, updateQuantity } = useCart();
@@ -97,20 +98,48 @@ const CheckoutPage = () => {
               bookingPayload,
             });
 
-            if (verifyRes.verified) {
-              clearCart();
-              navigate("/confirmation", {
-                state: {
-                  cart,
-                  bookingDateTime,
-                  address,
-                  phone: finalPhone,
-                  email,
-                  promoCode,
-                  totalCost,
-                },
-              });
-            } else {
+           if (verifyRes.verified) {
+  await axiosInstance.post(
+    "/orders",
+    {
+      serviceType: bookingPayload.serviceType,
+      items: cart.map((item) => ({
+        title: item.title,
+        image: item.image,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      totalAmount: totalCost,
+      date: bookingDateTime,
+      phone: finalPhone,
+      email,
+      address,
+      promoCode,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${user.token}`, // ✅ pass the token here
+      },
+      withCredentials: true,
+    }
+  );
+
+  clearCart();
+  navigate("/confirmation", {
+    state: {
+      cart,
+      bookingDateTime,
+      address,
+      phone: finalPhone,
+      email,
+      promoCode,
+      totalCost,
+    },
+  });
+}
+
+
+ else {
               navigate("/payment-failed");
             }
           } catch {

@@ -2,15 +2,16 @@ import React from 'react';
 import { useCart } from '../components/CartContext';
 
 const services = [
-  { id: 1, title: 'Fan Repair', price: '₹199', image: '/images/electrician/Switch-Socket-images.avif' },
-  { id: 2, title: 'Switch & Socket', price: '₹99', image: '/images/electrician/Switch-Socket-images.avif' },
-  { id: 3, title: 'Install Inverter', price: '₹299', image: 'images/electrician/Inverter-Installation-img.avif' },
-  { id: 4, title: 'Stabilizer Repair', price: '₹249', image: '/images/electrician/Stabilizer-Repair-img.avif' },
-  { id: 5, title: 'Wiring Fix', price: '₹399', image: '/images/electrician/Wiring-Fix-img.avif' },
-  { id: 6, title: 'Fuse Replacement', price: '₹149', image: '/images/electrician/Fuse-Replacement-img.avif' },
-  { id: 7, title: 'AC Switch Repair', price: '₹249', image: '/images/electrician/Fuse-Replacement-img.avif' },
-  { id: 8, title: 'MCB Replacement', price: '₹349', image: '/images/electrician/Fuse-Replacement-img.avif' },
+  { id: 'electrician-1', title: 'Fan Repair', price: '₹199', image: '/images/electrician/Switch-Socket-images.avif' },
+  { id: 'electrician-2', title: 'Switch & Socket', price: '₹99', image: '/images/electrician/Switch-Socket-images.avif' },
+  { id: 'electrician-3', title: 'Install Inverter', price: '₹299', image: 'images/electrician/Inverter-Installation-img.avif' },
+  { id: 'electrician-4', title: 'Stabilizer Repair', price: '₹249', image: '/images/electrician/Stabilizer-Repair-img.avif' },
+  { id: 'electrician-5', title: 'Wiring Fix', price: '₹399', image: '/images/electrician/Wiring-Fix-img.avif' },
+  { id: 'electrician-6', title: 'Fuse Replacement', price: '₹149', image: '/images/electrician/Fuse-Replacement-img.avif' },
+  { id: 'electrician-7', title: 'AC Switch Repair', price: '₹249', image: '/images/electrician/Fuse-Replacement-img.avif' },
+  { id: 'electrician-8', title: 'MCB Replacement', price: '₹349', image: '/images/electrician/Fuse-Replacement-img.avif' },
 ];
+
 
 const Electrician = () => {
   const { cart, addToCart, updateQuantity } = useCart();

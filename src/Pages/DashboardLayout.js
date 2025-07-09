@@ -9,9 +9,9 @@ const DashboardLayout = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
- const handleLogout = async () => {
-  await logout(); // ✅ this will clear cookie, state, and redirect
-};
+  const handleLogout = async () => {
+    await logout(); // ✅ this will clear cookie, state, and redirect
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -28,13 +28,13 @@ const DashboardLayout = () => {
             📝 My Reviews
           </Link>
           <Link to="/dashboard/contact" className="flex items-center hover:text-blue-600"><FaPhone className="mr-2" /> Contact Us</Link>
-<button
-  onClick={handleLogout}
-  className="flex items-center text-red-600 hover:text-red-800"
->
-  <FaSignOutAlt className="mr-2" /> Logout
-</button>
-      <DashboardReferralSection />
+          <button
+            onClick={handleLogout}
+            className="flex items-center text-red-600 hover:text-red-800"
+          >
+            <FaSignOutAlt className="mr-2" /> Logout
+          </button>
+          <DashboardReferralSection />
 
         </nav>
       </aside>

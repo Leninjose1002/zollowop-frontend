@@ -1,68 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { getUserOrders } from "../api"; 
+import { useAuth } from "../components/AuthContext";
 
 const OrderHistory = () => {
+  const { user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/orders');
-        const data = await response.json();
-        setOrders(data);
-      } catch (err) {
-        console.error('Failed to load orders:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchOrders();
-  }, []);
+  const fetchOrders = async () => {
+    try {
+      // 🛠️ If you're using cookie-based auth, skip the token check
+      const res = await getUserOrders(); // ← remove token if not needed
+      setOrders(res);
+    } catch (err) {
+      console.error("❌ Error fetching orders:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchOrders();
+}, []);
+
+
+  if (loading) return <p>Loading your orders...</p>;
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Order History</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : orders.length === 0 ? (
-        <p>No orders found.</p>
+    <div>
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Your Order History</h2>
+
+      {orders.length === 0 ? (
+        <p className="text-gray-600">You haven't placed any orders yet.</p>
       ) : (
-        <table className="w-full table-auto text-sm">
-          <thead>
-            <tr className="text-left border-b">
-              <th className="py-2">Product</th>
-              <th className="py-2">Date</th>
-              <th className="py-2">Status</th>
-              <th className="py-2">Review</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id} className="border-b hover:bg-gray-50">
-                <td className="py-2">{order.product}</td>
-                <td className="py-2">{new Date(order.date).toLocaleDateString()}</td>
-                <td className="py-2">{order.status}</td>
-                <td className="py-2">
-                  {order.status === 'completed' && !order.reviewed ? (
-                    <Link
-                      to={`/review/${order._id}`}
-                      className="text-blue-600 hover:underline"
-                    >
-                      Write Review
-                    </Link>
-                  ) : (
-                    <span className="text-gray-400">-</span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="space-y-4">
+          {orders.map((order) => (
+            <div key={order._id} className="bg-white p-4 rounded-lg shadow">
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-blue-600">{order.serviceType}</h3>
+                <span className="text-sm text-gray-500">
+                  Placed on {new Date(order.createdAt).toLocaleString()}
+                </span>
+              </div>
+              <ul className="text-sm text-gray-700 space-y-1">
+                {order.items.map((item, idx) => (
+                  <li key={idx}>
+                    • {item.title} × {item.quantity} — ₹{item.price.replace(/[^\d]/g, "") * item.quantity}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 font-medium text-green-600">
+                Total: ₹{order.totalAmount}
+              </p>
+              <p className="text-xs text-gray-500">Status: {order.status}</p>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
 };
 
 export default OrderHistory;
-
