@@ -240,7 +240,7 @@ const ChefRequirementForm = ({ closeModal }) => {
           checked={formData.utensils}
           onChange={handleChange}
         />
-        <label>Need chef to bring utensils?</label>
+        {/* <label>Need chef to bring utensils?</label> */}
       </div>
 
       <div>

@@ -6,7 +6,6 @@ import {
   FaUtensils,
   FaTools,
   FaBolt,
-  FaWater,
   FaRedRiver,
   FaPumpSoap,
 } from 'react-icons/fa';
