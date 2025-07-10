@@ -14,6 +14,7 @@ import Contact from "./Pages/Contact";
 import Services from "./Pages/Services";
 import Maid from "./Pages/Maid";
 import Nursing from "./Pages/Nursing";
+import AcService from "./Pages/AcService"
 import Drivers from "./Pages/Drivers";
 import Cooks from "./Pages/Cooks";
 import Electrician from "./Pages/Electrician";
@@ -86,6 +87,8 @@ function App() {
               <Route path="/drivers" element={<Drivers />} />
               <Route path="/cooks" element={<Cooks />} />
               <Route path="/electrician" element={<Electrician />} />
+                            <Route path="/ac-service" element={<AcService />} />
+
               <Route path="/plumber" element={<Plumber />} />
               <Route path="/housekeeping" element={<Housekeeping />} />
               <Route path="/chef" element={<Chef />} />

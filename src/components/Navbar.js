@@ -15,7 +15,7 @@ const Navbar = () => {
   const [showUserSignup, setShowUserSignup] = useState(false);
   const [showEmployeeLogin, setShowEmployeeLogin] = useState(false);
   const { getTotalQuantity } = useCart();
-const cartItemCount = getTotalQuantity();
+  const cartItemCount = getTotalQuantity();
 
   const dropdownRef = useRef();
 
@@ -80,6 +80,8 @@ const cartItemCount = getTotalQuantity();
                   { to: "/maid", text: "Maid Services" },
                   { to: "/nursing", text: "Nursing Care" },
                   { to: "/electrician", text: "Electrician" },
+                  { to: "/ac-service", text: "AcService" },
+
                   { to: "/plumber", text: "Plumber" },
                   { to: "/drivers", text: "Drivers" },
                   { to: "/housekeeping", text: "Housekeeping" },
@@ -109,18 +111,18 @@ const cartItemCount = getTotalQuantity();
         <div className="flex items-center gap-3 ml-auto">
           <Location />
           <NavLink to="/checkout" className="relative">
-  <ShoppingCart size={24} className="text-gray-700 hover:text-blue-800 transition" />
-  {cartItemCount > 0 && (
-    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1">
-      {cartItemCount}
-    </span>
-  )}
-</NavLink>
+            <ShoppingCart size={24} className="text-gray-700 hover:text-blue-800 transition" />
+            {cartItemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1">
+                {cartItemCount}
+              </span>
+            )}
+          </NavLink>
 
 
           <button
             onClick={() => setShowUserSignup(true)}
-  className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-800 text-sm text-cyan-800 hover:bg-blue-100 transition duration-300"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-800 text-sm text-cyan-800 hover:bg-blue-100 transition duration-300"
           >
             <FaUser />
             User Signup
@@ -128,7 +130,7 @@ const cartItemCount = getTotalQuantity();
 
           <button
             onClick={() => setShowEmployeeLogin(true)}
-  className="flex items-center gap-2 px-4 py-2 rounded-full text-sm text-white font-semibold bg-gradient-to-r from-cyan-800 to-blue-800 hover:from-cyan-700 hover:to-blue-800 shadow-md transition duration-300"
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm text-white font-semibold bg-gradient-to-r from-cyan-800 to-blue-800 hover:from-cyan-700 hover:to-blue-800 shadow-md transition duration-300"
           >
             <FaUserTie />
             Employee Login
@@ -149,9 +151,8 @@ const cartItemCount = getTotalQuantity();
 
       {/* Slide-in Mobile Menu */}
       <div
-        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 z-50 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <button
           onClick={() => setIsOpen(false)}
@@ -184,6 +185,8 @@ const cartItemCount = getTotalQuantity();
                   { to: "/maid", text: "Maid Services" },
                   { to: "/nursing", text: "Nursing Care" },
                   { to: "/electrician", text: "Electrician" },
+                  { to: "/ac-service", text: "AcService" },
+
                   { to: "/plumber", text: "Plumber" },
                   { to: "/drivers", text: "Drivers" },
                   { to: "/housekeeping", text: "Housekeeping" },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api/axiosInstance';
 import { MapPin } from 'lucide-react';
+import { getLocationFromCoordinates } from '../api';
 
 const Location = () => {
   const [location, setLocation] = useState("Detecting location...");
@@ -11,23 +11,40 @@ const Location = () => {
         navigator.geolocation.getCurrentPosition(
           async (pos) => {
             const { latitude, longitude } = pos.coords;
+            console.log("📍 Coordinates:", latitude, longitude);
 
             try {
-              const res = await axios.get("/location", {
-                params: { lat: latitude, lng: longitude },
-              });
+              const address = await getLocationFromCoordinates(latitude, longitude);
 
+              // ✅ Use short display: sublocality, locality, state
+              let locationName = [
+                address?.sublocality,
+                address?.locality,
+                address?.state
+              ]
+                .filter(Boolean)
+                .join(", ");
 
-              const city = res.data.city;
-              setLocation(city || "City not found");
+              // ⛳️ Fallback to trimmed formatted_address (first 3 parts)
+              if (!locationName && address?.formatted_address) {
+                const parts = address.formatted_address.split(",").slice(0, 3);
+                locationName = parts.join(", ");
+              }
+
+              setLocation(locationName || "Unknown location");
             } catch (err) {
-              console.error("Location API error:", err);
+              console.error("❌ Location API error:", err);
               setLocation("Unable to fetch location");
             }
           },
           (err) => {
-            console.warn("Geolocation permission error:", err);
+            console.warn("❌ Geolocation permission error:", err);
             setLocation("Permission denied");
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
           }
         );
       } else {

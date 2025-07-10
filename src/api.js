@@ -190,4 +190,18 @@ export const getUserOrders = async (token) => {
   }
 };
 
+// ✅ Get Location from Coordinates
+// ✅ Get Location from Coordinates
+export const getLocationFromCoordinates = async (lat, lng) => {
+  try {
+    const res = await axiosInstance.get(`/location`, {
+      params: { lat, lng },
+    });
+    return res.data?.address;
+  } catch (error) {
+    console.error("🛑 Get Location Error:", error.response?.data || error.message);
+    throw new Error("Failed to get location");
+  }
+};
+
 
