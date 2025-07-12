@@ -11,6 +11,7 @@ import NewAndNoteworthySlider from "../components/NewAndNoteworthySlider";
 import Testimonial from "../components/Testimonial";
 import CountingNumber from "../components/CountingNumber";
 import Cleaning from "../components/Cleaning";
+import HomePageSection from "../components/HomePageSection";
 
 // 🔁 Modals
 import UserLogin from "../components/UserLogin";
@@ -66,11 +67,11 @@ const Home = () => {
       <InfoSection />
       <Reasons />
       <HowItWorks />
-
       <NewAndNoteworthySlider />
       <Cleaning />
       <CountingNumber />
       <Testimonial />
+      <HomePageSection />
       <Cta />
     </div>
   );

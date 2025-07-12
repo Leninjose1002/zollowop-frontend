@@ -204,4 +204,34 @@ export const getLocationFromCoordinates = async (lat, lng) => {
   }
 };
 
+// ✅ Submit Review
+export const submitReview = async (reviewData, token) => {
+  try {
+    const res = await axiosInstance.post(`/reviews/submit`, reviewData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("🛑 Submit Review API Error:", error.response?.data || error.message);
+    throw error.response?.data?.message || "Failed to submit review";
+  }
+};
+
+// ✅ Fetch My Reviews
+export const fetchMyReviews = async (token) => {
+  try {
+    const res = await axiosInstance.get(`/reviews/my-reviews`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("🛑 Fetch My Reviews Error:", error.response?.data || error.message);
+    throw error.response?.data?.message || "Failed to fetch reviews";
+  }
+};
 

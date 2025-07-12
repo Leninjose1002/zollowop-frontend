@@ -2,7 +2,7 @@ import Marquee from "react-fast-marquee";
 
 export default function DynamicBanner() {
   return (
-<div className="w-full bg-gradient-to-r from-blue-800 via-white to-blue-700 py-3">
+<div className="w-full bg-gradient-to-r from-yellow-300 via-orange to-pink-300 py-3">
       <Marquee
         speed={50}
         gradient={false}

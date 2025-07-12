@@ -34,7 +34,7 @@ const Cleaning = () => {
     {
       title: "Chef",
       image: "https://img.freepik.com/premium-photo/young-woman-cook-sweet-cake-kitchen_41471-8748.jpg",
-      path: "/Chef",
+      path: "/chef",
     },
     {
       title: "Nanny",
@@ -46,36 +46,41 @@ const Cleaning = () => {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 600,
+    autoplay: true,
+    autoplaySpeed: 1000,
     slidesToShow: 4,
     slidesToScroll: 1,
     arrows: false,
     responsive: [
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
       { breakpoint: 1024, settings: { slidesToShow: 2 } },
       { breakpoint: 768, settings: { slidesToShow: 1 } },
     ],
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8" data-aos="fade-up">
-      <h2 className="text-4xl font-bold text-center text-gray-900 font-poppins mb-10" data-aos="fade-down">
+    <div className="bg-gradient-to-br from-orange-50 via-white to-pink-100 py-20 px-4" data-aos="fade-up">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 font-poppins mb-10" data-aos="fade-down">
         Cleaning & Cooking
       </h2>
 
-      <div className="relative">
+      <div className="relative max-w-7xl mx-auto">
         <Slider ref={sliderRef} {...sliderSettings}>
           {services.map((service, index) => (
             <div key={index} className="p-4" data-aos="zoom-in" data-aos-delay={index * 100}>
               <div
-                className="relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer group"
+                className="relative bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-xl"
                 onClick={() => navigate(service.path)}
               >
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="h-44 w-full object-cover rounded-t-2xl transition-transform group-hover:scale-105"
+                  className="h-44 w-full object-cover rounded-t-2xl transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
+                {/* Title */}
                 <div className="absolute bottom-5 left-0 w-full text-center text-white text-lg font-roboto font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {service.title}
                 </div>
@@ -84,17 +89,17 @@ const Cleaning = () => {
           ))}
         </Slider>
 
-        {/* 🎯 Updated Arrow Buttons */}
+        {/* Arrows */}
         <button
           onClick={() => sliderRef.current.slickPrev()}
-          className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-blue-400 to-blue-500 text-white shadow-lg p-2 rounded-full z-10 hover:scale-110 transition"
+          className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-pink-500 to-pink-600 text-white shadow-md p-2 rounded-full z-10 hover:scale-110 transition"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
 
         <button
           onClick={() => sliderRef.current.slickNext()}
-          className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-blue-400 to-blue-500 text-white shadow-lg p-2 rounded-full z-10 hover:scale-110 transition"
+          className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 bg-gradient-to-br from-pink-500 to-pink-600 text-white shadow-md p-2 rounded-full z-10 hover:scale-110 transition"
         >
           <ChevronRight className="w-6 h-6" />
         </button>

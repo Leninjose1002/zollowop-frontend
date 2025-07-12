@@ -4,7 +4,6 @@ import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "./PrimaryButton";
 
-
 const HeroSection = () => {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -22,56 +21,55 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="bg-light py-10 px-4 md:px-16">
+    <section className="bg-gradient-to-br from-blue-50 via-white to-pink-50 py-16 px-4 md:px-16 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-12" data-aos="fade-up">
-          <h2 className="text-4xl font-bold text-primary font-heading">
-            Our Features
+          <h2 className="text-4xl font-bold text-gray-900 font-heading">
+            Making Home Services <span className="text-blue-600">Effortless</span>
           </h2>
+          <p className="mt-2 text-gray-600 font-medium font-roboto">
+            Expert care, just a click away.
+          </p>
         </div>
 
-        {/* Grid */}
-        <div className="flex flex-col md:flex-row items-center gap-10" data-aos="fade-up">
-          {/* Text Section */}
+        {/* Content */}
+        <div className="flex flex-col md:flex-row items-center gap-12" data-aos="fade-up">
+          {/* Text */}
           <div className="md:w-1/2 text-center md:text-left">
-            <h1 className="text-3xl font-bold text-primary leading-snug font-heading">
-              Expert Help for Your Home{" "}
-              <br />
-              <span className="text-accent italic font-[Lobster]">
-                Doorstep
-              </span>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 font-heading leading-snug mb-4">
+              Skilled Professionals <br />
+              <span className="text-accent italic text-3xl">Delivered to Your Door</span>
             </h1>
-            <p className="mt-4 text-gray-600 font-sans">
-              Zollowup delivers professional, reliable home services —
-              from plumbing and electrical repairs to deep cleaning and more.
-              Our team is trained, vetted, and committed to quality.
+            <p className="text-gray-700 font-roboto mb-4 text-base">
+              Zollowup offers on-demand home services: cleaning, repairs, cooking, elderly care,
+              and more — handled by trained, background-checked experts.
             </p>
-            <p className="mt-4 text-gray-600 font-sans">
-              We offer transparent pricing, convenient scheduling, and
-              doorstep delivery of all services so your day isn’t disrupted.
+            <p className="text-gray-700 font-roboto mb-6 text-base">
+              Book with ease, enjoy competitive pricing, and experience seamless doorstep service
+              without hassle.
             </p>
 
-            <div className="mt-6">
-                     <PrimaryButton label="Book Your Service" onClick={() => navigate('/services')} />
-
-            </div>
+            <PrimaryButton
+              label="Book Your Service"
+              onClick={() => navigate("/services")}
+            />
           </div>
 
           {/* Image Grid */}
           <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-5" data-aos="fade-left">
             {images.map((image, index) => (
-              <div key={index} className="relative group rounded-lg overflow-hidden shadow">
+              <div
+                key={index}
+                className="relative group rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300"
+              >
                 <img
                   src={image}
                   alt={`Service ${index + 1}`}
-                  className="w-full h-40 sm:h-48 object-cover"
+                  className="w-full h-44 sm:h-52 object-cover"
                   loading="lazy"
                 />
-                {/* Optional Hover Text */}
-                {/* <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm">
-                  Service {index + 1}
-                </div> */}
+                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition duration-300" />
               </div>
             ))}
           </div>

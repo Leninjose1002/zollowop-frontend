@@ -1,158 +1,142 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import PrimaryButton from "./PrimaryButton";
-import { useNavigate } from "react-router-dom";
-
-
+import PrimaryButton from './PrimaryButton';
+import { useNavigate } from 'react-router-dom';
+import { FaBroom, FaUserNurse, FaBolt, FaTools, FaUtensils } from 'react-icons/fa';
 
 const Introduction = () => {
-	  const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	return (
-		<section className="bg-[#F8FBFF] py-10 px-4 md:px-16">
-			<div className="max-w-7xl mx-auto">
-				{/* Heading Section */}
-				<div className="text-center mb-12">
-					<motion.h2
-						className="text-3xl md:text-4xl font-bold text-black font-heading"
-						initial={{ opacity: 0, y: -20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.8 }}
-					>
-						Reliable Home Care, Straight to Your Doorstep
-					</motion.h2>
-					<p className="text-gray-600 mt-3 text-lg font-sans">
-						Everything you need for home upkeep and self-care, all in one place.					</p>
-				</div>
+  return (
+    <section className="relative bg-gradient-to-br from-blue-50 via-white to-pink-50 py-20 px-4 md:px-16 overflow-hidden">
+      {/* Floating Icons */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        {[FaBroom, FaUserNurse, FaBolt, FaTools, FaUtensils].map((Icon, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-blue-200 opacity-20 text-4xl"
+            style={{
+              top: `${10 + i * 15}%`,
+              left: `${i % 2 === 0 ? '-' : ''}${i * 5 + 5}%`,
+            }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ repeat: Infinity, duration: 6 + i, ease: 'easeInOut' }}
+          >
+            <Icon />
+          </motion.div>
+        ))}
+      </div>
 
-				{/* Content Section */}
-				<div className="flex flex-col lg:flex-row items-center gap-10">
-					{/* Left Images */}
-					<div className="lg:w-1/2 w-full flex flex-wrap justify-center lg:justify-start">
-						{/* Image 1 */}
-						<motion.div
-							className="w-1/2 px-2 hidden lg:block"
-							initial={{ opacity: 0, x: -50 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.8, delay: 0.2 }}
-						>
-							<div className="rounded-2xl overflow-hidden">
-								<img
-									src="https://img.freepik.com/free-photo/full-length-photo-smiling-brunette-maid-uniform-rubber-gloves-leaned-mop-while-standing_171337-18576.jpg?uid=R154198566&ga=GA1.1.976452698.1745320523&semt=ais_hybrid&w=740"
-									alt="Cleaning Service"
-									className="w-full h-auto object-cover"
-									loading="lazy"
-								/>
-							</div>
-						</motion.div>
+      {/* Main Container */}
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Heading */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl font-bold text-gray-900 font-heading">
+            Your Home’s Best Friend — Zollowup
+          </h2>
+          <p className="mt-3 text-lg text-gray-600 font-roboto">
+            Professional care, cleaning, and comfort – all just one click away.
+          </p>
+        </motion.div>
 
-						{/* Image 2 */}
-						<motion.div
-							className="w-1/2 px-2 hidden lg:block"
-							initial={{ opacity: 0, x: 50 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.8, delay: 0.3 }}
-						>
-							<div className="rounded-2xl overflow-hidden relative border-8 border-white lg:left-[-120px] lg:mt-10">
-								<img
-									src="https://mehedi.asiandevelopers.com/demo/html/fouens/images/resources/welcome.jpg"
-									alt="Cleaner"
-									className="w-full h-64 lg:h-[320px] object-cover"
-									loading="lazy"
-								/>
-							</div>
-						</motion.div>
+        {/* Content */}
+        <div className="flex flex-col lg:flex-row items-center gap-10">
+          {/* Images Section */}
+          <div className="lg:w-1/2 w-full grid grid-cols-2 gap-4">
+            {[ 
+              "https://img.freepik.com/free-photo/full-length-photo-smiling-brunette-maid-uniform-rubber-gloves-leaned-mop-while-standing_171337-18576.jpg",
+              "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg",
+              "https://img.freepik.com/free-photo/young-female-nurse-uniform-cleaning-home_1303-26768.jpg",
+              "https://img.freepik.com/free-photo/housewife-woking-home-lady-blue-shirt-woman-clean-mirror_1157-45532.jpg"
+            ].map((src, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 * index }}
+                className={`rounded-xl overflow-hidden shadow-md ${
+                  index === 0 ? 'row-span-2 h-[300px]' : 'h-[145px]'
+                }`}
+              >
+                <img
+                  src={src}
+                  alt="service"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </motion.div>
+            ))}
+          </div>
 
-						{/* Image 3 */}
-						<motion.div
-							className="w-full sm:w-1/2 flex justify-center mt-6 lg:mt-[-20px] lg:relative lg:left-20 lg:top-[-10px]"
-							initial={{ opacity: 0, y: 50 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.8, delay: 0.4 }}
-						>
-							<div className="rounded-2xl overflow-hidden border-8 border-white">
-								<img
-									src="https://img.freepik.com/free-photo/housewife-woking-home-lady-blue-shirt-woman-clean-mirror_1157-45532.jpg?uid=R154198566&ga=GA1.1.976452698.1745320523&semt=ais_hybrid&w=740"
-									alt="Service Professional"
-									className="w-full h-[290px] sm:h-auto object-cover"
-									loading="lazy"
-								/>
-							</div>
-						</motion.div>
-					</div>
+          {/* Text Content */}
+          <div className="lg:w-1/2 w-full px-2">
+            <motion.div
+              className="mb-5"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-heading leading-snug">
+                Expert Help <br />
+                <span className="text-blue-500 italic">Exactly When You Need It</span>
+              </h3>
+            </motion.div>
 
-					{/* Right Text Column */}
-					<div className="lg:w-1/2 w-full px-2">
-						<motion.div
-							className="flex items-start mb-5"
-							initial={{ opacity: 0, x: 50 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.8, delay: 0.5 }}
-						>
-							<img
-								src="https://mehedi.asiandevelopers.com/demo/html/fouens/images/icon/1.png"
-								alt="Icon"
-								className="w-10 h-10 mr-4"
-								loading="lazy"
-							/>
-							<h3 className="text-2xl md:text-3xl font-bold text-black leading-snug font-heading">
-								Fast & Reliable Services <br />
-								<span className="text-accent italic">At Your Home</span>
-							</h3>
-						</motion.div>
+            {[
+              "Zollowup connects you with trained, background-verified professionals for everything — maids, caregivers, electricians, cooks, and more.",
+              "No more browsing endless listings. Just book, relax, and let our team handle the rest with professionalism and care.",
+              "Whether it's a one-time fix or regular service, Zollowup is your trusted home partner, delivering smiles with every visit.",
+            ].map((para, idx) => (
+              <motion.p
+                key={idx}
+                className="text-gray-700 mb-4 text-base leading-relaxed font-roboto"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 + idx * 0.2 }}
+              >
+                {para}
+              </motion.p>
+            ))}
 
-						{[
-							"Need professional help around the house? Zollowup instantly connects you with trusted maids, expert cleaners, skilled technicians, and more — all background-checked and ready to serve.",
-							"Enjoy seamless booking, competitive pricing, and trustworthy professionals at your convenience. We bring comfort, care, and cleanliness to your doorstep — safely and efficiently.",
-							"Join thousands of happy clients who count on Zollowup for hassle-free home service solutions. Book today and experience the difference!"
-						].map((text, index) => (
-							<motion.p
-								key={index}
-								className="text-gray-600 mb-4 leading-6 font-sans text-base"
-								initial={{ opacity: 0 }}
-								whileInView={{ opacity: 1 }}
-								viewport={{ once: true }}
-								transition={{ duration: 0.8, delay: 0.6 + index * 0.2 }}
-							>
-								{text}
-							</motion.p>
-						))}
+            {/* Trust Badges */}
+            <motion.div
+              className="flex flex-wrap gap-4 mt-6 items-center"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
+              <div className="bg-white shadow rounded-full px-4 py-2 text-sm text-gray-700 font-semibold">
+                ⭐ 4.9/5 Rating
+              </div>
+              <div className="bg-white shadow rounded-full px-4 py-2 text-sm text-gray-700 font-semibold">
+                🏠 Trusted by 1K+ Homes
+              </div>
+              <div className="bg-white shadow rounded-full px-4 py-2 text-sm text-gray-700 font-semibold">
+                ✅ Google Verified
+              </div>
+            </motion.div>
 
-						{/* Trust Indicator */}
-						<motion.div
-							className="flex items-center gap-2 mt-4"
-							initial={{ opacity: 0 }}
-							whileInView={{ opacity: 1 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.8, delay: 1.1 }}
-						>
-							<img src="https://img.icons8.com/color/48/000000/star--v1.png" alt="Star" className="h-5" />
-							<p className="text-sm text-gray-600 font-medium">
-								4.9/5 based on 1,200+ reviews
-							</p>
-						</motion.div>
-
-						{/* CTA Button */}
-						<motion.div
-							className="mt-6"
-							initial={{ opacity: 0 }}
-							whileInView={{ opacity: 1 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.8, delay: 1.3 }}
-						>
-							<PrimaryButton label="Contact Us" onClick={() => navigate('/contact')} />
-
-						</motion.div>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
+            {/* CTA Button */}
+            <motion.div
+              className="mt-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.3 }}
+            >
+              <PrimaryButton label="Book Now" onClick={() => navigate('/contact')} />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Introduction;

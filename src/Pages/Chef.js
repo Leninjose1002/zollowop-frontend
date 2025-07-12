@@ -17,7 +17,7 @@ const Chef = () => {
               </span>
             </h1>
             <p className="text-base sm:text-lg text-black mt-4 sm:mt-6">
-              From birthday parties to pujas – 5 Lakh+ happy customers in 20+ cities
+              From birthday parties to pujas we have  happy customers in each city.
             </p>
             <button
               onClick={() => setShowModal(true)}

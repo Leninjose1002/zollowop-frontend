@@ -1,110 +1,67 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import {
-  FaBroom,
-  FaUserNurse,
-  FaUtensils,
-  FaTools,
-  FaBolt,
-  FaRedRiver,
-  FaPumpSoap,
-} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const services = [
   {
-    icon: <FaBroom className="text-white text-2xl" />,
+    image: '/images/housekeeping/kitchen-cleaning.avif',
     title: 'Maid Service',
-    desc: 'Spotless cleaning services for a tidy, fresh home every time.',
     path: '/maid',
-    bg: 'bg-orange-500',
   },
   {
-    icon: <FaUserNurse className="text-white text-2xl" />,
+    image: '/images/nursing/Baby-Mother-Care.avif',
     title: 'Nursing Care',
-    desc: 'Caring and compassionate help for your loved ones.',
     path: '/nursing',
-    bg: 'bg-blue-500',
   },
   {
-    icon: <FaBolt className="text-white text-2xl" />,
+    image: '/images/electrician/Fuse-Replacement-img.avif',
     title: 'Electrician Services',
-    desc: 'Certified electricians for safe and efficient solutions.',
     path: '/electrician',
-    bg: 'bg-yellow-500',
   },
   {
-    icon: <FaTools className="text-white text-2xl" />,
+    image: '/images/plumbing/balcony-drain.webp',
     title: 'Plumber Services',
-    desc: 'Quick fixes and maintenance by trusted professionals.',
     path: '/plumber',
-    bg: 'bg-green-500',
   },
   {
-    icon: <FaRedRiver className="text-white text-2xl" />,
-    title: 'Driver',
-    desc: 'Experienced drivers for safe and reliable transport.',
+    image: '/images/services/driver.webp',
+    title: 'Driver on Demand',
     path: '/drivers',
-    bg: 'bg-red-500',
   },
   {
-    icon: <FaPumpSoap className="text-white text-2xl" />,
-    title: 'Housekeeping Services',
-    desc: 'Detailed cleaning and upkeep for a spotless home.',
+    image: '/images/housekeeping/Full-Home-Deep-Cleaning.avif',
+    title: 'Housekeeping',
     path: '/housekeeping',
-    bg: 'bg-cyan-500',
   },
   {
-    icon: <FaUtensils className="text-white text-2xl" />,
-    title: 'Chef Services',
-    desc: 'Skilled cooks to prepare home-style or special meals.',
+    image: '/images/services/chef.webp',
+    title: 'Chef Service',
     path: '/chef',
-    bg: 'bg-purple-500',
   },
 ];
 
 const Services = () => {
   return (
-    <section className="py-16 bg-white px-4 md:px-16">
-      <div className="max-w-7xl mx-auto text-center mb-12">
-        <motion.h2
-          className="text-4xl font-bold text-black font-poppins"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          Our Services
-        </motion.h2>
-        <motion.p
-          className="mt-4 text-gray-600 max-w-2xl mx-auto font-roboto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          From cleaning to caregiving, cooking to repairs – we've got you covered with reliable and expert professionals.
-        </motion.p>
+    <section className="bg-white py-12 px-4 md:px-12">
+      <div className="max-w-7xl mx-auto text-center mb-10">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
+        <p className="text-gray-600 mt-3 max-w-xl mx-auto text-sm">
+          Book trained professionals for cleaning, caregiving, repairs, and more.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {services.map((service, index) => (
           <Link to={service.path} key={index}>
-            <motion.div
-              className="bg-[#F8FBFF] shadow-md rounded-2xl p-6 hover:shadow-lg transition duration-300"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className={`w-12 h-12 flex items-center justify-center rounded-full mb-4 ${service.bg}`}>
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-black font-poppins mb-2">
+            <div className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group text-center p-4 cursor-pointer">
+              <img
+                src={service.image}
+                alt={service.title}
+                className="w-20 h-20 mx-auto object-contain mb-3 transition-transform duration-300 group-hover:scale-105"
+              />
+              <h3 className="text-sm font-medium text-gray-800 group-hover:text-blue-600 transition-colors duration-200">
                 {service.title}
               </h3>
-              <p className="text-gray-600 text-base font-roboto">{service.desc}</p>
-            </motion.div>
+            </div>
           </Link>
         ))}
       </div>

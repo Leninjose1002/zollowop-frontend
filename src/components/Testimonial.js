@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
+import PrimaryButton from "./PrimaryButton";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 const defaultAvatar = "https://www.gravatar.com/avatar/?d=mp&f=y";
@@ -12,6 +14,8 @@ export default function TestimonialCarousel() {
   const [itemsPerSlide, setItemsPerSlide] = useState(2);
   const [modalReview, setModalReview] = useState(null);
   const intervalRef = useRef();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -103,8 +107,8 @@ export default function TestimonialCarousel() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="max-w-7xl mx-auto px-4 py-20"
     >
-      <div className="bg-white text-black py-12 px-6 rounded-2xl shadow-md">
-        <div className="max-w-6xl mx-auto">
+      <div className="bg-[#F8FBFF] text-black py-12 px-6 rounded-2xl shadow-md">
+        <div className="max-w-6xl mx-auto ">
           <div className="flex items-center mb-8">
             <FaQuoteLeft className="text-4xl text-primary" />
             <h2 className="text-3xl font-bold ml-4 font-poppins">What our verified users say</h2>
@@ -185,13 +189,10 @@ export default function TestimonialCarousel() {
 
       {/* Review CTA */}
       <div className="text-center mt-6">
-        <a
-          href="/dashboard/orders"
-          className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Leave a Review
-        </a>
+        <PrimaryButton label="Leave a Review" onClick={() => navigate('/dashboard/orders')} />
+
       </div>
+
 
       {/* Modal */}
       {modalReview && (
