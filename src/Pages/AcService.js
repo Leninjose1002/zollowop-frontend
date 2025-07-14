@@ -3,15 +3,21 @@ import { useCart } from '../components/CartContext';
 
 // List of AC services modeled after UrbanCompany offerings
 const acServices = [
-  { id: 'ac-1', title: 'AC Preventive Maintenance', price: '₹899', image: '/images/ac/preventive-maintenance.jpg' },
-  { id: 'ac-2', title: 'AC Split Service (1 Ton)', price: '₹799', image: '/images/ac/split-service-1-ton.jpg' },
-  { id: 'ac-3', title: 'AC Split Service (1.5 Ton)', price: '₹899', image: '/images/ac/split-service-1-5-ton.jpg' },
-  { id: 'ac-4', title: 'AC Split Service (2 Ton)', price: '₹999', image: '/images/ac/split-service-2-ton.jpg' },
-  { id: 'ac-5', title: 'AC Window Service', price: '₹749', image: '/images/ac/window-service.jpg' },
-  { id: 'ac-6', title: 'AC Chemical Wash (Split)', price: '₹1,299', image: '/images/ac/chemical-wash-split.jpg' },
-  { id: 'ac-7', title: 'AC Chemical Wash (Window)', price: '₹1,099', image: '/images/ac/chemical-wash-window.jpg' },
-  { id: 'ac-8', title: 'AC Gas Refilling', price: '₹1,499', image: '/images/ac/gas-refill.jpg' },
-  { id: 'ac-9', title: 'AC Compressor Repair', price: '₹2,499', image: '/images/ac/compressor-repair.jpg' },
+  { id: 'ac-1', title: 'Foam Jet Service', price: '₹1000', image: '/images/ac-service/Ac-Foam-JET.WEBP' },
+  { id: 'ac-2', title: 'AC Split Service (1 Ton)', price: '₹799', image: '/images/ac-service/AC-Split-Service-(1 Ton).jpg' },
+  { id: 'ac-3', title: 'AC Split Service (1.5 Ton)', price: '₹899', image: '/images/ac-service/AC-Split-Service-(1.5 Ton).jpg' },
+  { id: 'ac-5', title: 'AC Window Service', price: '₹749', image: '/images/ac-service/AC Window Service.jpg' },
+  { id: 'ac-6', title: 'AC less / no cooling repair', price: '₹500', image: '/images/ac-service/AC-less-no-cooling-repair.jpg' },
+  { id: 'ac-7', title: 'AC power issue repair', price: '₹500', image: '/images/ac-service/AC-power-issue-repair.jpg' },
+  { id: 'ac-8', title: 'AC noise/smell repair', price: '₹1000', image: '/images/ac-service/AC-noise-smell-repair.jpg' },
+  { id: 'ac-9', title: 'AC water leakage repair', price: '₹500', image: '/images/ac-service/AC-watee-leakage-repair.jpg' },
+  { id: 'ac-10', title: 'Gas refill and check-up ', price: '₹500', image: '/images/ac-service/Gas-refill-and-check-up.jpg' },
+  { id: 'ac-12', title: 'Split AC installation ', price: '₹1200', image: '/images/ac-service/Split-AC-installation.jpg' },
+  { id: 'ac-13', title: 'Window AC installation', price: '₹1200', image: '/images/ac-service/Window-AC-installation.jpg' },
+  { id: 'ac-14', title: 'Split AC uninstallation', price: '₹850', image: '/images/ac-service/Split-AC-uninstallation.jpg' },
+  { id: 'ac-15', title: 'Window AC uninstallation ', price: '₹850', image: '/images/ac-service/Window-AC-uninstallation.jpg' },
+
+
 ];
 
 const AcService = () => {

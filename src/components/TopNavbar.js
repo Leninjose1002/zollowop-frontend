@@ -23,7 +23,7 @@ const TopNavbar = () => {
                 strokeWidth="2"
               />
             </svg>
-            U-134b, 3rd Floor, Shakarpur, Near Laxmi Nagar Metro Gate No. 4, Delhi-110092
+            New Delhi-110092
           </span>
 
           <span className="flex items-center gap-2">

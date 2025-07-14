@@ -61,7 +61,7 @@ const Contact = () => {
           <div className="flex items-center space-x-3">
             <FaMapMarkerAlt className="text-blue-900" />
             <span className="text-gray-700 font-medium font-roboto">
-              U-134B, 3rd Floor Shakarpur, Laxmi Nagar, Delhi-110092, Near Laxmi Nagar Metro station gate No.- 4
+              New Delhi-110092
             </span>
           </div>
         </div>

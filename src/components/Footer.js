@@ -57,9 +57,7 @@ We offer transparent pricing, convenient scheduling, and doorstep delivery of al
         <div>
           <h3 className="text-xl font-semibold mb-4 font-roboto">Contact Us</h3>
           <p className="text-sm mb-2 font-roboto">
-            U-134B, 3rd Floor, Shakarpur<br />
-            Near Laxmi Nagar Metro Gate No. 4,<br />
-            Laxmi Nagar, Delhi 110092
+            New Delhi 110092
           </p>
           <p className="text-sm mb-2 font-roboto">Phone: +91 9267987940</p>
           <p className="text-sm mb-4 font-roboto">Email: sales@zollowup.com</p>
