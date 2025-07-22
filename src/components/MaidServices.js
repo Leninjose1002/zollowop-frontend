@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { FaBroom, FaUtensils, FaBath, FaCouch } from "react-icons/fa";
+import { FaBroom, FaUtensils, FaBath, FaCouch, FaConciergeBell } from "react-icons/fa";
 
 const services = [
-  { id: 1, name: "House Cleaning", icon: <FaBroom />, description: "Experience a spotless home with our professional house cleaning services. Reliable, thorough, and tailored to your needs.", image: "https://img.freepik.com/premium-photo/young-woman-sweeping-floor-kitchen_157927-16441.jpg?ga=GA1.1.853350676.1718004547&semt=ais_hybrid" },
-  { id: 2, name: "Kitchen Cleaning", icon: <FaUtensils />, description: "Make your kitchen shine with our expert cleaning service. We tackle grease, grime, and germs for a spotless, hygienic space.", image: "https://img.freepik.com/premium-photo/nice-modern-bright-kitchen_470178-15756.jpg?ga=GA1.1.853350676.1718004547&semt=ais_hybrid" },
-  { id: 3, name: "Bathroom Cleaning", icon: <FaBath />, description: "Get a sparkling clean bathroom with our deep cleaning service. We remove stains, sanitize surfaces, and leave it fresh and hygienic.", image: "https://img.freepik.com/premium-photo/green-washing-product-cleaning-glass-bathroom-young-chambermaid-is-hotel-room_146671-136614.jpg?ga=GA1.1.853350676.1718004547&semt=ais_hybrid" },
-  { id: 4, name: "Cooks", icon: <FaCouch />, description: "Caring and trustworthy babysitters for your little ones. Safe, engaging, and nurturing care when you need it most.", image: "https://img.freepik.com/premium-photo/sofa-chemical-cleaning-with-professionally-extraction-method-upholstered-furniture-early-spring-cleaning-regular-clean-up_152904-40601.jpg?ga=GA1.1.853350676.1718004547&semt=ais_hybrid" },
-  { id: 5, name: "Dusting, Laundry", icon: <FaBath />, description: "Caring and trustworthy babysitters for your little ones. Safe, engaging, and nurturing care when you need it most.", image: "https://img.freepik.com/premium-photo/sofa-chemical-cleaning-with-professionally-extraction-method-upholstered-furniture-early-spring-cleaning-regular-clean-up_152904-40601.jpg?ga=GA1.1.853350676.1718004547&semt=ais_hybrid" },
+  { id: 1, name: "House Cleaning", icon: <FaBroom />, description: "Experience a spotless home with our professional house cleaning services. Reliable, thorough, and tailored to your needs.", image: "images/maid-page/maid.avif" },
+  { id: 2, name: "Kitchen Cleaning", icon: <FaUtensils />, description: "Make your kitchen shine with our expert cleaning service. We tackle grease, grime, and germs for a spotless, hygienic space.", image: "images/maid-page/kitchen.avif" },
+  { id: 3, name: "Bathroom Cleaning", icon: <FaBath />, description: "Get a sparkling clean bathroom with our deep cleaning service. We remove stains, sanitize surfaces, and leave it fresh and hygienic.", image: "images/maid-page/bathroom.avif" },
+  { id: 4, name: "Cooks", icon: <FaConciergeBell />, description: "Cooks are skilled professionals who prepare and present food in homes, restaurants, or other establishments. They follow recipes, manage kitchen tasks, and ensure food is cooked safely and deliciously.", 
+    image: "images/maid-page/cook.jpg" },
+  { id: 5, name: "Dusting, Laundry", icon: <FaBath />, description: "Dusting involves removing dirt and allergens from surfaces to keep spaces clean and fresh. Laundry is the process of washing, drying, and folding clothes to maintain hygiene and appearance.", image: "images/maid-page/dusting.avif" },
 
 
 ];

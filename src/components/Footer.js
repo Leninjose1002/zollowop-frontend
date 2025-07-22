@@ -56,10 +56,8 @@ We offer transparent pricing, convenient scheduling, and doorstep delivery of al
         {/* Column 3: Contact Info */}
         <div>
           <h3 className="text-xl font-semibold mb-4 font-roboto">Contact Us</h3>
-          <p className="text-sm mb-2 font-roboto">
-            New Delhi 110092
-          </p>
-          <p className="text-sm mb-2 font-roboto">Phone: +91 9267987940</p>
+          
+          <p className="text-sm mb-2 font-roboto">Phone: +91 92180 28500</p>
           <p className="text-sm mb-4 font-roboto">Email: sales@zollowup.com</p>
 
           {/* Social Media Links */}

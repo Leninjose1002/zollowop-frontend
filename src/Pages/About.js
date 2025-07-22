@@ -80,13 +80,12 @@ const About = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans items-start text-sm">
             <ul className="space-y-1">
               <li className="text-gray-800 flex items-center justify-center sm:justify-start"><span className="text-accent mr-2">-</span> House Cleaning Service</li>
-              <li className="text-gray-800 flex items-center justify-center sm:justify-start"><span className="text-accent mr-2">-</span> References Available</li>
+              <li className="text-gray-800 flex items-center justify-center sm:justify-start"><span className="text-accent mr-2">-</span> Housekeeping</li>
               <li className="text-gray-800 flex items-center justify-center sm:justify-start"><span className="text-accent mr-2">-</span> Commercial Cleaning</li>
             </ul>
             <ul className="space-y-1">
               <li className="text-gray-800 flex items-center justify-center sm:justify-start"><span className="text-accent mr-2">-</span> Satisfaction Guaranteed</li>
               <li className="text-gray-800 flex items-center justify-center sm:justify-start"><span className="text-accent mr-2">-</span> All Equipment Provided</li>
-              <li className="text-gray-800 flex items-center justify-center sm:justify-start"><span className="text-accent mr-2">-</span> Housekeeping</li>
             </ul>
           </div>
         </div>

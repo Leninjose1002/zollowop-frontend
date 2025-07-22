@@ -52,18 +52,13 @@ const Contact = () => {
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
             <FaPhoneAlt className="text-blue-900" />
-            <span className="text-gray-700 font-medium font-roboto">+91 9876543210</span>
+            <span className="text-gray-700 font-medium font-roboto">+91 9218028500</span>
           </div>
           <div className="flex items-center space-x-3">
             <FaEnvelope className="text-blue-900" />
             <span className="text-gray-700 font-medium font-roboto">sales@zollowup.com</span>
           </div>
-          <div className="flex items-center space-x-3">
-            <FaMapMarkerAlt className="text-blue-900" />
-            <span className="text-gray-700 font-medium font-roboto">
-              New Delhi-110092
-            </span>
-          </div>
+          
         </div>
       </div>
 
