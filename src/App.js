@@ -59,6 +59,7 @@ import TermsAndConditions from "./Pages/TermsAndConditions";
 import RefundPolicy from "./Pages/RefundPolicy";
 import Chef from "./Pages/Chef";
 import AdminJobApplications from "./components/AdminJobApplications";
+import OtherServices from "./Pages/OtherServices";
 function App() {
   return (
     <Router>
@@ -114,6 +115,8 @@ function App() {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
               <Route path="/refund-policy" element={<RefundPolicy />} />
+                      <Route path="/book-other-services" element={<OtherServices />} />
+
 
 
 

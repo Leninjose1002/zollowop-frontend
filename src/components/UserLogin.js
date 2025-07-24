@@ -158,6 +158,18 @@ const UserLogin = ({ onClose = () => { }, setShowLogin = () => { }, setShowSignu
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
+<div className="text-right text-sm">
+  <button
+    type="button"
+    onClick={() => {
+      onClose(); // optional: closes the modal
+      navigate('/forgot-password');
+    }}
+    className="text-blue-600 hover:underline"
+  >
+    Forgot Password?
+  </button>
+</div>
 
           <button
             type="submit"
