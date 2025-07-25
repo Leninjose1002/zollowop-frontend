@@ -98,7 +98,7 @@ const Navbar = () => {
               Services {activeDropdown === "services" ? <ChevronUp /> : <ChevronDown />}
             </div>
             {activeDropdown === "services" && (
-              <div className="absolute left-0 mt-2 w-[850px] max-h-[70vh] overflow-y-auto bg-white text-gray-800 rounded-lg shadow-lg grid grid-cols-4 gap-4 p-5 z-50">
+<div className="absolute left-1/2 top-full transform -translate-x-1/2 mt-1 w-[850px] max-h-[70vh] overflow-y-auto bg-white text-gray-800 rounded-lg shadow-lg grid grid-cols-4 gap-4 p-5 z-50">
                 {serviceGroups.map((group) => (
                   <div key={group.heading}>
                     <h4 className="font-semibold text-blue-800 mb-3 border-b border-gray-200 pb-1 sticky top-0 bg-white z-10">{group.heading}</h4>

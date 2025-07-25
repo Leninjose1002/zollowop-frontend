@@ -74,9 +74,13 @@ const NewAndNoteworthySlider = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="bg-gradient-to-br from-blue-50 via-white to-purple-100 py-20 px-4"
     >
-      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10 text-gray-900 font-poppins">
-        Our Most Popular Home Services
-      </h2>
+      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900 font-heading">
+  Our Most Popular <span className="bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">Home Services</span>
+</h2>
+<p className="text-center text-blue-800 font-bold font-roboto mb-10">
+  Trusted by hundreds of families for quality, speed, and care.
+</p>
+
 
       <div className="relative max-w-7xl mx-auto">
         <Slider ref={sliderRef} {...settings}>

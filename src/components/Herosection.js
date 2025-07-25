@@ -26,9 +26,9 @@ const HeroSection = () => {
         {/* Heading */}
         <div className="text-center mb-12" data-aos="fade-up">
           <h2 className="text-4xl font-bold text-gray-900 font-heading">
-            Making Home Services <span className="text-blue-600">Effortless</span>
+            Making Home Services <span className="font-bold bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text font-heading leading-snug">Effortless</span>
           </h2>
-          <p className="mt-2 text-gray-600 font-medium font-roboto">
+          <p className="mt-2 text-blue-800 font-bold font-roboto">
             Expert care, just a click away.
           </p>
         </div>
@@ -37,7 +37,7 @@ const HeroSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-12" data-aos="fade-up">
           {/* Text */}
           <div className="md:w-1/2 text-center md:text-left">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 font-heading leading-snug mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text font-heading leading-snug">
               Skilled Professionals <br />
               <span className="text-accent italic text-3xl">Delivered to Your Door</span>
             </h1>

@@ -99,124 +99,125 @@ export default function TestimonialCarousel() {
     trackMouse: true,
   });
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="max-w-7xl mx-auto px-4 py-20"
-    >
-      <div className="bg-[#F8FBFF] text-black py-12 px-6 rounded-2xl shadow-md">
-        <div className="max-w-6xl mx-auto ">
-          <div className="flex items-center mb-8">
-            <FaQuoteLeft className="text-4xl text-primary" />
-            <h2 className="text-3xl font-bold ml-4 font-poppins">What our verified users say</h2>
-          </div>
+ return (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: false, amount: 0.2 }}
+    transition={{ duration: 0.8, ease: "easeOut" }}
+    className="max-w-7xl mx-auto px-4 py-20"
+  >
+    {/* Fancy Heading */}
+    <div className="text-center mb-10">
+      <h2 className="text-4xl sm:text-5xl font-bold font-poppins">
+        <span className="text-blue-900">What Our </span>
 
-          <div className="relative" {...swipeHandlers}>
-            {/* Arrows */}
-            <button onClick={prevSlide} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-black p-3 rounded-full shadow-md hover:bg-gray-100 z-10">
-              <FaChevronLeft />
-            </button>
+        <span className="bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">verified users</span>
+            <span className="text-blue-900"> Say</span>
 
-            <div className="flex overflow-hidden gap-6 mx-12">
-              <AnimatePresence mode="wait">
-                {getVisibleTestimonials().map((testimonial, i) => (
-                  <motion.div
-                    key={testimonial._id || i}
-                    className="bg-gray-50 rounded-xl shadow-md p-6 w-full cursor-pointer"
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -100 }}
-                    transition={{ duration: 0.4 }}
-                    onClick={() => setModalReview(testimonial)}
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <img
-                        src={testimonial.userId?.photo || defaultAvatar}
-                        alt="User"
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          {testimonial.userId?.name || "Anonymous"}
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                          {testimonial.bookingId?.service?.name || "Service"}
-                        </p>
-                      </div>
+      </h2>
+      <p className="text-blue-800 font-medium font-roboto text-sm sm:text-base">
+    Real stories from happy customers who trust <span className="font-semibold">Zollowup</span> for their home service needs.
+  </p>
+    </div>
+
+    {/* Testimonials Section */}
+    <div className="bg-[#F8FBFF] text-black py-12 px-6 rounded-2xl shadow-md">
+      <div className="max-w-6xl mx-auto">
+        <div className="relative" {...swipeHandlers}>
+          {/* Arrows */}
+          <button onClick={prevSlide} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-black p-3 rounded-full shadow-md hover:bg-gray-100 z-10">
+            <FaChevronLeft />
+          </button>
+
+          <div className="flex overflow-hidden gap-6 mx-12">
+            <AnimatePresence mode="wait">
+              {getVisibleTestimonials().map((testimonial, i) => (
+                <motion.div
+                  key={testimonial._id || i}
+                  className="bg-white rounded-xl shadow-md p-6 w-full cursor-pointer"
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.4 }}
+                  onClick={() => setModalReview(testimonial)}
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <img
+                      src={testimonial.userId?.photo || defaultAvatar}
+                      alt="User"
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <h3 className="text-lg font-semibold">{testimonial.userId?.name || "Anonymous"}</h3>
+                      <p className="text-sm text-gray-500">{testimonial.bookingId?.service?.name || "Service"}</p>
                     </div>
+                  </div>
 
-                    <motion.div className="flex text-yellow-500 mb-3">
-                      {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <motion.span key={i} whileHover={{ scale: 1.2 }}>
-                          ★
-                        </motion.span>
-                      ))}
-                    </motion.div>
-
-                    <p className="text-gray-700 font-roboto line-clamp-4">
-                      "{testimonial.review}"
-                    </p>
+                  <motion.div className="flex text-yellow-500 mb-3">
+                    {Array.from({ length: testimonial.rating }).map((_, i) => (
+                      <motion.span key={i} whileHover={{ scale: 1.2 }}>★</motion.span>
+                    ))}
                   </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
 
-            <button onClick={nextSlide} className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-black p-3 rounded-full shadow-md hover:bg-gray-100 z-10">
-              <FaChevronRight />
-            </button>
+                  <p className="text-gray-700 font-roboto line-clamp-4">
+                    "{testimonial.review}"
+                  </p>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
 
-          {/* Pagination Dots */}
-          <div className="flex justify-center mt-6 gap-2">
-            {Array.from({ length: Math.ceil(testimonials.length / itemsPerSlide) }).map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setIndex(idx * itemsPerSlide)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${index / itemsPerSlide === idx ? "bg-blue-600" : "bg-gray-300"}`}
-              />
+          <button onClick={nextSlide} className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-black p-3 rounded-full shadow-md hover:bg-gray-100 z-10">
+            <FaChevronRight />
+          </button>
+        </div>
+
+        {/* Pagination Dots */}
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: Math.ceil(testimonials.length / itemsPerSlide) }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setIndex(idx * itemsPerSlide)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index / itemsPerSlide === idx ? "bg-blue-600" : "bg-gray-300"}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Fallback */}
+    {testimonials.length === 0 && (
+      <p className="text-center text-gray-500 mt-6">No reviews yet. Be the first to leave one!</p>
+    )}
+
+    {/* CTA Button */}
+    <div className="text-center mt-6">
+      <PrimaryButton label="Leave a Review" onClick={() => navigate('/dashboard/orders')} />
+    </div>
+
+    {/* Modal */}
+    {modalReview && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-xl max-w-lg w-full p-6 relative">
+          <button
+            onClick={() => setModalReview(null)}
+            className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl"
+          >
+            &times;
+          </button>
+          <h3 className="text-xl font-bold mb-2">{modalReview.userId?.name || "Anonymous"}</h3>
+          <p className="text-sm text-gray-500 mb-2">{modalReview.bookingId?.service?.name || "Service"}</p>
+          <div className="text-yellow-500 mb-3">
+            {Array.from({ length: modalReview.rating }).map((_, i) => (
+              <span key={i}>★</span>
             ))}
           </div>
+          <p className="text-gray-800">{modalReview.review}</p>
         </div>
       </div>
+    )}
+  </motion.div>
+);
 
-      {/* Fallback when empty */}
-      {testimonials.length === 0 && (
-        <p className="text-center text-gray-500 mt-6">No reviews yet. Be the first to leave one!</p>
-      )}
-
-      {/* Review CTA */}
-      <div className="text-center mt-6">
-        <PrimaryButton label="Leave a Review" onClick={() => navigate('/dashboard/orders')} />
-
-      </div>
-
-
-      {/* Modal */}
-      {modalReview && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl max-w-lg w-full p-6 relative">
-            <button
-              onClick={() => setModalReview(null)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl"
-            >
-              &times;
-            </button>
-            <h3 className="text-xl font-bold mb-2">{modalReview.userId?.name || "Anonymous"}</h3>
-            <p className="text-sm text-gray-500 mb-2">
-              {modalReview.bookingId?.service?.name || "Service"}
-            </p>
-            <div className="text-yellow-500 mb-3">
-              {Array.from({ length: modalReview.rating }).map((_, i) => (
-                <span key={i}>★</span>
-              ))}
-            </div>
-            <p className="text-gray-800">{modalReview.review}</p>
-          </div>
-        </div>
-      )}
-    </motion.div>
-  );
 }

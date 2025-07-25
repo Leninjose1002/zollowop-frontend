@@ -37,10 +37,10 @@ const Introduction = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl font-bold text-gray-900 font-heading">
+<h2 className="text-4xl font-bold bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text font-heading">
             Your Home’s Best Friend — Zollowup
           </h2>
-          <p className="mt-3 text-lg text-gray-600 font-roboto">
+          <p className="mt-3 text-lg text-accent font-roboto font-bold">
             Professional care, cleaning, and comfort – all just one click away.
           </p>
         </motion.div>
@@ -83,10 +83,11 @@ const Introduction = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-heading leading-snug">
-                Expert Help <br />
-                <span className="text-blue-500 italic">Exactly When You Need It</span>
-              </h3>
+              <h3 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text font-heading leading-snug">
+  Expert Help Exactly  When<br />
+  <span className="italic text-accent">  You Need It..</span>
+</h3>
+
             </motion.div>
 
             {[

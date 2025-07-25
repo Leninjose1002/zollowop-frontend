@@ -16,9 +16,16 @@ const Cards = () => {
 
   return (
     <div className="flex flex-col justify-center items-center py-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <h2 className="text-3xl md:text-4xl font-bold mb-10 text-primary font-heading text-center">
-        Mission and Vision
-      </h2>
+      <h2 className="text-3xl md:text-4xl font-bold text-center font-poppins mb-6 text-gray-800">
+  <span className="bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">
+    Mission
+  </span>{" "}
+  and{" "}
+  <span className="bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">
+    Vision
+  </span>
+</h2>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {cardData.map((card, index) => (
           <div

@@ -61,9 +61,18 @@ const Cleaning = () => {
 
   return (
     <div className="bg-gradient-to-br from-orange-50 via-white to-pink-100 py-20 px-4" data-aos="fade-up">
-      <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 font-poppins mb-10" data-aos="fade-down">
-        Cleaning & Cooking
-      </h2>
+     <h2
+  className="text-3xl sm:text-4xl font-bold text-center text-gray-900 font-heading mb-4"
+  data-aos="fade-down"
+>
+  <span className="bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">
+    Cleaning & Cooking
+  </span>
+</h2>
+<p className="text-center text-blue-800 font-bold font-roboto mb-10">
+  Keep your home spotless and your meals stress-free with trusted experts.
+</p>
+
 
       <div className="relative max-w-7xl mx-auto">
         <Slider ref={sliderRef} {...sliderSettings}>

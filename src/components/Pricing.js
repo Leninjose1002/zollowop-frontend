@@ -6,7 +6,7 @@ const pricingPlans = [
   { title: "8 Hours", price: "₹15000", features: ["2 holidays per month."] },
   { title: "12 Hours", price: "₹17000", features: ["2 holidays per month."], mostPopular: true },
   { title: "24 Hours", price: "₹22000", features: ["2 holidays per month."] },
- 
+
 ];
 
 const Pricing = () => {
@@ -14,18 +14,23 @@ const Pricing = () => {
   const navigate = useNavigate(); // Initialize navigate
 
   const handleSelectMaid = (plan) => {
-    const hours = parseInt(plan.title.split(" ")[0]); 
-    navigate(`/maid-selection`, { state: { selectedHours: hours } }); 
+    const hours = parseInt(plan.title.split(" ")[0]);
+    navigate(`/maid-selection`, { state: { selectedHours: hours } });
   };
-  
+
 
   return (
     <div className="bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-800">Our Pricing</h2>
-          <p className="text-gray-600 mt-2">Affordable & Transparent Rates</p>
-        </div>
+        <div className="text-center mb-6">
+  <h2 className="text-3xl sm:text-4xl font-bold font-poppins bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text inline-block">
+    Our Pricing
+  </h2>
+  <p className="text-blue-900 font-bold text-base sm:text-lg mt-2">
+    Affordable & Transparent Rates
+  </p>
+</div>
+
 
         {/* Pricing Cards */}
         <div className="flex flex-wrap justify-center gap-5 mb-8">
@@ -47,13 +52,12 @@ const Pricing = () => {
                 ))}
               </ul>
               <button
-                onClick={() => handleSelectMaid(plan)} 
+                onClick={() => handleSelectMaid(plan)}
                 disabled={bookedServices.has(plan.title)}
-                className={`w-full py-2 rounded-lg font-medium transition ${
-                  bookedServices.has(plan.title)
-                    ? "bg-white text-blue-600 border border-blue-600 cursor-not-allowed"
-                    : "bg-blue-900 text-white hover:bg-blue-700"
-                }`}
+                className={`w-full py-2 rounded-lg font-medium transition ${bookedServices.has(plan.title)
+                  ? "bg-white text-blue-600 border border-blue-600 cursor-not-allowed"
+                  : "bg-blue-900 text-white hover:bg-blue-700"
+                  }`}
               >
                 {bookedServices.has(plan.title) ? "Booked" : "Select Your Maid"}
               </button>

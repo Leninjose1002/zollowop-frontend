@@ -11,7 +11,7 @@ const Maid = () => {
     <div className="bg-gray-100">
       {/* <ExitIntentPopup /> */}
       {/* Hero Section */}
-      <div className="w-full relative h-[350px] md:h-[450px] bg-cover bg-center mb-5" style={{ backgroundImage: "url('https://www.mollymaid.com/us/en-us/_assets/images/banner-hero-images/mly-hero-v2-desktop.webp')" }}>
+      <div className="w-full relative h-[350px] md:h-[450px] bg-cover bg-center mb-5" style={{ backgroundImage: "url('https://media.istockphoto.com/id/868638364/photo/worker-with-a-gesture-of-his-hands-to-protect-the-quality-of-the-work.jpg?s=612x612&w=0&k=20&c=2kzTUkckatJq_m0hOX8CRFDp8FKNLoyJLpdwf37GmD8=')" }}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold"> Maid </h1>

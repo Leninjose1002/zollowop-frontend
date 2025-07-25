@@ -83,11 +83,15 @@ const Services = () => {
     >
       <div className="max-w-7xl mx-auto">
         <h2
-          className="text-4xl font-bold text-center text-gray-900 font-heading mb-12"
-          data-aos="fade-down"
-        >
-          Our Top Services
-        </h2>
+  className="text-4xl font-bold text-center text-gray-900 font-heading mb-4"
+  data-aos="fade-down"
+>
+  Discover <span className="bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">Top Services</span> Tailored for You
+</h2>
+<p className="text-center text-blue-800 font-bold font-roboto mb-12">
+  Explore the most trusted and in-demand offerings at Zollowup.
+</p>
+
 
         <div className="relative">
           <Slider ref={sliderRef} {...settings}>

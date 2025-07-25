@@ -33,12 +33,13 @@ const HowItWorks = () => {
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <h2 className="text-4xl font-bold text-gray-800 font-poppins">
-          How It Works
-        </h2>
-        <p className="text-gray-600 mt-3 font-roboto text-base max-w-xl mx-auto">
-          Just 3 simple steps to book trusted home services with Zollowup.
-        </p>
+        <h2 className="text-4xl font-bold text-gray-900 font-heading text-center">
+  How <span className="bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">Zollowup</span> Works
+</h2>
+<p className="text-center text-blue-800 mt-3 font-roboto text-base font-bold max-w-xl mx-auto">
+  Just 3 simple steps to book trusted home services with ease.
+</p>
+
       </motion.div>
 
       <div className="grid gap-10 md:grid-cols-3 max-w-7xl mx-auto">

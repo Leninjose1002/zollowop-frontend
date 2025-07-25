@@ -47,7 +47,7 @@ const shouldHide =
         {/* CTA */}
         <Link
           to="/employee-form"
-          className="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-cyan-800 to-blue-500 rounded-full shadow-md hover:from-cyan-700 hover:to-blue-600 hover:scale-105 transition-transform duration-300"
+          className="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-yellow-600 to-pink-500 rounded-full shadow-md hover:from-cyan-700 hover:to-blue-600 hover:scale-105 transition-transform duration-300"
         >
           मुझे नौकरी चाहिए..
         </Link>

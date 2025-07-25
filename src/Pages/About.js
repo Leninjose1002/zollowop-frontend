@@ -57,12 +57,14 @@ const About = () => {
 
         {/* Right Text */}
         <div className="lg:w-1/2 w-full px-5 text-center lg:text-left">
-          <h2 className="text-3xl font-semibold text-primary font-heading mt-5">
-            <span className="text-accent italic">About Us</span>
-          </h2>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-4 font-sans">
-            We Can Make Your Place Sparkle
-          </h2>
+         <h2 className="text-3xl font-semibold text-accent italic font-heading mt-5">
+  About Us
+</h2>
+
+<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-poppins mb-4 bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text">
+  We Can Make Your Place Sparkle
+</h2>
+
 
           <p className="text-gray-600 leading-6 font-sans text-sm">
             At Zollowup Services, we are dedicated to providing top-quality home
@@ -94,7 +96,7 @@ const About = () => {
       {/* Who We Are Section */}
       <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-5xl mb-5 mx-auto">
         <h2 className="text-3xl font-bold text-primary mb-6 text-center font-heading">
-          Who We Are – Your Trusted Home Service Experts
+          Who We Are – <span className="font-bold font-poppins mb-4 bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text" > Your Trusted Home Service Experts</span>
         </h2>
         <p className="text-gray-700 mb-6 leading-relaxed text-center font-sans">
           We are a team of service professionals and tech innovators who believe
