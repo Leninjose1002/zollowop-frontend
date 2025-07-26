@@ -10,22 +10,24 @@ const Introduction = () => {
   return (
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-pink-50 py-20 px-4 md:px-16 overflow-hidden">
       {/* Floating Icons */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        {[FaBroom, FaUserNurse, FaBolt, FaTools, FaUtensils].map((Icon, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-blue-200 opacity-20 text-4xl"
-            style={{
-              top: `${10 + i * 15}%`,
-              left: `${i % 2 === 0 ? '-' : ''}${i * 5 + 5}%`,
-            }}
-            animate={{ y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 6 + i, ease: 'easeInOut' }}
-          >
-            <Icon />
-          </motion.div>
-        ))}
-      </div>
+      {/* <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
+  {[FaBroom, FaUserNurse, FaBolt, FaTools, FaUtensils].map((Icon, i) => (
+    <motion.div
+      key={i}
+      className="absolute text-blue-400 opacity-30 text-5xl"
+      style={{
+        top: `${10 + i * 15}%`,
+        left: `${i * 10 + 10}%`,
+        
+      }}
+      animate={{ y: [0, -10, 0] }}
+      transition={{ repeat: Infinity, duration: 6 + i, ease: 'easeInOut' }}
+    >
+      <Icon />
+    </motion.div>
+  ))}
+</div> */}
+
 
       {/* Main Container */}
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -37,11 +39,11 @@ const Introduction = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-<h2 className="text-4xl font-bold bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text font-heading">
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text font-heading">
             Your Home’s Best Friend — Zollowup
           </h2>
           <p className="mt-3 text-lg text-accent font-roboto font-bold">
-            Professional care, cleaning, and comfort – all just one click away.
+            Our professional team  can take care of all your household work – we are just one click away.
           </p>
         </motion.div>
 
@@ -49,7 +51,7 @@ const Introduction = () => {
         <div className="flex flex-col lg:flex-row items-center gap-10">
           {/* Images Section */}
           <div className="lg:w-1/2 w-full grid grid-cols-2 gap-4">
-            {[ 
+            {[
               "https://img.freepik.com/free-photo/full-length-photo-smiling-brunette-maid-uniform-rubber-gloves-leaned-mop-while-standing_171337-18576.jpg",
               "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg",
               "https://img.freepik.com/free-photo/young-female-nurse-uniform-cleaning-home_1303-26768.jpg",
@@ -61,9 +63,8 @@ const Introduction = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 * index }}
-                className={`rounded-xl overflow-hidden shadow-md ${
-                  index === 0 ? 'row-span-2 h-[300px]' : 'h-[145px]'
-                }`}
+                className={`rounded-xl overflow-hidden shadow-md ${index === 0 ? 'row-span-2 h-[300px]' : 'h-[145px]'
+                  }`}
               >
                 <img
                   src={src}
@@ -84,14 +85,14 @@ const Introduction = () => {
               transition={{ duration: 0.8 }}
             >
               <h3 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-[#FFB800] to-[#E91E63] text-transparent bg-clip-text font-heading leading-snug">
-  Expert Help Exactly  When<br />
-  <span className="italic text-accent">  You Need It..</span>
-</h3>
+                Expert Help Exactly  When<br />
+                <span className="italic text-accent">  You Need It..</span>
+              </h3>
 
             </motion.div>
 
             {[
-              "Zollowup connects you with trained, background-verified professionals for everything — maids, caregivers, electricians, cooks, and more.",
+              "Zollowup connects you with trained, background-verified professionals for all your needs — maids, caregivers, electricians, cooks, and more.",
               "No more browsing endless listings. Just book, relax, and let our team handle the rest with professionalism and care.",
               "Whether it's a one-time fix or regular service, Zollowup is your trusted home partner, delivering smiles with every visit.",
             ].map((para, idx) => (

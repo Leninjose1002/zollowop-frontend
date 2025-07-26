@@ -64,12 +64,21 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ Get total amount
+  // ✅ Get total amount (with safe price handling)
   const getTotal = () => {
     return cart.reduce((sum, item) => {
-      const numericPrice = parseInt(item?.price?.replace(/[^\d]/g, "")) || 0;
+      let price = item?.price;
+
+      if (typeof price === "string") {
+        price = parseInt(price.replace(/[^\d]/g, "")) || 0;
+      } else if (typeof price === "number") {
+        price = price;
+      } else {
+        price = 0;
+      }
+
       const quantity = item?.quantity || 1;
-      return sum + numericPrice * quantity;
+      return sum + price * quantity;
     }, 0);
   };
 

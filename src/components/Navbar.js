@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"; 
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronUp, ShoppingCart } from "lucide-react";
 import Location from "./Location";
@@ -98,14 +98,16 @@ const Navbar = () => {
               Services {activeDropdown === "services" ? <ChevronUp /> : <ChevronDown />}
             </div>
             {activeDropdown === "services" && (
-<div className="absolute left-1/2 top-full transform -translate-x-1/2 mt-1 w-[850px] max-h-[70vh] overflow-y-auto bg-white text-gray-800 rounded-lg shadow-lg grid grid-cols-4 gap-4 p-5 z-50">
+              <div className="absolute left-1/2 top-full transform -translate-x-1/2 mt-1 w-[850px] max-h-[70vh] overflow-y-auto bg-white text-gray-800 rounded-lg shadow-lg grid grid-cols-4 gap-4 p-5 z-50">
                 {serviceGroups.map((group) => (
                   <div key={group.heading}>
                     <h4 className="font-semibold text-blue-800 mb-3 border-b border-gray-200 pb-1 sticky top-0 bg-white z-10">{group.heading}</h4>
                     <ul className="space-y-2">
                       {group.items.map(({ to, text }) => (
                         <li key={to}>
-                          <NavLink to={to} className="block px-2 py-1 rounded hover:bg-gray-100 transition">
+                          <NavLink to={to} className="block px-2 py-1 rounded hover:bg-gray-100 transition"                
+                           onClick={() => setActiveDropdown(null)} // 👈 This line closes the dropdown
+>
                             {text}
                           </NavLink>
                         </li>
@@ -134,7 +136,7 @@ const Navbar = () => {
             <FaUser /> User Signup
           </button>
           <button onClick={() => setShowEmployeeLogin(true)} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm text-white font-semibold bg-gradient-to-r from-cyan-800 to-blue-800 hover:from-cyan-700 hover:to-blue-800 shadow-md transition duration-300">
-            <FaUserTie /> Employee Login
+            <FaUserTie /> Vendor Login
           </button>
         </div>
       </nav>

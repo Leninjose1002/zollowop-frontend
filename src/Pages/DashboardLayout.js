@@ -11,7 +11,7 @@ import {
 import DashboardReferralSection from '../components/DashboardReferralSection';
 
 const DashboardLayout = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth(); // ✅ Get user from AuthContext
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -27,15 +27,23 @@ const DashboardLayout = () => {
       {/* Sidebar */}
       <aside className="w-72 bg-gradient-to-b from-blue-700 to-blue-500 text-white shadow-2xl flex flex-col justify-between rounded-r-3xl">
         <div>
+          {/* Avatar + Name */}
           <div className="p-6 border-b border-white/20 flex items-center gap-3 bg-blue-800 rounded-tr-3xl">
-            <img
-              src="https://ui-avatars.com/api/?name=Pragati&background=ffffff&color=1d4ed8"
-              alt="User Avatar"
-              className="w-12 h-12 rounded-full border-2 border-white"
-            />
-            <h2 className="text-xl font-bold">Hi, Pragati</h2>
+            {user ? (
+              <>
+                <img
+                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || user.email)}&background=ffffff&color=1d4ed8`}
+                  alt="User Avatar"
+                  className="w-12 h-12 rounded-full border-2 border-white"
+                />
+                <h2 className="text-xl font-bold">Hi, {user.name || user.email}</h2>
+              </>
+            ) : (
+              <h2 className="text-xl font-bold">Welcome!</h2>
+            )}
           </div>
 
+          {/* Navigation */}
           <nav className="p-5 space-y-3 text-base">
             <NavLink to="/dashboard" className={navLinkClass}>
               <span className="bg-yellow-400 p-2 rounded-full text-blue-800"><FaUser /></span>

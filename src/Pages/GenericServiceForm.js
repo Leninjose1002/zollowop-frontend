@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const services = [
   "Driver","Tutor", "Gardener", "Maison", "Carpenter", "Painter","Laundry Worker", "Pressman", "Tailor", "Beautician", "Bar Attenders", "Labour Worker",
-  "Security", "Car Mechanic", "Welder", "Sewage Cleaner"
+  "Security", "Car Mechanic", "Welder", "Sewage Cleaner", "Other service"
 ];
 
 const GenericServiceForm = ({ closeModal }) => {

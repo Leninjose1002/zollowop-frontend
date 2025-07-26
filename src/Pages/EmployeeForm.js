@@ -116,14 +116,33 @@ const EmployeeForm = () => {
 
           <input name="religion" value={formData.religion} onChange={handleInputChange} type="text" placeholder="Religion / धर्म" className="form-input" required />
 
-          <select name="category" value={formData.category} onChange={handleInputChange} className="form-input" required>
-            <option value="">Category / कार्य श्रेणी</option>
-            <option value="Maid">Maid / नौकरानी</option>
-            <option value="Babysitter">Babysitter / शिशु देखभाल</option>
-            <option value="Driver">Driver / ड्राइवर</option>
-            <option value="Electrician">Electrician / इलेक्ट्रीशियन</option>
-            <option value="Cook">Cook / रसोइया</option>
-          </select>
+         <select name="category" value={formData.category} onChange={handleInputChange} className="form-input" required>
+  <option value="">Category / कार्य श्रेणी</option>
+  <option value="Maid">Maid / नौकरानी</option>
+  <option value="Babysitter">Babysitter / शिशु देखभाल</option>
+  <option value="Driver">Driver / ड्राइवर</option>
+  <option value="Electrician">Electrician / इलेक्ट्रीशियन</option>
+  <option value="Cook">Cook / रसोइया</option>
+  <option value="Plumber">Plumber / प्लंबर</option>
+  <option value="Painter">Painter / पेंटर</option>
+  <option value="Carpenter">Carpenter / बढ़ई</option>
+  <option value="Gardener">Gardener / माली</option>
+  <option value="Security">Security Guard / सुरक्षा गार्ड</option>
+  <option value="Housekeeping">Housekeeping / सफाई कर्मचारी</option>
+  <option value="Chef">Chef / शेफ</option>
+  <option value="Beautician">Beautician / ब्यूटीशियन</option>
+  <option value="Nursing">Nursing / नर्सिंग</option>
+  <option value="Tailor">Tailor / दर्जी</option>
+  <option value="Laundry Worker">Laundry Worker / कपड़े धोने वाला</option>
+  <option value="Pressman">Pressman / प्रेसमैन</option>
+  <option value="Bar Attender">Bar Attender / बार अटेंडेंट</option>
+  <option value="Labour Worker">Labour Worker / मज़दूर</option>
+  <option value="Mechanic">Car Mechanic / कार मिस्त्री</option>
+  <option value="Welder">Welder / वेल्डर</option>
+  <option value="Sewage Cleaner">Sewage Cleaner / नाली सफाई कर्मचारी</option>
+  <option value="AC Service">AC Technician / एसी टेक्नीशियन</option>
+</select>
+
 
           <input name="experience" value={formData.experience} onChange={handleInputChange} type="text" placeholder="Experience / अनुभव" className="form-input" required />
           <input name="age" value={formData.age} onChange={handleInputChange} type="text" placeholder="Age / उम्र" className="form-input" required />
