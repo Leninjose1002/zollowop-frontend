@@ -15,7 +15,7 @@ const Pricing = () => {
 
   const handleSelectMaid = (plan) => {
     const hours = parseInt(plan.title.split(" ")[0]);
-    navigate(`/maid-selection`, { state: { selectedHours: hours } });
+    navigate(`/contact`, { state: { selectedHours: hours } });
   };
 
 
