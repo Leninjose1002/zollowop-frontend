@@ -3,7 +3,7 @@ import React from 'react';
 import PrimaryButton from "./PrimaryButton";
 
 const HomePageSection = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <section className="bg-[#F8FBFF] py-6 px-2 md:px-16">
