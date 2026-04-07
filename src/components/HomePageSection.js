@@ -1,9 +1,9 @@
 import React from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PrimaryButton from "./PrimaryButton";
 
 const HomePageSection = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <section className="bg-[#F8FBFF] py-6 px-2 md:px-16">
