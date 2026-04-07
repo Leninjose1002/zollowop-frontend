@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import PrimaryButton from './PrimaryButton';
 import { useNavigate } from 'react-router-dom';
-import { FaBroom, FaUserNurse, FaBolt, FaTools, FaUtensils } from 'react-icons/fa';
 
 const Introduction = () => {
   const navigate = useNavigate();

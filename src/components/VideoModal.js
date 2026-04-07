@@ -1,10 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 
 const VideoModal = ({ videoUrl, onClose, thumbnail }) => {
   const videoRef = useRef(null);
 
-  // ESC key to close
+  const handleClose = useCallback(() => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -13,15 +19,7 @@ const VideoModal = ({ videoUrl, onClose, thumbnail }) => {
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  // Auto pause when closing
-  const handleClose = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-    onClose();
-  };
+  }, [handleClose]);
 
   return (
     <div
@@ -41,20 +39,19 @@ const VideoModal = ({ videoUrl, onClose, thumbnail }) => {
         </button>
 
         {videoUrl ? (
-  <video
-    ref={videoRef}
-    controls
-    autoPlay
-    className="w-full rounded-lg mt-2"
-    poster={thumbnail}
-  >
-    <source src={videoUrl} type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-) : (
-  <p className="text-center text-gray-500 mt-4">Loading video...</p>
-)}
-
+          <video
+            ref={videoRef}
+            controls
+            autoPlay
+            className="w-full rounded-lg mt-2"
+            poster={thumbnail}
+          >
+            <source src={videoUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <p className="text-center text-gray-500 mt-4">Loading video...</p>
+        )}
       </div>
     </div>
   );

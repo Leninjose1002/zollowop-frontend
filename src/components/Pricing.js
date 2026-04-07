@@ -10,7 +10,7 @@ const pricingPlans = [
 ];
 
 const Pricing = () => {
-  const { addToCart, bookedServices } = useCart();
+  const { bookedServices } = useCart();
   const navigate = useNavigate(); // Initialize navigate
 
   const handleSelectMaid = (plan) => {

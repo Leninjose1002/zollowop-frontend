@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
 import HowItWorks from "../components/HowItWorks";
 import Herosection from "../components/Herosection";
@@ -18,7 +17,7 @@ import UserLogin from "../components/UserLogin";
 import UserSignup from "../components/UserSignup";
 
 const Home = () => {
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const location = useLocation();
@@ -36,13 +35,13 @@ const Home = () => {
     }
   }, [location]);
 
-  // 📡 Fetch homepage data (optional, depends on your API)
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/your-endpoint`)
-      .then((response) => setData(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  // // 📡 Fetch homepage data (optional, depends on your API)
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_API_URL}/api/your-endpoint`)
+  //     .then((response) => setData(response.data))
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }, []);
 
   return (
     <div className="overflow-x-hidden relative">

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getUserOrders } from "../api"; 
-import { useAuth } from "../components/AuthContext";
 
 const OrderHistory = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 

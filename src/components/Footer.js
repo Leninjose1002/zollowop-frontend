@@ -62,12 +62,15 @@ We offer transparent pricing, convenient scheduling, and doorstep delivery of al
 
           {/* Social Media Links */}
           <div className="flex space-x-4">
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a href="#" aria-label="Facebook" className="bg-blue-800 p-2 rounded-full hover:bg-blue-600 transition duration-300">
               <img src="https://img.icons8.com/ios-glyphs/24/ffffff/facebook-new.png" alt="Facebook" />
             </a>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a href="#" aria-label="Twitter" className="bg-blue-600 p-2 rounded-full hover:bg-blue-500 transition duration-300">
               <img src="https://img.icons8.com/ios-glyphs/24/ffffff/twitter.png" alt="Twitter" />
             </a>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a href="#" aria-label="Instagram" className="bg-pink-600 p-2 rounded-full hover:bg-pink-500 transition duration-300">
               <img src="https://img.icons8.com/ios-glyphs/24/ffffff/instagram-new.png" alt="Instagram" />
             </a>

@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 const ReviewPage = () => {
   const { bookingId } = useParams();
   const navigate = useNavigate();
-  const [booking, setBooking] = useState(null);
+  // const [booking, setBooking] = useState(null);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(null);
@@ -27,8 +27,8 @@ const ReviewPage = () => {
       try {
         const res = await fetch(`${API_BASE}/api/bookings/${bookingId}`);
         if (!res.ok) throw new Error("Booking not found.");
-        const data = await res.json();
-        setBooking(data);
+        // const data = await res.json();
+        // setBooking(data);
       } catch (err) {
         setError("Error fetching booking.");
         console.error("Error fetching booking:", err);

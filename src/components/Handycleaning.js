@@ -28,12 +28,14 @@ const Handycleaning = () => {
       <ul className="space-y-4 mb-8 text-sm sm:text-base font-sans">
         <li className="flex items-start text-gray-800">
           <span className="text-green-600 mr-3 mt-1">&#10003;</span>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#" className="text-blue-600 hover:underline">
             Vetted and screened professionals.
           </a>
         </li>
         <li className="flex items-start text-gray-800">
           <span className="text-green-600 mr-3 mt-1">&#10003;</span>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#" className="text-blue-600 hover:underline">
             Backed by the Zollowup Satisfaction Guarantee.
           </a>
