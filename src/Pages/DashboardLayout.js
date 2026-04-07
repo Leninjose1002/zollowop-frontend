@@ -12,7 +12,7 @@ import DashboardReferralSection from '../components/DashboardReferralSection';
 
 const DashboardLayout = () => {
   const { logout, user } = useAuth(); // ✅ Get user from AuthContext
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleLogout = async () => {
     await logout();

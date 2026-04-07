@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import TopNavbar from "./components/TopNavbar";
 import Footer from "./components/Footer";
@@ -31,7 +31,7 @@ import ReviewPage from "./components/ReviewForm";
 import AccountDetails from "./components/AccountDetails";
 import EmployeeLogin from "./components/EmployeeLogin";
 import EmployeeDashboard from "./Pages/EmployeeDashboard";
-import UserLogin from "./components/UserLogin";
+// import UserLogin from "./components/UserLogin";
 import UserSignup from "./components/UserSignup";
 import VerifyEmail from "./components/VerifyEmail";
 import GoogleRedirectHandler from "./components/GoogleRedirectHandler";

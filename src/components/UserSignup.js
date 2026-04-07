@@ -17,7 +17,7 @@ const UserSignup = ({ onClose }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   if (showLogin) {
     return <UserLogin onClose={onClose} setShowLogin={setShowLogin} />;

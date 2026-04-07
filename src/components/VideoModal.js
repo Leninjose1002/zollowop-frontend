@@ -13,7 +13,7 @@ const VideoModal = ({ videoUrl, onClose, thumbnail }) => {
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [onClose]);
 
   // Auto pause when closing
   const handleClose = () => {

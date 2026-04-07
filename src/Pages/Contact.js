@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import {submitContactForm } from "../api"
 const Contact = () => {
   const [formData, setFormData] = useState({

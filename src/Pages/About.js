@@ -1,6 +1,6 @@
 // src/pages/About.js
 import React from "react";
-import Whyus from "../components/Whyus";
+// import Whyus from "../components/Whyus";
 import { motion } from "framer-motion";
 import AboutCta from "../components/AboutCta";
 import Cards from "../components/Cards";

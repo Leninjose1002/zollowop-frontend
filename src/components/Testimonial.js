@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import PrimaryButton from "./PrimaryButton";

@@ -72,7 +72,7 @@ export const CartProvider = ({ children }) => {
       if (typeof price === "string") {
         price = parseInt(price.replace(/[^\d]/g, "")) || 0;
       } else if (typeof price === "number") {
-        price = price;
+        // price = price;
       } else {
         price = 0;
       }
