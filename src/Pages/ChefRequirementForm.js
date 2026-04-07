@@ -90,7 +90,7 @@ const ChefRequirementForm = ({ closeModal }) => {
       occasion: formData.occasion,
       cuisine: formData.cuisine,
       utensils: formData.utensils,
-      serviceType: formData.serviceType,
+      // serviceType: formData.serviceType,
       notes: formData.notes,
     };
 

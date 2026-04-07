@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaBroom, FaUtensils, FaBath, FaCouch, FaConciergeBell } from "react-icons/fa";
+import { FaBroom, FaUtensils, FaBath, FaConciergeBell } from "react-icons/fa";
 
 const services = [
   { id: 1, name: "House Cleaning", icon: <FaBroom />, description: "Experience a spotless home with our professional house cleaning services. Reliable, thorough, and tailored to your needs.", image: "images/maid-page/maid.avif" },
