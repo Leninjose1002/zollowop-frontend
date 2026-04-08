@@ -26,14 +26,12 @@ const TopNavbar = () => {
         {/* Right: Social Icons */}
         <div className="flex items-center gap-4">
           {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn].map((Icon, idx) => (
-            <a>
-              key={idx}
-              href="#"
-              className="text-white hover:text-yellow-400 transition-colors border border-white rounded-full p-2"
-              aria-label="Social link"
-            
-              <Icon size={14} />
-            </a>
+            <button
+  key={idx}
+  className="text-white hover:text-yellow-400 transition-colors border border-white rounded-full p-2"
+>
+  <Icon size={14} />
+</button>
           ))}
         </div>
       </div>
