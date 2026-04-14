@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react"; 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import TopNavbar from "./components/TopNavbar";
 import Footer from "./components/Footer";
 import FloatingButtons from "./components/FloatingButtons";
-import Banner from "./components/Banner";
+// import Banner from "./components/Banner";
 import ServiceList from "./components/ServiceList";
 import AddService from "./components/AddService";
 import Pricing from "./components/Pricing";
@@ -61,6 +61,22 @@ import Chef from "./Pages/Chef";
 import AdminJobApplications from "./components/AdminJobApplications";
 import OtherServices from "./Pages/OtherServices";
 function App() {
+
+  // ✅ Test backend connection on app load
+  useEffect(() => {
+    const testBackend = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/health`);
+        const data = await response.json();
+        console.log('✅ Backend Connected:', data);
+      } catch (error) {
+        console.log('❌ Backend NOT Connected:', error.message);
+      }
+    };
+    
+    testBackend();
+  }, []);
+
   return (
     <Router>
       <AuthProvider>
@@ -74,7 +90,7 @@ function App() {
                 path="/"
                 element={
                   <>
-                    <Banner />
+                   
                     <Home />
                   </>
                 }

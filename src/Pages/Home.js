@@ -5,7 +5,7 @@ import Herosection from "../components/Herosection";
 import InfoSection from "../components/InfoSection";
 import Cta from "../components/Cta";
 import Introduction from "../components/Introduction";
-import Reasons from "../components/Reasons";
+// import Reasons from "../components/Reasons";
 import NewAndNoteworthySlider from "../components/NewAndNoteworthySlider";
 import Testimonial from "../components/Testimonial";
 import CountingNumber from "../components/CountingNumber";
@@ -64,7 +64,6 @@ const Home = () => {
       <Introduction />
       <Herosection />
       <InfoSection />
-      <Reasons />
       <HowItWorks />
       <NewAndNoteworthySlider />
       <Cleaning />

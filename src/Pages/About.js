@@ -117,7 +117,7 @@ const About = () => {
           <li className="flex items-center"><span className="text-accent mr-3">&#10003;</span> Reliable Services at Your Convenience</li>
         </ul>
         <div className="text-center">
-            <PrimaryButton label="Book Now" onClick={() => navigate('/contact')} />
+            <PrimaryButton label="Book Now Service" onClick={() => navigate('/contact')} />
 
 </div>
 
