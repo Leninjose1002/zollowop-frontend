@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { submitJobApplication } from "../api"; // Adjust path as needed
 
+
 const EmployeeForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -42,6 +43,7 @@ const EmployeeForm = () => {
       [name]: selectedFiles[0],
     }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

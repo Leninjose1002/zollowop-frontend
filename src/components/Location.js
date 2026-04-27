@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
-import { getLocationFromCoordinates } from '../api';
 
-const Location = () => {
+const Location = ({ onLocationChange }) => {
   const [location, setLocation] = useState("Detecting location...");
 
   useEffect(() => {
@@ -14,46 +13,47 @@ const Location = () => {
             console.log("📍 Coordinates:", latitude, longitude);
 
             try {
-              const address = await getLocationFromCoordinates(latitude, longitude);
-
-              // ✅ Use short display: sublocality, locality, state
-              let locationName = [
-                address?.sublocality,
-                address?.locality,
-                address?.state
-              ]
-                .filter(Boolean)
-                .join(", ");
-
-              // ⛳️ Fallback to trimmed formatted_address (first 3 parts)
-              if (!locationName && address?.formatted_address) {
-                const parts = address.formatted_address.split(",").slice(0, 3);
-                locationName = parts.join(", ");
+              // ✅ Use free Nominatim API (OpenStreetMap) - no backend needed!
+              const res = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
+                {
+    headers: {
+      'User-Agent': 'ZollowupApp' // ← ADD THIS
+    }
+  }
+              );
+              const data = await res.json();
+              
+              // Get city name
+              const city = data.address?.city || 
+                          data.address?.town || 
+                          data.address?.village || 
+                          "Unknown";
+              
+              setLocation(city);
+              
+              // ✅ Pass city to parent form
+              if (onLocationChange) {
+                onLocationChange(city);
               }
-
-              setLocation(locationName || "Unknown location");
             } catch (err) {
-              console.error("❌ Location API error:", err);
-              setLocation("Unable to fetch location");
+              console.warn("⚠️ Location API error (non-blocking):", err);
+              setLocation("Enter city manually");
+              // Don't throw - let form submission continue
             }
           },
           (err) => {
-            console.warn("❌ Geolocation permission error:", err);
-            setLocation("Permission denied");
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
+            console.warn("⚠️ Geolocation permission denied:", err);
+            setLocation("Enter city manually");
           }
         );
       } else {
-        setLocation("Geolocation not supported");
+        setLocation("Enter city manually");
       }
     };
 
     fetchLocation();
-  }, []);
+  }, [onLocationChange]);
 
   return (
     <div className="hidden md:flex items-center text-sm font-medium px-4 py-2 rounded-full 

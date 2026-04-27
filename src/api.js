@@ -153,9 +153,7 @@ export const fetchMaids = async (selectedHours) => {
 // ✅ Job Application Form Submission
 export const submitJobApplication = async (formData) => {
   try {
-    const res = await axiosInstance.post(`/job-application`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const res = await axiosInstance.post(`/job-application`, formData);
     return res.data;
   } catch (error) {
     console.error("🛑 Job Application API Error:", error.response?.data || error.message);
