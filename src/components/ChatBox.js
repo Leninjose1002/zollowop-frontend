@@ -42,7 +42,7 @@ const ChatBox = ({ currentUser }) => {
 
   useEffect(() => {
     if (isOpen && currentUser?.name) {
-      fetch(`http://localhost:5000/api/chat/${currentUser.name}`)
+      fetch(`${SOCKET_URL}/api/chat/${currentUser.name}`)
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) setMessages(data);

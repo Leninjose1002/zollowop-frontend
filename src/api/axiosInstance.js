@@ -1,10 +1,13 @@
-// src/api/axiosInstance.js
 import axios from "axios";
 
+console.log("🔍 DEBUG - REACT_APP_API_BASE_URL:", process.env.REACT_APP_API_BASE_URL);
+
 const axiosInstance = axios.create({
-  baseURL:`${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api`, // 🌐 Production (Render)
+  baseURL: `${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api`,
   withCredentials: true,
 });
+
+console.log("🔍 DEBUG - Full baseURL:", axiosInstance.defaults.baseURL);
 
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -13,8 +16,5 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
-// triggering redeplo
-
-console.log("🔍 Axios Base URL:", axiosInstance.defaults.baseURL);
 
 export default axiosInstance;

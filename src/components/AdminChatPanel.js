@@ -16,7 +16,7 @@ const AdminChatPanel = () => {
 
   // Load chat history from backend
   useEffect(() => {
-    fetch("http://localhost:5000/api/chat/")
+      fetch(`${SOCKET_URL}/api/chat/`)
       .then((res) => res.json())
       .then(setMessages)
       .catch((err) => console.error("Failed to load messages:", err));
