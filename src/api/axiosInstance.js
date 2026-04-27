@@ -2,10 +2,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:5000/api" // 🧪 Local dev backend
-      : `${process.env.REACT_APP_API_BASE_URL}/api`, // 🌐 Production (Render)
+  baseURL:`${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api`, // 🌐 Production (Render)
   withCredentials: true,
 });
 
