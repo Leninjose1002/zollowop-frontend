@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000"); // Replace with your backend URL
+const SOCKET_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+const socket = io(SOCKET_URL, { withCredentials: true }); // Replace with your backend URL
 
 const SocketTester = () => {
   useEffect(() => {

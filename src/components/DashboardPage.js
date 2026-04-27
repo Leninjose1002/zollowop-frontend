@@ -16,7 +16,8 @@ const DashboardPage = () => {
 
   // ✅ Setup Socket.IO only once
   useEffect(() => {
-    const socket = io("http://localhost:5000", {
+    const SOCKET_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+const socket = io(SOCKET_URL,{
       withCredentials: true,
     });
 

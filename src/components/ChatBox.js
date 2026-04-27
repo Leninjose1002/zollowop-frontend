@@ -3,7 +3,8 @@ import { io } from "socket.io-client";
 import { X } from "lucide-react";
 import moment from "moment";
 
-const socket = io("http://localhost:5000", { withCredentials: true });
+const SOCKET_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+const socket = io(SOCKET_URL, { withCredentials: true });
 
 const ChatBox = ({ currentUser }) => {
   const [messages, setMessages] = useState([]);
