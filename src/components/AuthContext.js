@@ -20,11 +20,16 @@ export const AuthProvider = ({ children }) => {
   // ✅ Login
   const login = async (email, password) => {
     try {
-      await axios.post(
+      const loginRes = await axios.post(
         "/users/login",
         { email, password },
         { withCredentials: true }
       );
+
+      // ✅ Save token to localStorage
+    if (loginRes.data?.token) {
+      localStorage.setItem("token", loginRes.data.token);
+    }
 
       const res = await axios.get("/users/me", {
         withCredentials: true,
