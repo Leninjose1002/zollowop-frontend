@@ -225,7 +225,11 @@ const UserLogin = ({ onClose = () => { }, setShowLogin = () => { }, setShowSignu
     setResendMessage('');
 
     try {
-      await login(email, password);
+      const response = await login(email, password);
+      // ✅ ADD THIS - Save token to localStorage
+    if (response?.token) {
+      localStorage.setItem("token", response.token);
+    }
       setEmail('');
       setPassword('');
       onClose();
