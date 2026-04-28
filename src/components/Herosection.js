@@ -236,16 +236,6 @@ const HeroSection = () => {
             />
           </div>
         </div>
-
-        {/* Hero Image */}
-        <div className="mt-16" data-aos="fade-up" data-aos-delay="400">
-          <img
-            src="https://img.freepik.com/free-photo/happy-young-maid-holding-supplies-smiling-camera_141793-17281.jpg"
-            alt="Professional cleaning service"
-            className="w-full max-w-2xl h-auto rounded-2xl shadow-lg mx-auto object-cover"
-            loading="lazy"
-          />
-        </div>
       </div>
     </section>
   );
