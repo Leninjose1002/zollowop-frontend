@@ -104,7 +104,7 @@ const Navbar = () => {
                       {group.items.map(({ to, text }) => (
                         <li key={to}>
                           <NavLink to={to} className="block px-2 py-1 rounded hover:bg-gray-100 transition"                
-                           onClick={() => setActiveDropdown(null)} // 👈 This line closes the dropdown
+                           onClick={() => setActiveDropdown(null)}
 >
                             {text}
                           </NavLink>
@@ -130,7 +130,7 @@ const Navbar = () => {
               </span>
             )}
           </NavLink>
-          // ✅ REPLACE WITH THIS (actual logic):
+           
 {!localStorage.getItem("token") ? (
   <button onClick={() => setShowUserSignup(true)} className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-800 text-sm text-cyan-800 hover:bg-blue-100 transition duration-300">
     <FaUser /> Login
