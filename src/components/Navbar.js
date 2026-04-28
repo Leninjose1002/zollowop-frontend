@@ -4,16 +4,14 @@ import { Menu, X, ChevronDown, ChevronUp, ShoppingCart } from "lucide-react";
 import Location from "./Location";
 import { useCart } from "./CartContext";
 import UserSignup from "./UserSignup";
-import EmployeeLogin from "./EmployeeLogin";
 import Logo from "../assets/image.png";
-import { FaUser, FaUserTie } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [showUserSignup, setShowUserSignup] = useState(false);
-  const [showEmployeeLogin, setShowEmployeeLogin] = useState(false);
   const { getTotalQuantity } = useCart();
   const cartItemCount = getTotalQuantity();
 
@@ -133,10 +131,7 @@ const Navbar = () => {
             )}
           </NavLink>
           <button onClick={() => setShowUserSignup(true)} className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-800 text-sm text-cyan-800 hover:bg-blue-100 transition duration-300">
-            <FaUser /> User Signup
-          </button>
-          <button onClick={() => setShowEmployeeLogin(true)} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm text-white font-semibold bg-gradient-to-r from-cyan-800 to-blue-800 hover:from-cyan-700 hover:to-blue-800 shadow-md transition duration-300">
-            <FaUserTie /> Vendor Login
+            <FaUser /> Login
           </button>
         </div>
       </nav>
@@ -173,7 +168,6 @@ const Navbar = () => {
       </div>
 
       {showUserSignup && <UserSignup onClose={() => setShowUserSignup(false)} />}
-      {showEmployeeLogin && <EmployeeLogin onClose={() => setShowEmployeeLogin(false)} />}
     </>
   );
 };
