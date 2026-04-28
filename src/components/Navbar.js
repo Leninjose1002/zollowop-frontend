@@ -6,6 +6,7 @@ import { useCart } from "./CartContext";
 import UserSignup from "./UserSignup";
 import Logo from "../assets/image.png";
 import { FaUser } from "react-icons/fa";
+import { logoutUser } from "../api";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -136,9 +137,13 @@ const Navbar = () => {
     <FaUser /> Login
   </button>
 ) : (
-  <button onClick={() => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
+  <button onClick={async () => {
+    try {
+      await logoutUser();
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   }} className="flex items-center gap-2 px-4 py-2 rounded-full border border-red-800 text-sm text-red-800 hover:bg-red-100 transition duration-300">
     Logout
   </button>

@@ -28,6 +28,18 @@ export const loginUser = async (credentials) => {
   }
 };
 
+// ✅ Logout User
+export const logoutUser = async () => {
+  try {
+    const res = await axiosInstance.post(`${USER_API_URL}/logout`);
+    localStorage.removeItem("token");  // Clear token from localStorage
+    return res.data;
+  } catch (error) {
+    console.error("🛑 Logout API Error:", error.response?.data || error.message);
+    throw error.response?.data?.message || "Logout failed";
+  }
+};
+
 // ✅ Fetch All Users
 export const fetchUsers = async (token) => {
   try {
