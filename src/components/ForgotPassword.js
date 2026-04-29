@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
@@ -16,10 +16,10 @@ const ForgotPassword = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('/api/auth/forgot-password', { email });
-      setMessage(res.data.message || 'Reset link sent to your email.');
+      const res = await axios.post('/users/forgot-password', { email });
+      setMessage(res.data.msg || 'Reset link sent to your email.');
     } catch (err) {
-      const msg = err?.response?.data?.message || 'Failed to send reset link.';
+      const msg = err?.response?.data?.msg || 'Failed to send reset link.';
       setError(msg);
     } finally {
       setLoading(false);
@@ -57,7 +57,7 @@ const ForgotPassword = () => {
 
         <div className="mt-4 text-center">
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/')}
             className="text-sm text-blue-600 hover:underline"
           >
             Back to Login
