@@ -31,7 +31,7 @@ import ReviewPage from "./components/ReviewForm";
 import AccountDetails from "./components/AccountDetails";
 import EmployeeLogin from "./components/EmployeeLogin";
 import EmployeeDashboard from "./Pages/EmployeeDashboard";
-import ForgotPassword from "./Pages/ForgotPassword";
+import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 import UserSignup from "./components/UserSignup";
 import VerifyEmail from "./components/VerifyEmail";
