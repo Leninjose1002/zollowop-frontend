@@ -31,7 +31,8 @@ import ReviewPage from "./components/ReviewForm";
 import AccountDetails from "./components/AccountDetails";
 import EmployeeLogin from "./components/EmployeeLogin";
 import EmployeeDashboard from "./Pages/EmployeeDashboard";
-// import UserLogin from "./components/UserLogin";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 import UserSignup from "./components/UserSignup";
 import VerifyEmail from "./components/VerifyEmail";
 import GoogleRedirectHandler from "./components/GoogleRedirectHandler";
@@ -125,6 +126,8 @@ function App() {
               <Route path="/employee-login" element={<EmployeeLogin />} />
               <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
               <Route path="/verify-email/:token" element={<VerifyEmail />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/reset-password/:token" element={<ResetPassword />} />
               <Route path="/set-password" element={<SetPasswordPage />} />
               <Route path="/user/google-redirect" element={<GoogleRedirectHandler />} />
               <Route path="/admin-login" element={<AdminLogin />} />
