@@ -84,7 +84,6 @@ import Herosection from "../components/Herosection";
 import Cta from "../components/Cta";
 // import Reasons from "../components/Reasons";
 import Services from "../components/InfoSection";
-import Testimonial from "../components/Testimonial";
 import Introduction from "../components/Introduction";
 
 // 🔁 Modals
@@ -138,9 +137,6 @@ const Home = () => {
       
       {/* 4. Services Carousel */}
       <Services />
-      
-      {/* 5. Testimonials */}
-      <Testimonial />
       
       {/* 6. Call to Action */}
       <Cta />
