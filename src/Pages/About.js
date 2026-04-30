@@ -169,7 +169,7 @@ const About = () => {
                   className="rounded-lg overflow-hidden shadow-lg h-64 sm:h-80"
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=320&fit=crop"
+                    src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=500&fit=crop"
                     alt="Professional Cleaning Service"
                     className="w-full h-full object-cover"
                     loading="lazy"
@@ -182,7 +182,7 @@ const About = () => {
                   className="rounded-lg overflow-hidden shadow-lg h-64 sm:h-80 mt-8"
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1531746790731-6c087fecd65b?w=400&h=320&fit=crop"
+                    src="https://images.unsplash.com/photo-1559308078-88465deb35cc?w=400&h=500&fit=crop"
                     alt="Home Services"
                     className="w-full h-full object-cover"
                     loading="lazy"
