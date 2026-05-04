@@ -122,7 +122,6 @@ const Footer = () => {
   const services = [
     { name: "Maids", path: "/maid" },
     { name: "Nursing Care", path: "/nursing" },
-    { name: "Drivers", path: "/drivers" },
     { name: "Cooks", path: "/cooks" },
     { name: "Electricians", path: "/electricians" },
     { name: "Plumbers", path: "/plumbers" },
