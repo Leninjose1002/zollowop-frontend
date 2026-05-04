@@ -1113,7 +1113,7 @@ const Maid = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/contact")}
+              onClick={() => document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-4 bg-primary-600 text-white text-lg font-bold rounded-xl hover:bg-primary-700 transition shadow-lg inline-flex items-center gap-3"
             >
               Start Booking Now
