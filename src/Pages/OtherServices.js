@@ -63,7 +63,7 @@ const OtherServices = () => {
     { id: "carpenter", name: "Carpenter", price: "₹600/hr", desc: "Carpentry & furniture repairs" },
     { id: "painter", name: "Painter", price: "₹300/hr", desc: "Interior & exterior painting" },
     // { id: "gardener", name: "Gardener", price: "₹400/day", desc: "Garden maintenance & landscaping" },
-    { id: "beautician", name: "Beautician", price: "₹500+", desc: "Beauty treatments & services" },
+    // { id: "beautician", name: "Beautician", price: "₹500+", desc: "Beauty treatments & services" },
     { id: "tailor", name: "Tailor", price: "₹100+", desc: "Tailoring & alterations" },
     { id: "maison", name: "Maison", price: "₹800/day", desc: "House maintenance & care" },
     // { id: "laundry", name: "Laundry Worker", price: "₹200/bag", desc: "Laundry & ironing services" },

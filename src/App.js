@@ -61,6 +61,7 @@ import RefundPolicy from "./Pages/RefundPolicy";
 import Chef from "./Pages/Chef";
 import AdminJobApplications from "./components/AdminJobApplications";
 import OtherServices from "./Pages/OtherServices";
+import Beautician from './Pages/Beautician';
 function App() {
 
   // ✅ Test backend connection on app load
@@ -110,6 +111,7 @@ function App() {
               <Route path="/plumber" element={<Plumber />} />
               <Route path="/housekeeping" element={<Housekeeping />} />
               <Route path="/chef" element={<Chef />} />
+              <Route path="/beautician" element={<Beautician />} />
 
               <Route path="/contact" element={<Contact />} />
               <Route path="/service-list" element={<ServiceList />} />

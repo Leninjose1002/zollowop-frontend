@@ -242,7 +242,7 @@ const Navbar = () => {
     {
       heading: "Personal Care & Doctors",
       items: [
-        { to: "/book-other-services", text: "Beautician" },
+        { to: "/beautician", text: "Beautician" },
         { to: "/nursing", text: "Nursing" },
         { to: "/book-other-services", text: "Tailor" },
         // { to: "/book-other-services", text: "Laundry Worker" },
