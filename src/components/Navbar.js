@@ -262,7 +262,7 @@ const Navbar = () => {
     {
       heading: "Other Services",
       items: [
-        { to: "/drivers", text: "Drivers" },
+        // { to: "/drivers", text: "Drivers" },
         { to: "/book-other-services", text: "Car Mechanic" },
         // { to: "/book-other-services", text: "Welder" },
         // { to: "/book-other-services", text: "Sewage Cleaner" },
